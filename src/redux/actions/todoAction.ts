@@ -1,7 +1,7 @@
 import { ACTIONS_TODO } from '../../constants'
 
 interface ICreateTodo{
-    type:'ADD_TODO',
+    type: ACTIONS_TODO.ADD_TODO,
     payload:{
         id:number,
         text:string,
@@ -19,7 +19,7 @@ export const createTodo = (text:string):ICreateTodo => ({
 })
 
 interface IChangeTextTodo{
-    type:'CHANGE_TEXT_TODO',
+    type: ACTIONS_TODO.CHANGE_TEXT_TODO,
     payload: {
         id:number,
         text:string
@@ -32,7 +32,7 @@ export const changeTextTodo = (id:number, text:string):IChangeTextTodo => ({
 })
 
 interface IChangeCheckTodo{
-    type:'CHANGE_CHECK_TODO',
+    type: ACTIONS_TODO.CHANGE_CHECK_TODO,
     payload:number
 }
 
@@ -42,7 +42,7 @@ export const changeCheckTodo = (id:number):IChangeCheckTodo => ({
 })
 
 interface IDeleteTodo{
-    type:'DELETE_TODO',
+    type: ACTIONS_TODO.DELETE_TODO,
     payload:number
 }
 
@@ -52,7 +52,7 @@ export const deleteTodo = (id:number):IDeleteTodo => ({
 })
 
 interface IDeleteCompletedTodos{
-    type:'DELETE_COMPLETED_TODOS',
+    type: ACTIONS_TODO.DELETE_COMPLETED_TODOS,
 }
 
 export const deleteCompletedTodos = ():IDeleteCompletedTodos => ({
@@ -60,7 +60,7 @@ export const deleteCompletedTodos = ():IDeleteCompletedTodos => ({
 })
 
 interface ICheckAllTodos{
-    type:'CHECK_ALL_TODOS',
+    type: ACTIONS_TODO.CHECK_ALL_TODOS,
 }
 
 export const checkAllTodos = ():ICheckAllTodos => ({
@@ -68,7 +68,7 @@ export const checkAllTodos = ():ICheckAllTodos => ({
 })
 
 interface IChangeType{
-    type: 'CHANGE_TYPE',
+    type: ACTIONS_TODO.CHANGE_TYPE,
     payload:string
 }
 
