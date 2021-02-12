@@ -2,7 +2,7 @@ export const ALL = 'ALL'
 export const ACTIVE = 'ACTIVE'
 export const COMPLETED = 'COMPLETED'
 
-export const ACTIONS_TODO = {
+export const ACTIONS_TODO:any = {
     ADD_TODO: 'ADD_TODO',
     CHANGE_TEXT_TODO: 'CHANGE_TEXT_TODO',
     CHANGE_CHECK_TODO: 'CHANGE_CHECK_TODO',

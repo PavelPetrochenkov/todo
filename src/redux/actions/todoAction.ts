@@ -1,7 +1,7 @@
 import { ACTIONS_TODO } from '../../constants'
 
 interface ICreateTodo{
-    type:string,
+    type:'ADD_TODO',
     payload:{
         id:number,
         text:string,
@@ -19,7 +19,7 @@ export const createTodo = (text:string):ICreateTodo => ({
 })
 
 interface IChangeTextTodo{
-    type:string,
+    type:'CHANGE_TEXT_TODO',
     payload: {
         id:number,
         text:string
@@ -32,7 +32,7 @@ export const changeTextTodo = (id:number, text:string):IChangeTextTodo => ({
 })
 
 interface IChangeCheckTodo{
-    type:string,
+    type:'CHANGE_CHECK_TODO',
     payload:number
 }
 
@@ -42,7 +42,7 @@ export const changeCheckTodo = (id:number):IChangeCheckTodo => ({
 })
 
 interface IDeleteTodo{
-    type:string,
+    type:'DELETE_TODO',
     payload:number
 }
 
@@ -51,20 +51,24 @@ export const deleteTodo = (id:number):IDeleteTodo => ({
     payload: id,
 })
 
-interface IDefaultActionTodo{
-    type:string,
+interface IDeleteCompletedTodos{
+    type:'DELETE_COMPLETED_TODOS',
 }
 
-export const deleteCompletedTodos = ():IDefaultActionTodo => ({
+export const deleteCompletedTodos = ():IDeleteCompletedTodos => ({
     type: ACTIONS_TODO.DELETE_COMPLETED_TODOS,
 })
 
-export const checkAllTodos = ():IDefaultActionTodo => ({
+interface ICheckAllTodos{
+    type:'CHECK_ALL_TODOS',
+}
+
+export const checkAllTodos = ():ICheckAllTodos => ({
     type: ACTIONS_TODO.CHECK_ALL_TODOS,
 })
 
 interface IChangeType{
-    type:string,
+    type: 'CHANGE_TYPE',
     payload:string
 }
 
@@ -73,5 +77,5 @@ export const changeType = (type:string):IChangeType => ({
     payload: type,
 })
 
-export type ITodoActions = IDefaultActionTodo |ICreateTodo | IChangeTextTodo | IChangeCheckTodo 
+export type ITodoActions = IDeleteCompletedTodos | ICheckAllTodos |ICreateTodo | IChangeTextTodo | IChangeCheckTodo 
 | IDeleteTodo | IChangeType;
