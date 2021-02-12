@@ -3,15 +3,16 @@ import { useSelector } from 'react-redux'
 import List from './components/List'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import { getTodosLength } from "./redux/selectors/todoSelectors";
 
 function App() {
 
-    const isTodosEmpty = useSelector(({ todoReducer }) => !!todoReducer.todos.length)
+    const isTodosNotEmpty = !!useSelector(getTodosLength)
 
     return (
         <div className="todo-list">
             <Header />
-            {isTodosEmpty && (
+            {isTodosNotEmpty && (
                 <>
                     <List />
                     <Footer />

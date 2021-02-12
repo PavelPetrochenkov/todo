@@ -2,16 +2,14 @@ import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ALL, COMPLETED, ACTIVE } from '../constants'
 import { changeType, deleteCompletedTodos } from '../redux/actions/todoAction'
+import { getTodosType, getFooterCounter } from '../redux/selectors/todoSelectors'
 
 function Footer() {
     const dispatch = useDispatch()
 
-    const filterType = useSelector(({ todoReducer }) => todoReducer.type)
+    const filterType = useSelector(getTodosType)
 
-    const counter = useSelector(
-        ({ todoReducer }) =>
-            todoReducer.todos.filter((item) => !item.check).length
-    )
+    const counter = useSelector(getFooterCounter)
 
     const handleClickChangeType = (type) => () => {
         dispatch(changeType(type))

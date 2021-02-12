@@ -1,17 +1,14 @@
 import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTodo, checkAllTodos } from '../redux/actions/todoAction'
+import { getTodosLength, getModeAllCheck } from "../redux/selectors/todoSelectors"
 
 function Header() {
     const dispatch = useDispatch()
 
-    const isArrayEmpty = useSelector(
-        ({ todoReducer }) => !!todoReducer.todos.length
-    )
+    const isArrayEmpty = !!useSelector(getTodosLength)
 
-    const isAllCheck = useSelector(
-        ({ todoReducer }) => todoReducer.isAllCheck
-    )
+    const isAllCheck = useSelector(getModeAllCheck)
 
     const [inputValue, setInputValue] = useState('')
 
