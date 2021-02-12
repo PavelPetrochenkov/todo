@@ -5,12 +5,18 @@ import ItemTodo from './ItemTodo'
 import { ACTIVE, COMPLETED } from '../constants'
 import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
 
+type Todo = {
+    id:number,
+    text:string,
+    check:boolean
+}
+
 function List() {
     
-    const todosList = useSelector(getTodosList);
-    const todosType = useSelector(getTodosType);
+    const todosList:Array<Todo> = useSelector(getTodosList);
+    const todosType:string = useSelector(getTodosType);
 
-    const filteredTodos = useMemo(() => {
+    const filteredTodos = useMemo(():Array<Todo> => {
         switch (todosType) {
             case ACTIVE: {
                 return todosList.filter((item) => !item.check)

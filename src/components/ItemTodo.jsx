@@ -67,6 +67,16 @@ function ItemTodo({ todo }) {
     )
 }
 
+const StyledText = styled.span`
+  margin: 0 50px;
+  display: flex;
+  align-items: center;
+  word-wrap: break-word;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`
+
 const UncheckedTodo = styled.div`
   cursor: pointer;
   position: absolute;
@@ -91,16 +101,11 @@ const CheckedTodo = styled(UncheckedTodo)`
   background-position: center;
   background-repeat: no-repeat;
 
-`
+  & + span${StyledText}{
+    opacity:0.6;
+    text-decoration:line-through;
+  }
 
-const StyledText = styled.span`
-  margin: 0 50px;
-  display: flex;
-  align-items: center;
-  word-wrap: break-word;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
 `
 
 const InputEditMode = styled.input`

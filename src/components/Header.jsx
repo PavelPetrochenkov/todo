@@ -8,7 +8,7 @@ import arrow from '../icon/ArrowDown.png'
 function Header() {
     const dispatch = useDispatch()
 
-    const isArrayEmpty = !!useSelector(getTodosLength)
+    const isArrayHasTodo = !!useSelector(getTodosLength)
 
     const isAllCheck = useSelector(getModeAllCheck)
 
@@ -32,7 +32,7 @@ function Header() {
     return (
         <StyledHeader>
             {
-            isArrayEmpty && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
+            isArrayHasTodo && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
             }
             <InputAddTodo
                 placeholder="What need to be done?"

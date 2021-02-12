@@ -1,13 +1,20 @@
 import { ALL } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
+import { ITodoActions } from '../actions/todoAction'
 
-const initialState = {
+interface ITodoState{
+    todos: Array<{id:number, text:string, check:boolean}>,
+    type: string,
+    isAllCheck: boolean
+}
+
+const initialState : ITodoState = {
     todos: [],
     type: ALL,
     isAllCheck: false,
 }
 
-function todoReducer(state = initialState, action) {
+function todoReducer(state:ITodoState = initialState, action: ITodoActions):ITodoState {
     switch (action.type) {
         case ACTIONS_TODO.ADD_TODO: {
             return {

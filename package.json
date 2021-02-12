@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@reduxjs/toolkit": "^1.5.0",
         "@testing-library/jest-dom": "^5.11.9",
         "@testing-library/react": "^11.2.5",
         "@testing-library/user-event": "^12.6.3",
@@ -41,6 +42,9 @@
         ]
     },
     "devDependencies": {
+        "@types/react": "^17.0.1",
+        "@types/react-redux": "^7.1.16",
+        "@types/styled-components": "^5.1.7",
         "prettier": "2.2.1"
     }
 }

@@ -8,7 +8,7 @@ import { getTodosLength } from "./redux/selectors/todoSelectors";
 
 function App() {
 
-    const isTodos = !!useSelector(getTodosLength)
+    const isTodos:boolean = !!useSelector(getTodosLength)
 
     return (
         <StyledApp>
