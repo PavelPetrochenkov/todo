@@ -1,0 +1,208 @@
+body {
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.add-todo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid whitesmoke;
+    box-shadow: 2px 0 10px whitesmoke;
+    margin: 0;
+}
+
+.todo-list {
+    width: 550px;
+    background-color: white;
+    box-shadow: 1px 1px 10px rgb(196, 196, 196);
+    box-sizing: border-box;
+}
+
+.complete-all {
+    position: relative;
+    padding: 0 10px;
+    height: 25px;
+    width: 25px;
+}
+
+.complete-all--active > #btn--complete-all {
+    opacity: 1;
+}
+
+#btn--complete-all {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 50%;
+    background-image: url('./icon/ArrowDown.png');
+    background-size: 25px 25px;
+    background-position: center;
+    background-position-y: 1px;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+}
+
+#btn--complete-all:hover {
+    opacity: 0.8;
+}
+
+#inp--add-todo {
+    width: 100%;
+    border: none;
+    border-bottom: 1 px solid black;
+    outline: none;
+    font-size: 24px;
+}
+
+#inp--add-todo::placeholder {
+    opacity: 0.5;
+}
+
+#ul--list-of-todo {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+    margin: 0;
+}
+
+.li--todo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    width: 100%;
+    height: 55px;
+    justify-content: space-between;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.li__checkbox--mdf--checked {
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    height: 25px;
+    width: 25px;
+    border: 1px solid rgb(117, 117, 117);
+    background-color: rgb(243, 243, 243);
+    border-radius: 50%;
+    opacity: 0.6;
+    background-image: url('./icon/Ok.png');
+    background-size: 20px 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.li__checkbox--mdf {
+    cursor: pointer;
+    position: absolute;
+    left: 15px;
+    height: 25px;
+    width: 25px;
+    border: 1px solid rgb(117, 117, 117);
+    background-color: rgb(243, 243, 243);
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.li__checkbox--mdf:hover,
+.li__checkbox--mdf--checked:hover {
+    background-color: rgb(224, 224, 224);
+    opacity: 0.8;
+}
+
+.li__btn--delete {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-image: url('./icon/Delete.png');
+    background-size: 30px 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+}
+
+.li--todo:hover > .li__btn--delete {
+    opacity: 0.8;
+}
+
+.controller {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.span--counter {
+    color: rgb(156, 156, 156);
+    font-size: 18px;
+    padding-right: 20px;
+}
+
+.controller__btn {
+    font-size: 16px;
+    color: rgb(156, 156, 156);
+    padding: 4px 8px;
+    margin: 0 10px;
+    background: white;
+    border: 1px solid rgb(233, 233, 233);
+    border-radius: 2px;
+    box-shadow: 2px 2px 5px whitesmoke;
+    outline: none;
+}
+
+.controller__btn:hover {
+    margin: 0 10px;
+    border: 1px solid rgb(194, 194, 194);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px whitesmoke;
+}
+
+.li__content {
+    padding: 0;
+    margin: 0 50px;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.li__content--change {
+    margin-left: 50px;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 2;
+    height: 100%;
+    border: 1px solid rgb(129, 129, 129);
+    outline-style: none;
+    border-radius: 0%;
+    font-size: 24px;
+    box-shadow: inset -1px -1px 5px rgb(218, 218, 218);
+}
+
+.btn--active {
+    border: 1px solid rgb(66, 66, 66);
+    color: rgb(66, 66, 66);
+}
+
+.btn--active:hover {
+    border: 1px solid rgb(66, 66, 66);
+    color: rgb(66, 66, 66);
+}
+
+.text--line-thr {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
