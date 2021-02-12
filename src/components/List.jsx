@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
+import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
 import { ACTIVE, COMPLETED } from '../constants'
 import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
-import { StyledList } from '../styled-components/List'
 
 function List() {
     
@@ -32,5 +32,11 @@ function List() {
         </StyledList>
     )
 }
+
+const StyledList = styled.ul`
+    list-style: none;
+    padding-left: 5px;
+    margin: 0;
+`
 
 export default React.memo(List)
