@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ALL, COMPLETED, ACTIVE } from '../constants'
 import { changeType, deleteCompletedTodos } from '../redux/actions/todoAction'
 import { getTodosType, getFooterCounter } from '../redux/selectors/todoSelectors'
+import { StyledFooter, Counter, FilterButton } from '../styled-components/Footer'
 
 function Footer() {
     const dispatch = useDispatch()
@@ -20,44 +21,35 @@ function Footer() {
     }, [])
 
     return (
-        <div className="controller">
-            <div className="span--counter">
-                <span>{counter}</span> items left
-            </div>
-            <button
-                className={`controller__btn ${
-                    filterType === ALL && 'btn--active'
-                }`}
+        <StyledFooter>
+            <Counter>
+                {counter} items left
+            </Counter>
+            <FilterButton
+                active={ filterType === ALL }
                 onClick={handleClickChangeType(ALL)}
             >
                 All
-            </button>
-            <button
-                className={`controller__btn ${
-                    filterType === ACTIVE && 'btn--active'
-                }`}
+            </FilterButton>
+            <FilterButton
+                active={ filterType === ACTIVE }
                 onClick={handleClickChangeType(ACTIVE)}
             >
                 Active
-            </button>
-            <button
-                className={`controller__btn ${
-                    filterType === COMPLETED && 'btn--active'
-                }`}
+            </FilterButton>
+            <FilterButton
+                active={ filterType === COMPLETED }
                 onClick={handleClickChangeType(COMPLETED)}
             >
                 Completed
-            </button>
-            <div>
-                <button
-                    className="controller__btn"
-                    id="btn--f-clear-all"
-                    onClick={handleRemoveAllCompletedTodos}
-                >
-                    Clear completed
-                </button>
-            </div>
-        </div>
+            </FilterButton>
+            <FilterButton
+                className="controller__btn"
+                onClick={handleRemoveAllCompletedTodos}
+            >
+                Clear completed
+            </FilterButton>
+        </StyledFooter>
     )
 }
 

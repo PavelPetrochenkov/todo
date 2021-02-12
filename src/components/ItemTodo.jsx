@@ -1,6 +1,7 @@
 import React, { useState, useCallback, memo } from 'react'
 import { useDispatch } from 'react-redux'
 import { changeCheckTodo, deleteTodo, changeTextTodo } from '../redux/actions/todoAction'
+import { StyledItemTodo, CheckedTodo,  UncheckedTodo, StyledText, InputEditMode, DeleteButton} from "../styled-components/ItemTodo";
 
 function ItemTodo({ todo }) {
     
@@ -40,41 +41,27 @@ function ItemTodo({ todo }) {
     }, [])
 
     return (
-        <li className="li--todo">
-            {todo.check ? (
-                <div
-                    htmlFor={todo.id}
-                    onClick={handleChangeCheckbox}
-                    className="li__checkbox--mdf--checked"
-                />
-            ) : (
-                <div
-                    htmlFor={todo.id}
-                    onClick={handleChangeCheckbox}
-                    className="li__checkbox--mdf"
-                />
-            )}
+        <StyledItemTodo>
+            {todo.check 
+            ? <CheckedTodo onClick={handleChangeCheckbox}/>
+            : <UncheckedTodo onClick={handleChangeCheckbox}/>
+            }
 
-            {!isEditMode ? (
-                <span
-                    className="li__content"
-                    onDoubleClick={handleDoubleClickText}
-                >
+            {
+            !isEditMode 
+            ?   <StyledText onDoubleClick={handleDoubleClickText}>
                     {todo.text}
-                </span>
-            ) : (
-                <input
-                    className="li__content--change"
-                    placeholder="..."
+                </StyledText>
+            :   <InputEditMode
                     value={inputValue}
                     onChange={handleChangeInput}
                     onKeyPress={handleKeyPressInput}
                     onBlur={handleBlur}
                     autoFocus={true}
                 />
-            )}
-            <span className="li__btn--delete" onClick={handleDelete} />
-        </li>
+            }
+            <DeleteButton onClick={handleDelete} />
+        </StyledItemTodo>
     )
 }
 

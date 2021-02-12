@@ -7,4 +7,4 @@ todoReducer.todos.filter((item) => !item.check).length;
 
 export const getModeAllCheck =  ({ todoReducer }) => todoReducer.isAllCheck;
 
-export const getTodosList = ({ todoReducer }) => ({ list:todoReducer.todos, type:todoReducer.type})
+export const getTodosList = ({ todoReducer }) => todoReducer.todos;

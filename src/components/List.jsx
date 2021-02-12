@@ -2,32 +2,34 @@ import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
 import { ACTIVE, COMPLETED } from '../constants'
-import { getTodosList } from '../redux/selectors/todoSelectors'
+import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
+import { StyledList } from '../styled-components/List'
 
 function List() {
     
-    const todos = useSelector(getTodosList)
+    const todosList = useSelector(getTodosList);
+    const todosType = useSelector(getTodosType);
 
     const filteredTodos = useMemo(() => {
-        switch (todos.type) {
+        switch (todosType) {
             case ACTIVE: {
-                return todos.list.filter((item) => !item.check)
+                return todosList.filter((item) => !item.check)
             }
             case COMPLETED: {
-                return todos.list.filter((item) => item.check)
+                return todosList.filter((item) => item.check)
             }
             default: {
-                return todos.list
+                return todosList
             }
         }
-    }, [todos])
+    }, [todosList, todosType])
 
     return (
-        <ul id="ul--list-of-todo">
+        <StyledList>
             {filteredTodos.map((todo) => (
                 <ItemTodo key={todo.id} todo={todo} />
             ))}
-        </ul>
+        </StyledList>
     )
 }
 

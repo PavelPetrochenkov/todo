@@ -2,6 +2,7 @@ import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTodo, checkAllTodos } from '../redux/actions/todoAction'
 import { getTodosLength, getModeAllCheck } from "../redux/selectors/todoSelectors"
+import { StyledHeader, InputAddTodo, CheckAllButton } from '../styled-components/Header'
 
 function Header() {
     const dispatch = useDispatch()
@@ -28,30 +29,17 @@ function Header() {
     }, [])
 
     return (
-        <div className="add-todo" id="header">
-            {isArrayEmpty && (
-                <div
-                    className={
-                        isAllCheck
-                            ? 'complete-all complete-all--active'
-                            : 'complete-all'
-                    }
-                >
-                    <span
-                        id="btn--complete-all"
-                        onClick={handleCheckAll}
-                    />
-                </div>
-            )}
-            <input
-                id="inp--add-todo"
-                type="text"
+        <StyledHeader>
+            {
+            isArrayEmpty && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
+            }
+            <InputAddTodo
                 placeholder="What need to be done?"
                 value={inputValue}
                 onChange={handleChangeInput}
                 onKeyPress={handleKeyPress}
             />
-        </div>
+        </StyledHeader>
     )
 }
 

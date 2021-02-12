@@ -4,21 +4,22 @@ import List from './components/List'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { getTodosLength } from "./redux/selectors/todoSelectors";
+import { StyledApp } from './styled-components/App'
 
 function App() {
 
-    const isTodosNotEmpty = !!useSelector(getTodosLength)
+    const isTodos = !!useSelector(getTodosLength)
 
     return (
-        <div className="todo-list">
+        <StyledApp>
             <Header />
-            {isTodosNotEmpty && (
+            {isTodos && (
                 <>
                     <List />
                     <Footer />
                 </>
             )}
-        </div>
+        </StyledApp>
     )
 }
 
