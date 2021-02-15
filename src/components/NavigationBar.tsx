@@ -15,14 +15,14 @@ function NavigationBar({showLogIn, showTodos, showRegistration}:INavigationBar) 
 
     return (
         <StyledNavigationBar>
-        <StyledButton onClick={showTodos}>Todos</StyledButton>
+        <Button onClick={showTodos}>Todos</Button>
         {isAuthorized
         ?
-        <StyledButton>Log out</StyledButton>
+        <Button>Log out</Button>
         :
         <>
-        <StyledButton onClick={showLogIn}>Log in</StyledButton>
-        <StyledButton onClick={showRegistration}>Registration</StyledButton>
+        <Button onClick={showLogIn}>Log in</Button>
+        <Button onClick={showRegistration}>Registration</Button>
         </>
         }
         </StyledNavigationBar>
@@ -38,7 +38,7 @@ const StyledNavigationBar = styled.div`
     box-sizing: border-box;
     display:flex;
 `
-const StyledButton = styled.button`
+const Button = styled.button`
     width:100%;
     cursor:pointer;
     background:white;

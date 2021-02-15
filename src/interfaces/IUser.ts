@@ -5,10 +5,6 @@ export interface IUser{
 }
 
 export interface IUserState{
-    user?:{ 
-        id:string,
-        login:string,
-        password:string
-    },
+    user?:IUser,
     isAuthorized:boolean
 }

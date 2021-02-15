@@ -21,19 +21,19 @@ function Authorization() {
     return (
         <StyledAuthorization>
              <Title>Authorization</Title>
-            <StyledForm>
-                <StyledInput type="text" placeholder="Email" 
+            <Form>
+                <Input type="text" placeholder="Email" 
                 value={inputEmailValue} 
                 onChange={handleChangeEmail}
                 />
-                <StyledInput type="password" placeholder="Password" 
+                <Input type="password" placeholder="Password" 
                 value={inputPasswordValue}
                 onChange={handleChangePassword}/>
                 <LogIn
                 onClick={handleClickLogIn}
                 >Log in</LogIn>
-            </StyledForm>
-            <StyledHr/>
+            </Form>
+            <Hr/>
                 <CreateNewAccount>Create new account</CreateNewAccount>
         </StyledAuthorization>
     )
@@ -45,7 +45,7 @@ const StyledAuthorization = styled.div`
     align-items: center;
 `
 
-const StyledForm = styled.form`
+const Form = styled.form`
     display:flex;
     flex-direction:column;
     align-items: center;
@@ -58,7 +58,7 @@ const Title = styled.span`
     font-size:32px;
 `
 
-const StyledInput = styled.input`
+const Input = styled.input`
     margin:5px;
     font-size:18px;
     line-height: 36px;
@@ -81,7 +81,7 @@ const StyledInput = styled.input`
     }
 `
 
-const StyledButton = styled.button`
+const Button = styled.button`
     width:50%;
     align-items:center;
     font-size:18px;
@@ -91,7 +91,7 @@ const StyledButton = styled.button`
 
 `
 
-const LogIn = styled(StyledButton)`
+const LogIn = styled(Button)`
     background-color: #1877f2;
     border: none;
     border-radius: 6px;
@@ -105,7 +105,7 @@ const LogIn = styled(StyledButton)`
     }
 `
 
-const CreateNewAccount = styled(StyledButton)`
+const CreateNewAccount = styled(Button)`
     background-color: #42b72a;
     border: none;
     border-radius: 6px;
@@ -118,7 +118,7 @@ const CreateNewAccount = styled(StyledButton)`
     }
 `
 
-const StyledHr = styled.hr`
+const Hr = styled.hr`
     width:100%;
     border:none;
     border-top:1px solid black;
