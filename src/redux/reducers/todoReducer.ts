@@ -1,14 +1,14 @@
 import { FilterTypes } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
-import { ITodoActions, ITodosState } from '../../interfaces/ITodos'
+import { TodoActions, TodosState } from '../../interfaces/ITodos'
 
-const initialState : ITodosState = {
+const initialState : TodosState = {
     todos: [],
     type: FilterTypes.ALL,
     isAllCheck: false,
 }
 
-function todoReducer(state:ITodosState = initialState, action: ITodoActions):ITodosState {
+function todoReducer(state:TodosState = initialState, action: TodoActions):TodosState {
     switch (action.type) {
         case ACTIONS_TODO.ADD_TODO: {
             return {

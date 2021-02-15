@@ -1,22 +1,22 @@
 import { ACTIONS_USER } from '../../constants'
-import { IUser } from '../../interfaces/IUser'
+import { User } from '../../interfaces/IUser'
 
-interface ILogIn{
+type LogIn = {
     type:ACTIONS_USER.LOG_IN,
-    payload:IUser
+    payload:User
 }
 
-export const logIn = (user:IUser):ILogIn => ({
+export const logIn = (user:User):LogIn => ({
     type: ACTIONS_USER.LOG_IN,
     payload: user
 })
 
-interface ILogOut{
+type LogOut = {
     type:ACTIONS_USER.LOG_OUT,
 }
 
-export const logOut = ():ILogOut => ({
+export const logOut = ():LogOut => ({
     type: ACTIONS_USER.LOG_OUT,
 })
 
-export type IUserActions = ILogIn | ILogOut;
+export type UserActions = LogIn | LogOut;

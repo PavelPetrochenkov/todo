@@ -1,10 +1,10 @@
-export interface IUser{
+export type User = {
     id:string,
     login:string,
     password:string
 }
 
-export interface IUserState{
-    user?:IUser,
+export type UserState = {
+    user?:User,
     isAuthorized:boolean
 }

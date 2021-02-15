@@ -1,19 +1,14 @@
-import { ITodo, ITodosState } from '../../interfaces/ITodos'
+import { Todo } from '../../interfaces/ITodos'
 import { FilterTypes } from '../../constants'
-import { IUserState } from '../../interfaces/IUser';
+import { IStore } from '../store'
 
-export interface IState {
-    todoReducer:ITodosState,
-    userReducer:IUserState
-}
+export const getTodosLength = ({ todoReducer }:IStore):number => todoReducer.todos.length;
 
-export const getTodosLength = ({ todoReducer }:IState):number => todoReducer.todos.length;
+export const getTodosType = ({ todoReducer }:IStore):FilterTypes => todoReducer.type;
 
-export const getTodosType = ({ todoReducer }:IState):FilterTypes => todoReducer.type;
-
-export const getFooterCounter = ({ todoReducer }:IState):number => 
+export const getFooterCounter = ({ todoReducer }:IStore):number => 
 todoReducer.todos.filter((item) => !item.check).length;
 
-export const getModeAllCheck =  ({ todoReducer }:IState):boolean => todoReducer.isAllCheck;
+export const getModeAllCheck =  ({ todoReducer }:IStore):boolean => todoReducer.isAllCheck;
 
-export const getTodosList = ({ todoReducer }:IState):Array<ITodo> => todoReducer.todos;
+export const getTodosList = ({ todoReducer }:IStore):Array<Todo> => todoReducer.todos;

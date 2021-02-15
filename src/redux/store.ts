@@ -1,11 +1,13 @@
 import { createStore, Store } from 'redux'
 import { devToolsEnhancer } from 'redux-devtools-extension'
 import rootReducer from './reducers/rootReducer'
-import { ITodosState } from '../interfaces/ITodos'
+import { TodosState } from '../interfaces/ITodos'
+import { UserState } from '../interfaces/IUser'
 
 
-interface IStore{
-    todoReducer:ITodosState
+export type IStore = {
+    todoReducer:TodosState,
+    userReducer:UserState
 }
 
 const store:Store<IStore> = createStore(rootReducer, devToolsEnhancer({}))

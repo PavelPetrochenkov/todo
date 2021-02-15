@@ -77,7 +77,7 @@ const Input = styled.input`
     }
 
     :focus{
-        opacity:0.9;
+        opacity:1;
     }
 `
 
@@ -92,7 +92,7 @@ const Button = styled.button`
 `
 
 const LogIn = styled(Button)`
-    background-color: #1877f2;
+    background:#4267b2;
     border: none;
     border-radius: 6px;
     line-height: 36px;
@@ -101,12 +101,12 @@ const LogIn = styled(Button)`
 
     :hover{
         cursor:pointer;
-        background:#4267b2;
+        background:#2b4d91;
     }
 `
 
 const CreateNewAccount = styled(Button)`
-    background-color: #42b72a;
+    background-color: #3da529;
     border: none;
     border-radius: 6px;
     line-height: 32px;
@@ -114,7 +114,7 @@ const CreateNewAccount = styled(Button)`
 
     :hover{
         cursor:pointer;
-        background:#3da529;
+        background:#409130;
     }
 `
 

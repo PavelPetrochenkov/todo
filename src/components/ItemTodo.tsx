@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import { changeCheckTodo, deleteTodo, changeTextTodo } from '../redux/actions/todoAction'
 import checkedIcon from '../icon/Ok.png'
 import deleteIcon from '../icon/Delete.png'
-import { ITodo } from '../interfaces/ITodos'
+import { Todo } from '../interfaces/ITodos'
 
-interface IItemTodoProps{
-  todo: ITodo
+type ItemTodoProps = {
+  todo: Todo
 }
 
-function ItemTodo({ todo }: IItemTodoProps) {
+function ItemTodo({ todo }: ItemTodoProps) {
     
     const dispatch = useDispatch()
 

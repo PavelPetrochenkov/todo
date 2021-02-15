@@ -1,14 +1,14 @@
 import { FilterTypes } from '../constants';
-export type { ITodoActions } from '../redux/actions/todoAction';
+export type { TodoActions } from '../redux/actions/todoAction';
 
-export interface ITodo{
+export type Todo = {
     id:number,
     text:string,
     check:boolean
 }
 
-export interface ITodosState{
-    todos: Array<ITodo>,
+export type TodosState = {
+    todos: Array<Todo>,
     type: FilterTypes,
     isAllCheck: boolean
 }

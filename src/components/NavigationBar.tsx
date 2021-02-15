@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { isUserAuthorized } from '../redux/selectors/userSelector'
 
-interface INavigationBar{
+type NavigationBarProps = {
     showLogIn:()=>void,
     showTodos:()=>void,
     showRegistration:()=>void
 }
 
-function NavigationBar({showLogIn, showTodos, showRegistration}:INavigationBar) {
+function NavigationBar({showLogIn, showTodos, showRegistration}:NavigationBarProps) {
 
     const isAuthorized:boolean = useSelector(isUserAuthorized)
 
