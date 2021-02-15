@@ -8,9 +8,9 @@ import arrow from '../icon/ArrowDown.png'
 function Header() {
     const dispatch = useDispatch()
 
-    const isArrayHasTodo = !!useSelector(getTodosLength)
+    const isArrayHasTodo:boolean = !!useSelector(getTodosLength)
 
-    const isAllCheck = useSelector(getModeAllCheck)
+    const isAllCheck:boolean = useSelector(getModeAllCheck)
 
     const [inputValue, setInputValue] = useState('')
 
@@ -56,7 +56,7 @@ const InputAddTodo = styled.input`
     }
 `
 
-const CheckAllButton = styled.span`
+const CheckAllButton = styled.span<{active:boolean}>`
     margin: 0 5px;
     height: 25px;
     min-width: 25px;

@@ -5,7 +5,15 @@ import { changeCheckTodo, deleteTodo, changeTextTodo } from '../redux/actions/to
 import checkedIcon from '../icon/Ok.png'
 import deleteIcon from '../icon/Delete.png'
 
-function ItemTodo({ todo }) {
+interface IItemTodoProps{
+  todo:{
+    id:number,
+    text:string,
+    check:boolean
+  }
+}
+
+function ItemTodo({ todo }: IItemTodoProps) {
     
     const dispatch = useDispatch()
 

@@ -8,11 +8,11 @@ import { getTodosType, getFooterCounter } from '../redux/selectors/todoSelectors
 function Footer() {
     const dispatch = useDispatch()
 
-    const filterType = useSelector(getTodosType)
+    const filterType:string = useSelector(getTodosType)
 
-    const counter = useSelector(getFooterCounter)
+    const counter:number = useSelector(getFooterCounter)
 
-    const handleClickChangeType = (type) => () => {
+    const handleClickChangeType = (type:string) => () => {
         dispatch(changeType(type))
     }
 
@@ -65,7 +65,7 @@ const Counter = styled.div`
     padding-right: 20px;
 `
 
-const FilterButton = styled.div`
+const FilterButton = styled.div<{active?:boolean}>`
     color: ${props => props.active ? "rgb(66, 66, 66)" : "rgb(156, 156, 156)"};
     padding: 4px 8px;
     margin: 0 10px;
