@@ -1,6 +1,6 @@
 import { ACTIONS_USER } from '../../constants'
 import { UserActions } from '../actions/userAction'
-import { UserState } from '../../interfaces/IUser'
+import { UserState } from '../../typescript/User'
 
 const initialState : UserState = {
     isAuthorized:false,

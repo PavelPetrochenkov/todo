@@ -1,8 +1,8 @@
 import { createStore, Store } from 'redux'
 import { devToolsEnhancer } from 'redux-devtools-extension'
 import rootReducer from './reducers/rootReducer'
-import { TodosState } from '../interfaces/ITodos'
-import { UserState } from '../interfaces/IUser'
+import { TodosState } from '../typescript/Todos'
+import { UserState } from '../typescript/User'
 
 
 export type IStore = {

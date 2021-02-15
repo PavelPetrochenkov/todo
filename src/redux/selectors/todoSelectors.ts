@@ -1,4 +1,4 @@
-import { Todo } from '../../interfaces/ITodos'
+import { Todo } from '../../typescript/Todos'
 import { FilterTypes } from '../../constants'
 import { IStore } from '../store'
 

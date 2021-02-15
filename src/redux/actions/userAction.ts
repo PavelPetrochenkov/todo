@@ -1,5 +1,5 @@
 import { ACTIONS_USER } from '../../constants'
-import { User } from '../../interfaces/IUser'
+import { User } from '../../typescript/User'
 
 type LogIn = {
     type:ACTIONS_USER.LOG_IN,

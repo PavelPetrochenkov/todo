@@ -1,6 +1,6 @@
 import { FilterTypes } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
-import { TodoActions, TodosState } from '../../interfaces/ITodos'
+import { TodoActions, TodosState } from '../../typescript/Todos'
 
 const initialState : TodosState = {
     todos: [],
