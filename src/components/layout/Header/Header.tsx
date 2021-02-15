@@ -2,7 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { isUserAuthorized } from '../redux/selectors/userSelector'
+import { isUserAuthorized } from '../../../redux/selectors/userSelector'
+
 
 function NavigationBar() {
 
@@ -11,18 +12,18 @@ function NavigationBar() {
     return (
         <StyledNavigationBar>
         <Link to="/">
-        <Button >Todos</Button>
+        <Button>Todos</Button>
         </Link>
         {isAuthorized
         ?
         <Button>Log out</Button>
         :
         <>
-        <Link to="/authorization">
-        <Button >Log in</Button>
+        <Link to="/login">
+        <Button>Log in</Button>
         </Link>
         <Link to="/registration">
-        <Button >Registration</Button>
+        <Button>Registration</Button>
         </Link>
         </>
         }
