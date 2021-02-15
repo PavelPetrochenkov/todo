@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
-import { Types } from '../constants'
+import { FilterTypes } from '../constants'
 import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
 import { ITodo } from '../interfaces/ITodos'
 
@@ -13,10 +13,10 @@ function List() {
 
     const filteredTodos = useMemo(():Array<ITodo> => {
         switch (todosType) {
-            case Types.ACTIVE: {
+            case FilterTypes.ACTIVE: {
                 return todosList.filter((item) => !item.check)
             }
-            case Types.COMPLETED: {
+            case FilterTypes.COMPLETED: {
                 return todosList.filter((item) => item.check)
             }
             default: {

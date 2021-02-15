@@ -8,17 +8,17 @@ import arrow from '../icon/ArrowDown.png'
 function Header() {
     const dispatch = useDispatch()
 
-    const isArrayHasTodo:boolean = !!useSelector(getTodosLength)
+    const isArrayHaveTodo:boolean = !!useSelector(getTodosLength)
 
     const isAllCheck:boolean = useSelector(getModeAllCheck)
 
-    const [inputValue, setInputValue] = useState('')
+    const [inputValue, setInputValue] = useState<string>('')
 
-    const handleChangeInput = useCallback((e) => {
+    const handleChangeInput = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
     }, [])
 
-    const handleKeyPress = useCallback((e) => {
+    const handleKeyPress = useCallback((e:React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputValue) {
             dispatch(createTodo(inputValue))
             setInputValue('')
@@ -32,7 +32,7 @@ function Header() {
     return (
         <StyledHeader>
             {
-            isArrayHasTodo && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
+            isArrayHaveTodo && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
             }
             <InputAddTodo
                 placeholder="What need to be done?"

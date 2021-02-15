@@ -1,10 +1,10 @@
-import { Types } from '../../constants'
+import { FilterTypes } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
 import { ITodoActions, ITodosState } from '../../interfaces/ITodos'
 
 const initialState : ITodosState = {
     todos: [],
-    type: Types.ALL,
+    type: FilterTypes.ALL,
     isAllCheck: false,
 }
 

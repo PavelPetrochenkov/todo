@@ -1,4 +1,4 @@
-export enum Types{
+export enum FilterTypes{
     ALL = 'ALL',
     ACTIVE = 'ACTIVE',
     COMPLETED = 'COMPLETED',
@@ -12,4 +12,9 @@ export enum ACTIONS_TODO{
     DELETE_COMPLETED_TODOS = 'DELETE_COMPLETED_TODOS',
     CHECK_ALL_TODOS = 'CHECK_ALL_TODOS',
     CHANGE_TYPE = 'CHANGE_TYPE',
+}
+
+export enum ACTIONS_USER{
+    LOG_IN = 'LOG_IN',
+    LOG_OUT = 'LOG_OUT',
 }

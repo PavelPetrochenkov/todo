@@ -1,4 +1,4 @@
-import { Types } from '../constants';
+import { FilterTypes } from '../constants';
 export type { ITodoActions } from '../redux/actions/todoAction';
 
 export interface ITodo{
@@ -8,11 +8,7 @@ export interface ITodo{
 }
 
 export interface ITodosState{
-    todos: Array<{id:number, text:string, check:boolean}>,
-    type: Types,
+    todos: Array<ITodo>,
+    type: FilterTypes,
     isAllCheck: boolean
-}
-
-export interface ITodosReducer{
-    todoReducer:ITodosState
 }

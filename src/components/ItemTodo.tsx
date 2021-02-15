@@ -14,8 +14,8 @@ function ItemTodo({ todo }: IItemTodoProps) {
     
     const dispatch = useDispatch()
 
-    const [inputValue, setInputValue] = useState(todo.text)
-    const [isEditMode, setEditMode] = useState(false)
+    const [inputValue, setInputValue] = useState<string>(todo.text)
+    const [isEditMode, setEditMode] = useState<boolean>(false)
 
     const handleChangeCheckbox = useCallback(() => {
         dispatch(changeCheckTodo(todo.id))
@@ -25,12 +25,12 @@ function ItemTodo({ todo }: IItemTodoProps) {
         dispatch(deleteTodo(todo.id))
     }, [todo])
 
-    const handleChangeInput = useCallback((e) => {
+    const handleChangeInput = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
     }, [])
 
     const handleKeyPressInput = useCallback(
-        (e) => {
+        (e:React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter' && inputValue) {
                 dispatch(changeTextTodo(todo.id, inputValue))
                 setEditMode(false)
@@ -100,7 +100,6 @@ const UncheckedTodo = styled.div`
 `
 
 const CheckedTodo = styled(UncheckedTodo)`
-
   background-image: url(${checkedIcon});
   background-size: 20px 20px;
   background-position: center;

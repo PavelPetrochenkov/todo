@@ -1,4 +1,4 @@
-import { ACTIONS_TODO, Types } from '../../constants'
+import { ACTIONS_TODO, FilterTypes } from '../../constants'
 
 interface ICreateTodo{
     type: ACTIONS_TODO.ADD_TODO,
@@ -69,10 +69,10 @@ export const checkAllTodos = ():ICheckAllTodos => ({
 
 interface IChangeType{
     type: ACTIONS_TODO.CHANGE_TYPE,
-    payload:Types
+    payload:FilterTypes
 }
 
-export const changeType = (type:Types):IChangeType => ({
+export const changeType = (type:FilterTypes):IChangeType => ({
     type: ACTIONS_TODO.CHANGE_TYPE,
     payload: type,
 })
