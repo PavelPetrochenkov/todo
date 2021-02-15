@@ -1,20 +1,12 @@
-interface ITodoState{
-    todos: Array<{id:number, text:string, check:boolean}>,
-    type: string,
-    isAllCheck: boolean
-}
+import { ITodosReducer } from '../../interfaces/ITodos'
 
-interface ITodoReducer{
-    todoReducer:ITodoState
-}
+export const getTodosLength = ({ todoReducer }:ITodosReducer) => todoReducer.todos.length;
 
-export const getTodosLength = ({ todoReducer }:ITodoReducer) => todoReducer.todos.length;
+export const getTodosType = ({ todoReducer }:ITodosReducer) => todoReducer.type;
 
-export const getTodosType = ({ todoReducer }:ITodoReducer) => todoReducer.type;
-
-export const getFooterCounter = ({ todoReducer }:ITodoReducer) => 
+export const getFooterCounter = ({ todoReducer }:ITodosReducer) => 
 todoReducer.todos.filter((item) => !item.check).length;
 
-export const getModeAllCheck =  ({ todoReducer }:ITodoReducer) => todoReducer.isAllCheck;
+export const getModeAllCheck =  ({ todoReducer }:ITodosReducer) => todoReducer.isAllCheck;
 
-export const getTodosList = ({ todoReducer }:ITodoReducer) => todoReducer.todos;
+export const getTodosList = ({ todoReducer }:ITodosReducer) => todoReducer.todos;

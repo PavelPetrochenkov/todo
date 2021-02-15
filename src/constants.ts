@@ -1,6 +1,8 @@
-export const ALL = 'ALL'
-export const ACTIVE = 'ACTIVE'
-export const COMPLETED = 'COMPLETED'
+export enum Types{
+    ALL = 'ALL',
+    ACTIVE = 'ACTIVE',
+    COMPLETED = 'COMPLETED',
+}
 
 export enum ACTIONS_TODO{
     ADD_TODO = 'ADD_TODO',

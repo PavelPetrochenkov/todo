@@ -1,18 +1,18 @@
 import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { ALL, COMPLETED, ACTIVE } from '../constants'
+import { Types } from '../constants'
 import { changeType, deleteCompletedTodos } from '../redux/actions/todoAction'
 import { getTodosType, getFooterCounter } from '../redux/selectors/todoSelectors'
 
 function Footer() {
     const dispatch = useDispatch()
 
-    const filterType:string = useSelector(getTodosType)
+    const filterType:Types = useSelector(getTodosType)
 
     const counter:number = useSelector(getFooterCounter)
 
-    const handleClickChangeType = (type:string) => () => {
+    const handleClickChangeType = (type:Types) => () => {
         dispatch(changeType(type))
     }
 
@@ -26,20 +26,20 @@ function Footer() {
                 {counter} items left
             </Counter>
             <FilterButton
-                active={ filterType === ALL }
-                onClick={handleClickChangeType(ALL)}
+                active={ filterType === Types.ALL }
+                onClick={handleClickChangeType(Types.ALL)}
             >
                 All
             </FilterButton>
             <FilterButton
-                active={ filterType === ACTIVE }
-                onClick={handleClickChangeType(ACTIVE)}
+                active={ filterType === Types.ACTIVE }
+                onClick={handleClickChangeType(Types.ACTIVE)}
             >
                 Active
             </FilterButton>
             <FilterButton
-                active={ filterType === COMPLETED }
-                onClick={handleClickChangeType(COMPLETED)}
+                active={ filterType === Types.COMPLETED }
+                onClick={handleClickChangeType(Types.COMPLETED)}
             >
                 Completed
             </FilterButton>

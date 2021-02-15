@@ -2,26 +2,21 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
-import { ACTIVE, COMPLETED } from '../constants'
+import { Types } from '../constants'
 import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
-
-type Todo = {
-    id:number,
-    text:string,
-    check:boolean
-}
+import { ITodo } from '../interfaces/ITodos'
 
 function List() {
     
-    const todosList:Array<Todo> = useSelector(getTodosList);
+    const todosList:Array<ITodo> = useSelector(getTodosList);
     const todosType:string = useSelector(getTodosType);
 
-    const filteredTodos = useMemo(():Array<Todo> => {
+    const filteredTodos = useMemo(():Array<ITodo> => {
         switch (todosType) {
-            case ACTIVE: {
+            case Types.ACTIVE: {
                 return todosList.filter((item) => !item.check)
             }
-            case COMPLETED: {
+            case Types.COMPLETED: {
                 return todosList.filter((item) => item.check)
             }
             default: {

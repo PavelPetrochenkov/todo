@@ -1,20 +1,14 @@
-import { ALL } from '../../constants'
+import { Types } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
-import { ITodoActions } from '../actions/todoAction'
+import { ITodoActions, ITodosState } from '../../interfaces/ITodos'
 
-interface ITodoState{
-    todos: Array<{id:number, text:string, check:boolean}>,
-    type: string,
-    isAllCheck: boolean
-}
-
-const initialState : ITodoState = {
+const initialState : ITodosState = {
     todos: [],
-    type: ALL,
+    type: Types.ALL,
     isAllCheck: false,
 }
 
-function todoReducer(state:ITodoState = initialState, action: ITodoActions):ITodoState {
+function todoReducer(state:ITodosState = initialState, action: ITodoActions):ITodosState {
     switch (action.type) {
         case ACTIONS_TODO.ADD_TODO: {
             return {
@@ -83,7 +77,7 @@ function todoReducer(state:ITodoState = initialState, action: ITodoActions):ITod
             }
         }
     }
-    return state
+    return state;
 }
 
 export default todoReducer
