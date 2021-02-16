@@ -1,9 +1,9 @@
 import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { FilterTypes } from '../constants'
-import { changeType, deleteCompletedTodos } from '../redux/actions/todoAction'
-import { getTodosType, getFooterCounter } from '../redux/selectors/todoSelectors'
+import { FilterTypes } from '../../../constants'
+import { changeType, deleteCompletedTodos } from '../../../redux/actions/todoAction'
+import { getTodosType, getFooterCounter } from '../../../redux/selectors/todoSelectors'
 
 function Footer() {
     const dispatch = useDispatch()

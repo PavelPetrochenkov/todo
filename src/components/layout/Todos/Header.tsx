@@ -1,11 +1,12 @@
 import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { createTodo, checkAllTodos } from '../redux/actions/todoAction'
-import { getTodosLength, getModeAllCheck } from "../redux/selectors/todoSelectors"
-import arrow from '../icon/ArrowDown.png'
+import { createTodo, checkAllTodos } from '../../../redux/actions/todoAction'
+import { getTodosLength, getModeAllCheck } from "../../../redux/selectors/todoSelectors"
+import arrow from '../../../icon/ArrowDown.png'
 
 function Header() {
+    
     const dispatch = useDispatch()
 
     const isArrayHaveTodo:boolean = !!useSelector(getTodosLength)

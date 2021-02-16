@@ -1,22 +1,37 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { isUserAuthorized } from '../../../redux/selectors/userSelector'
+import { logOut } from '../../../redux/actions/userAction'
+import { getUser, isUserAuthorized } from '../../../redux/selectors/userSelector'
+import { User } from '../../../typescript/User'
 
 
 function NavigationBar() {
 
     const isAuthorized:boolean = useSelector(isUserAuthorized)
 
+    const user:User = useSelector(getUser)
+
+    const history = useHistory();
+
+    const dispatch = useDispatch()
+
+    const handleLogOut = useCallback(() => {
+        dispatch(logOut());
+        history.push('/login')
+    }, [])
+
     return (
         <StyledNavigationBar>
+        {isAuthorized
+        ?
+        <>
         <Link to="/">
         <Button>Todos</Button>
         </Link>
-        {isAuthorized
-        ?
-        <Button>Log out</Button>
+        <Button onClick={handleLogOut}>Log out ({user.login})</Button>
+        </>
         :
         <>
         <Link to="/login">
@@ -41,12 +56,13 @@ const StyledNavigationBar = styled.div`
     display:flex;
 `
 const Button = styled.button`
-    width:33.3vw;
+    width:50vw;
     cursor:pointer;
     background:white;
     border:none;
     padding:0 100px;
-    line-height:50px;
+    max-height:50px;
+    min-height:50px;
     outline:none;
     font-size:18px;
 

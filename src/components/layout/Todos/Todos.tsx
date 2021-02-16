@@ -1,8 +1,8 @@
-import List from '../components/List'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
+import List from './Content/List'
+import Footer from './Footer'
+import Header from './Header'
 import { useSelector } from 'react-redux'
-import { getTodosLength } from "../redux/selectors/todoSelectors"
+import { getTodosLength } from "../../../redux/selectors/todoSelectors"
 
 function Todos() {
 

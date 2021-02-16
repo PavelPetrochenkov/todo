@@ -2,9 +2,9 @@ import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
-import { FilterTypes } from '../constants'
-import { getTodosList, getTodosType } from '../redux/selectors/todoSelectors'
-import { Todo } from '../typescript/Todos'
+import { FilterTypes } from '../../../../constants'
+import { getTodosList, getTodosType } from '../../../../redux/selectors/todoSelectors'
+import { Todo } from '../../../../typescript/Todos'
 
 function List() {
     

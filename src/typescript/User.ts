@@ -1,10 +1,11 @@
 export type User = {
-    id:string,
+    id?:string,
     login:string,
     password:string
 }
 
 export type UserState = {
-    user?:User,
+    user:User,
+    isLogInError:boolean,
     isAuthorized:boolean
 }
