@@ -2,17 +2,23 @@ import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { FilterTypes } from '../../constants'
-import { changeType, deleteCompletedTodos } from '../../redux/actions/todoAction'
-import { getTodosType, getFooterCounter } from '../../redux/selectors/todoSelectors'
+import {
+    changeType,
+    deleteCompletedTodos,
+} from '../../redux/actions/todoAction'
+import {
+    getTodosType,
+    getFooterCounter,
+} from '../../redux/selectors/todoSelectors'
 
 function Footer() {
     const dispatch = useDispatch()
 
-    const filterType:FilterTypes = useSelector(getTodosType)
+    const filterType: FilterTypes = useSelector(getTodosType)
 
-    const counter:number = useSelector(getFooterCounter)
+    const counter: number = useSelector(getFooterCounter)
 
-    const handleClickChangeType = (type:FilterTypes) => () => {
+    const handleClickChangeType = (type: FilterTypes) => () => {
         dispatch(changeType(type))
     }
 
@@ -22,23 +28,21 @@ function Footer() {
 
     return (
         <StyledFooter>
-            <Counter>
-                {counter} items left
-            </Counter>
+            <Counter>{counter} items left</Counter>
             <FilterButton
-                active={ filterType === FilterTypes.ALL }
+                active={filterType === FilterTypes.ALL}
                 onClick={handleClickChangeType(FilterTypes.ALL)}
             >
                 All
             </FilterButton>
             <FilterButton
-                active={ filterType === FilterTypes.ACTIVE }
+                active={filterType === FilterTypes.ACTIVE}
                 onClick={handleClickChangeType(FilterTypes.ACTIVE)}
             >
                 Active
             </FilterButton>
             <FilterButton
-                active={ filterType === FilterTypes.COMPLETED }
+                active={filterType === FilterTypes.COMPLETED}
                 onClick={handleClickChangeType(FilterTypes.COMPLETED)}
             >
                 Completed
@@ -65,17 +69,19 @@ const Counter = styled.div`
     padding-right: 20px;
 `
 
-const FilterButton = styled.div<{active?:boolean}>`
-    color: ${props => props.active ? "rgb(66, 66, 66)" : "rgb(156, 156, 156)"};
+const FilterButton = styled.div<{ active?: boolean }>`
+    color: ${(props) =>
+        props.active ? 'rgb(66, 66, 66)' : 'rgb(156, 156, 156)'};
     padding: 4px 8px;
     margin: 0 10px;
-    border: 1px solid ${props => props.active ? "rgb(66, 66, 66)" : "rgb(233, 233, 233)"};
+    border: 1px solid
+        ${(props) => (props.active ? 'rgb(66, 66, 66)' : 'rgb(233, 233, 233)')};
     border-radius: 2px;
     box-shadow: 2px 2px 5px whitesmoke;
     outline: none;
 
-    &:hover{
-         ${props => !props.active &&  "border: 1px solid rgb(194, 194, 194);"}
+    &:hover {
+        ${(props) => !props.active && 'border: 1px solid rgb(194, 194, 194);'}
         cursor: pointer;
     }
 `

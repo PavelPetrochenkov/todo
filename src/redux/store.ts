@@ -4,12 +4,11 @@ import rootReducer from './reducers/rootReducer'
 import { TodosState } from '../typescript/Todos'
 import { UserState } from '../typescript/User'
 
-
 export type IStore = {
-    todoReducer:TodosState,
-    userReducer:UserState
+    todoReducer: TodosState
+    userReducer: UserState
 }
 
-const store:Store<IStore> = createStore(rootReducer, devToolsEnhancer({}))
+const store: Store<IStore> = createStore(rootReducer, devToolsEnhancer({}))
 
 export default store

@@ -4,7 +4,7 @@ import Todos from '../components/Todos/Todos'
 function TodosPage() {
     return (
         <Page>
-            <Todos/>
+            <Todos />
         </Page>
     )
 }

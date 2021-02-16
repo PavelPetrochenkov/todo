@@ -2,29 +2,37 @@ import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { createTodo, checkAllTodos } from '../../redux/actions/todoAction'
-import { isTodosHaveTodo, getModeAllCheck } from "../../redux/selectors/todoSelectors"
+import {
+    isTodosHaveTodo,
+    getModeAllCheck,
+} from '../../redux/selectors/todoSelectors'
 import arrow from '../../icon/ArrowDown.png'
 
 function Header() {
-    
     const dispatch = useDispatch()
 
-    const isArrayHaveTodo:boolean = useSelector(isTodosHaveTodo)
+    const isArrayHaveTodo: boolean = useSelector(isTodosHaveTodo)
 
-    const isAllCheck:boolean = useSelector(getModeAllCheck)
+    const isAllCheck: boolean = useSelector(getModeAllCheck)
 
     const [inputValue, setInputValue] = useState<string>('')
 
-    const handleChangeInput = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value)
-    }, [])
+    const handleChangeInput = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setInputValue(e.target.value)
+        },
+        []
+    )
 
-    const handleKeyPress = useCallback((e:React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputValue) {
-            dispatch(createTodo(inputValue))
-            setInputValue('')
-        }
-    },[inputValue])
+    const handleKeyPress = useCallback(
+        (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter' && inputValue) {
+                dispatch(createTodo(inputValue))
+                setInputValue('')
+            }
+        },
+        [inputValue]
+    )
 
     const handleCheckAll = useCallback(() => {
         dispatch(checkAllTodos())
@@ -32,9 +40,9 @@ function Header() {
 
     return (
         <StyledHeader>
-            {
-            isArrayHaveTodo && <CheckAllButton onClick={handleCheckAll} active={isAllCheck}/>
-            }
+            {isArrayHaveTodo && (
+                <CheckAllButton onClick={handleCheckAll} active={isAllCheck} />
+            )}
             <InputAddTodo
                 placeholder="What need to be done?"
                 value={inputValue}
@@ -51,13 +59,13 @@ const InputAddTodo = styled.input`
     border-bottom: 1 px solid black;
     outline: none;
     font-size: 24px;
-    
+
     ::placeholder {
-        opacity:0.6;
+        opacity: 0.6;
     }
 `
 
-const CheckAllButton = styled.span<{active:boolean}>`
+const CheckAllButton = styled.span<{ active: boolean }>`
     margin: 0 5px;
     height: 25px;
     min-width: 25px;
@@ -68,11 +76,11 @@ const CheckAllButton = styled.span<{active:boolean}>`
     background-position: center;
     background-position-y: 1px;
     background-repeat: no-repeat;
-    opacity: ${props => props.active ? "0.8" : "0.4"};
-   
-    &:hover{
+    opacity: ${(props) => (props.active ? '0.8' : '0.4')};
+
+    &:hover {
         cursor: pointer;
-        opacity:0.8
+        opacity: 0.8;
     }
 `
 

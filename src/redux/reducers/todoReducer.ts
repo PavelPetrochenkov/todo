@@ -2,13 +2,16 @@ import { FilterTypes } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
 import { TodoActions, TodosState } from '../../typescript/Todos'
 
-const initialState : TodosState = {
+const initialState: TodosState = {
     todos: [],
     type: FilterTypes.ALL,
     isAllCheck: false,
 }
 
-function todoReducer(state:TodosState = initialState, action: TodoActions):TodosState {
+function todoReducer(
+    state: TodosState = initialState,
+    action: TodoActions
+): TodosState {
     switch (action.type) {
         case ACTIONS_TODO.ADD_TODO: {
             return {
@@ -28,7 +31,6 @@ function todoReducer(state:TodosState = initialState, action: TodoActions):Todos
             }
         }
         case ACTIONS_TODO.CHANGE_CHECK_TODO: {
-
             const changedTodos = state.todos.map((item) =>
                 item.id === action.payload
                     ? { ...item, check: !item.check }
@@ -42,7 +44,6 @@ function todoReducer(state:TodosState = initialState, action: TodoActions):Todos
             }
         }
         case ACTIONS_TODO.DELETE_TODO: {
-            
             const changedTodos = state.todos.filter(
                 (todo) => todo.id !== action.payload
             )
@@ -77,7 +78,7 @@ function todoReducer(state:TodosState = initialState, action: TodoActions):Todos
             }
         }
     }
-    return state;
+    return state
 }
 
 export default todoReducer

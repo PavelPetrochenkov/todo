@@ -1,10 +1,10 @@
-export enum FilterTypes{
+export enum FilterTypes {
     ALL = 'ALL',
     ACTIVE = 'ACTIVE',
     COMPLETED = 'COMPLETED',
 }
 
-export enum ACTIONS_TODO{
+export enum ACTIONS_TODO {
     ADD_TODO = 'ADD_TODO',
     CHANGE_TEXT_TODO = 'CHANGE_TEXT_TODO',
     CHANGE_CHECK_TODO = 'CHANGE_CHECK_TODO',
@@ -14,7 +14,7 @@ export enum ACTIONS_TODO{
     CHANGE_TYPE = 'CHANGE_TYPE',
 }
 
-export enum ACTIONS_USER{
+export enum ACTIONS_USER {
     LOG_IN = 'LOG_IN',
     LOG_OUT = 'LOG_OUT',
     CLEAR_ERROR = 'CLEAR_ERROR',

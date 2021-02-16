@@ -4,7 +4,7 @@ import userReducer from './userReducer'
 
 const rootReducer = combineReducers({
     todoReducer,
-    userReducer
+    userReducer,
 })
 
 export default rootReducer

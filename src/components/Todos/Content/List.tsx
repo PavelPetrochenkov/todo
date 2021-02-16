@@ -3,15 +3,17 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import ItemTodo from './ItemTodo'
 import { FilterTypes } from '../../../constants'
-import { getTodosList, getTodosType } from '../../../redux/selectors/todoSelectors'
+import {
+    getTodosList,
+    getTodosType,
+} from '../../../redux/selectors/todoSelectors'
 import { Todo } from '../../../typescript/Todos'
 
 function List() {
-    
-    const todosList:Array<Todo> = useSelector(getTodosList);
-    const todosType:string = useSelector(getTodosType);
+    const todosList: Array<Todo> = useSelector(getTodosList)
+    const todosType: string = useSelector(getTodosType)
 
-    const filteredTodos = useMemo(():Array<Todo> => {
+    const filteredTodos = useMemo((): Array<Todo> => {
         switch (todosType) {
             case FilterTypes.ACTIVE: {
                 return todosList.filter((item) => !item.check)

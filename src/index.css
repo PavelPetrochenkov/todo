@@ -3,11 +3,11 @@ body {
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
-    margin:0;
+    margin: 0;
     width: 100%;
 }
 
-#root{
+#root {
     width: 100%;
     display: flex;
     justify-content: center;

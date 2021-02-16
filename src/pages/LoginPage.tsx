@@ -4,7 +4,7 @@ import Page from '../components/layout/Page/Page'
 function LoginPage() {
     return (
         <Page>
-            <Login/>
+            <Login />
         </Page>
     )
 }

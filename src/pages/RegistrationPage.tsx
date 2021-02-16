@@ -4,7 +4,7 @@ import Registration from '../components/Registration/Registration'
 function RegistrationPage() {
     return (
         <Page>
-            <Registration/>
+            <Registration />
         </Page>
     )
 }
