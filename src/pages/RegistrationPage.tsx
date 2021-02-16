@@ -1,5 +1,5 @@
-import Page from '../components/Page/Page'
-import Registration from '../components/layout/Registration/Registration'
+import Page from '../components/layout/Page/Page'
+import Registration from '../components/Registration/Registration'
 
 function RegistrationPage() {
     return (

@@ -1,9 +1,9 @@
 import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { FilterTypes } from '../../../constants'
-import { changeType, deleteCompletedTodos } from '../../../redux/actions/todoAction'
-import { getTodosType, getFooterCounter } from '../../../redux/selectors/todoSelectors'
+import { FilterTypes } from '../../constants'
+import { changeType, deleteCompletedTodos } from '../../redux/actions/todoAction'
+import { getTodosType, getFooterCounter } from '../../redux/selectors/todoSelectors'
 
 function Footer() {
     const dispatch = useDispatch()
@@ -75,7 +75,7 @@ const FilterButton = styled.div<{active?:boolean}>`
     outline: none;
 
     &:hover{
-        border: 1px solid ${props => props.active ? "rgb(66, 66, 66)" : "rgb(194, 194, 194)"};
+         ${props => !props.active &&  "border: 1px solid rgb(194, 194, 194);"}
         cursor: pointer;
     }
 `

@@ -17,4 +17,5 @@ export enum ACTIONS_TODO{
 export enum ACTIONS_USER{
     LOG_IN = 'LOG_IN',
     LOG_OUT = 'LOG_OUT',
+    CLEAR_ERROR = 'CLEAR_ERROR',
 }

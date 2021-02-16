@@ -2,9 +2,9 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { logOut } from '../../redux/actions/userAction'
-import { getUser, isUserAuthorized } from '../../redux/selectors/userSelector'
-import { User } from '../../typescript/User'
+import { logOut } from '../../../redux/actions/userAction'
+import { getUser, isUserAuthorized } from '../../../redux/selectors/userSelector'
+import { User } from '../../../typescript/User'
 
 
 function NavigationBar() {

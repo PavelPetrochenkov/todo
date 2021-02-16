@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import Show from '../../../icon/Show.png'
-import Hide from '../../../icon/Hide.png'
-import { validateField } from '../../../validations/registrationValid';
+import { validateField, isInputEmpty } from '../../validations/registrationValid';
+import PasswordField from '../layout/PasswordField/PasswordField'
 
 function Registration() {
 
@@ -10,37 +9,50 @@ function Registration() {
     const [inputPasswordValue, setInputPasswordValue] = useState<string>('');
     const [inputConfirmPasswordValue, setInputConfirmPasswordValue] = useState<string>('');
 
-    const [validEmailValue, setValidEmailValue] = useState<string>('');
-    const [validPasswordValue, setValidPasswordValue] = useState<string>('');
-    const [validConfirmPasswordValue, setValidConfirmPasswordValue] = useState<string>('');
+    const [errorEmailValue, setErrorEmailValue] = useState<string>('');
+    const [errorPasswordValue, setErrorPasswordValue] = useState<string>('');
+    const [errorConfirmPasswordValue, setErrorConfirmPasswordValue] = useState<string>('');
 
     const [isHideMode, setIsHideMode] = useState<boolean>(false);
     const [isHideModeConfirm, setIsHideModeConfirm] = useState<boolean>(false);
 
     const handleChangeEmail = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputEmailValue(e.target.value);
-        setValidEmailValue(validateField('email', e.target.value));
+        setErrorEmailValue(validateField('email', e.target.value));
     }, []);
 
     const handleChangePassword = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputPasswordValue(e.target.value);
-        setValidPasswordValue(validateField('password', e.target.value));
-    }, []);
+        setErrorPasswordValue(validateField('password', e.target.value));
+        !!inputConfirmPasswordValue && 
+        setErrorConfirmPasswordValue(validateField('confirm-password', inputConfirmPasswordValue, e.target.value));
+    }, [inputConfirmPasswordValue]);
 
     const handleChangeConfirmPassword = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputConfirmPasswordValue(e.target.value);
-        setValidConfirmPasswordValue(validateField('confirm-password', e.target.value, inputPasswordValue));
+        setErrorConfirmPasswordValue(validateField('confirm-password', e.target.value, inputPasswordValue));
     }, [inputPasswordValue]);
 
     const handleClickRegistration = useCallback((e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        setValidEmailValue(validateField('email', inputEmailValue));
-        setValidPasswordValue(validateField('password', inputPasswordValue));
-        setValidConfirmPasswordValue(validateField('confirm-password', inputConfirmPasswordValue, inputPasswordValue));
-        !!validEmailValue && !!validPasswordValue && !!validPasswordValue && doRegister()
-    }, [inputEmailValue, inputPasswordValue, inputConfirmPasswordValue,
-        validEmailValue, validPasswordValue, validPasswordValue])
+        checkAllField();
+        if(!errorEmailValue && !errorPasswordValue && !errorConfirmPasswordValue){
+            doRegister()
+        }
+    }, [errorEmailValue, errorPasswordValue, errorConfirmPasswordValue])
 
+    const checkAllField = useCallback(() => {
+        if(!errorEmailValue){
+            setErrorEmailValue(isInputEmpty(inputEmailValue))
+        };
+        if(!errorPasswordValue){
+            setErrorPasswordValue(isInputEmpty(inputPasswordValue))
+        };
+        if(!errorConfirmPasswordValue){
+            setErrorConfirmPasswordValue(isInputEmpty(inputConfirmPasswordValue))
+        };
+    }, [errorEmailValue, errorPasswordValue, errorConfirmPasswordValue,
+        inputEmailValue, inputPasswordValue, inputConfirmPasswordValue])
 
     const doRegister = useCallback(() => {
         setInputEmailValue('');
@@ -48,55 +60,30 @@ function Registration() {
         setInputConfirmPasswordValue('');
     },[])
 
-    const handleClickHideEye = (e:any) => {
-        if(e.target.parentNode.firstChild.type === 'text'){
-            e.target.parentNode.firstChild.type = 'password';
-            setIsHideMode(false)
-        } else {
-            e.target.parentNode.firstChild.type = 'text';
-            setIsHideMode(true)
-        }
-    }
-
-    const handleClickConfirmHideEye = (e:any) => {
-        if(e.target.parentNode.firstChild.type === 'text'){
-            e.target.parentNode.firstChild.type = 'password';
-            setIsHideModeConfirm(false)
-        } else {
-            e.target.parentNode.firstChild.type = 'text';
-            setIsHideModeConfirm(true)
-        }
-    }
-
     return (
         <StyledRegistration>
              <Title>Registration</Title>
             <Form>
                 {
-                    <ErrorSpan>{validEmailValue}</ErrorSpan>
+                    <ErrorSpan>{errorEmailValue}</ErrorSpan>
                 }
                 <Input type="text" placeholder="Email" 
                 value={inputEmailValue} 
                 onChange={handleChangeEmail}
                 />
                  {
-                    <ErrorSpan>{validPasswordValue}</ErrorSpan>
+                    <ErrorSpan>{errorPasswordValue}</ErrorSpan>
                 }
-                 <InputArea>
-                <Input type="password" placeholder="Password" 
-                value={inputPasswordValue}
-                onChange={handleChangePassword}/>
-                <HideEye onClick={handleClickHideEye} show={isHideMode}/>
-                </InputArea>
+                <PasswordField value={inputPasswordValue} setValue={setInputPasswordValue}
+                isHideMode={isHideMode} setHideMode={setIsHideMode}
+                handleKeyPress={handleChangePassword}/>
                  {
-                    <ErrorSpan>{validConfirmPasswordValue}</ErrorSpan>
+                    <ErrorSpan>{errorConfirmPasswordValue}</ErrorSpan>
                 }
-                 <InputArea>
-                <Input type="password" placeholder="Password" 
-                value={inputConfirmPasswordValue}
-                onChange={handleChangeConfirmPassword}/>
-                 <HideEye onClick={handleClickConfirmHideEye} show={isHideModeConfirm}/>
-                </InputArea>
+                <PasswordField value={inputConfirmPasswordValue} setValue={setInputConfirmPasswordValue}
+                isHideMode={isHideModeConfirm} setHideMode={setIsHideModeConfirm}
+                handleKeyPress={handleChangeConfirmPassword}
+                placeholderValue='Confirm password'/>
                 <CreateNewAccount
                 onClick={handleClickRegistration}
                 >Registration</CreateNewAccount>
@@ -197,30 +184,6 @@ const Hr = styled.hr`
 const ErrorSpan = styled.span`
     width:90%;
     color:rgb(130, 0, 0);
-`
-
-const InputArea = styled.div`
-    position:relative;
-    display:flex;
-    width:100%;
-    justify-content:center;
-    align-items:center;
-`
-
-const HideEye = styled.div<{show?:boolean}>`
-    position:absolute;
-    right: 7%;
-    height:30px;
-    width:30px;
-    background-image: url(${props => props.show ? Show : Hide});
-    background-size: 30px 30px;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index:2;
-
-    :hover{
-        cursor:pointer;
-    }
 `
 
 export default Registration

@@ -1,30 +1,30 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { logIn } from '../../../redux/actions/userAction'
-import { isLogInError } from '../../../redux/selectors/userSelector';
-import Show from '../../../icon/Show.png'
-import Hide from '../../../icon/Hide.png'
+import { logIn, clearError } from '../../redux/actions/userAction'
+import { isLogInError } from '../../redux/selectors/userSelector';
+import PasswordField from '../layout/PasswordField/PasswordField';
 
 function Login() {
 
     const dispatch = useDispatch();
 
     const [inputEmailValue, setInputEmailValue] = useState<string>('');
+
     const [inputPasswordValue, setInputPasswordValue] = useState<string>('');
 
     const [isHideMode, setIsHideMode] = useState<boolean>(false);
 
 
     const isError:boolean = useSelector(isLogInError);
+    
+    useEffect(() => {
+        dispatch(clearError())
+    }, [])
 
     const handleChangeEmail = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setInputEmailValue(e.target.value)
     }, [inputEmailValue]);
-
-    const handleChangePassword = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
-        setInputPasswordValue(e.target.value)
-    }, [inputPasswordValue]);
 
     const handleClickLogIn = useCallback((e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
@@ -41,16 +41,6 @@ function Login() {
         }));
     },[])
 
-    const handleClickHideEye = useCallback((e:any) => {
-        if(e.target.parentNode.firstChild.type === 'text'){
-            e.target.parentNode.firstChild.type = 'password';
-            setIsHideMode(false)
-        } else {
-            e.target.parentNode.firstChild.type = 'text';
-            setIsHideMode(true)
-        }
-    }, [])
-
     return (
         <StyledLogin>
              <Title>Authorization</Title>
@@ -60,12 +50,8 @@ function Login() {
                 value={inputEmailValue} 
                 onChange={handleChangeEmail}
                 />
-                <InputArea>
-                <Input type="password" placeholder="Password" 
-                value={inputPasswordValue}
-                onChange={handleChangePassword}/>
-                <HideEye onClick={handleClickHideEye} show={isHideMode}/>
-                </InputArea>
+                <PasswordField isHideMode={isHideMode} setHideMode={setIsHideMode} 
+                value={inputPasswordValue} setValue={setInputPasswordValue}/>
                 <LogIn
                 onClick={handleClickLogIn}
                 >Log in</LogIn>
@@ -168,30 +154,6 @@ const ErrorSpan = styled.span`
 `
 const ErrorTitleSpan = styled(ErrorSpan)`
     font-size:28px;
-`
-
-const InputArea = styled.div`
-    position:relative;
-    display:flex;
-    width:100%;
-    justify-content:center;
-    align-items:center;
-`
-
-const HideEye = styled.div<{show?:boolean}>`
-    position:absolute;
-    right: 7%;
-    height:30px;
-    width:30px;
-    background-image: url(${props => props.show ? Show : Hide});
-    background-size: 30px 30px;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index:2;
-
-    :hover{
-        cursor:pointer;
-    }
 `
 
 export default Login

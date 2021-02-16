@@ -1,5 +1,5 @@
-import Login from '../components/layout/Login/Login'
-import Page from '../components/Page/Page'
+import Login from '../components/Login/Login'
+import Page from '../components/layout/Page/Page'
 
 function LoginPage() {
     return (

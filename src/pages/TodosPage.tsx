@@ -1,5 +1,5 @@
-import Page from '../components/Page/Page'
-import Todos from '../components/layout/Todos/Todos'
+import Page from '../components/layout/Page/Page'
+import Todos from '../components/Todos/Todos'
 
 function TodosPage() {
     return (

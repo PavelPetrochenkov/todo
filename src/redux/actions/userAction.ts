@@ -19,4 +19,12 @@ export const logOut = ():LogOut => ({
     type: ACTIONS_USER.LOG_OUT,
 })
 
-export type UserActions = LogIn | LogOut;
+type ClearError = {
+    type:ACTIONS_USER.CLEAR_ERROR,
+}
+
+export const clearError = ():ClearError => ({
+    type: ACTIONS_USER.CLEAR_ERROR,
+})
+
+export type UserActions = LogIn | LogOut | ClearError;

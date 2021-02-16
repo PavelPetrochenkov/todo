@@ -45,6 +45,12 @@ function userReducer(state:UserState = initialState, action:UserActions):UserSta
                 isLogInError:false
             }
         }
+        case ACTIONS_USER.CLEAR_ERROR: {
+            return {
+                ...state,
+                isLogInError:false
+            }
+        }
     }
     return state;
 }

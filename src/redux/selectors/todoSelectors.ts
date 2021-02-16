@@ -2,7 +2,7 @@ import { Todo } from '../../typescript/Todos'
 import { FilterTypes } from '../../constants'
 import { IStore } from '../store'
 
-export const getTodosLength = ({ todoReducer }:IStore):number => todoReducer.todos.length;
+export const isTodosHaveTodo = ({ todoReducer }:IStore):boolean => !!todoReducer.todos.length;
 
 export const getTodosType = ({ todoReducer }:IStore):FilterTypes => todoReducer.type;
 
