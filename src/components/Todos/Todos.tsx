@@ -5,19 +5,19 @@ import { useSelector } from 'react-redux'
 import { isTodosHaveTodo } from '../../redux/selectors/todoSelectors'
 
 function Todos() {
-    const isTodos: boolean = useSelector(isTodosHaveTodo)
+  const isTodos: boolean = useSelector(isTodosHaveTodo)
 
-    return (
+  return (
+    <>
+      <Header />
+      {isTodos && (
         <>
-            <Header />
-            {isTodos && (
-                <>
-                    <List />
-                    <Footer />
-                </>
-            )}
+          <List />
+          <Footer />
         </>
-    )
+      )}
+    </>
+  )
 }
 
 export default Todos

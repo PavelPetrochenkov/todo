@@ -3,16 +3,16 @@ import { FilterTypes } from '../../constants'
 import { IStore } from '../store'
 
 export const isTodosHaveTodo = ({ todoReducer }: IStore): boolean =>
-    !!todoReducer.todos.length
+  !!todoReducer.todos.length
 
 export const getTodosType = ({ todoReducer }: IStore): FilterTypes =>
-    todoReducer.type
+  todoReducer.type
 
 export const getFooterCounter = ({ todoReducer }: IStore): number =>
-    todoReducer.todos.filter((item) => !item.check).length
+  todoReducer.todos.filter((item) => !item.check).length
 
 export const getModeAllCheck = ({ todoReducer }: IStore): boolean =>
-    todoReducer.isAllCheck
+  todoReducer.isAllCheck
 
 export const getTodosList = ({ todoReducer }: IStore): Array<Todo> =>
-    todoReducer.todos
+  todoReducer.todos
