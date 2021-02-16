@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { logIn } from '../../../redux/actions/userAction'
 import { isLogInError } from '../../../redux/selectors/userSelector';
+import Show from '../../../icon/Show.png'
+import Hide from '../../../icon/Hide.png'
 
 function Login() {
 
@@ -11,81 +13,59 @@ function Login() {
     const [inputEmailValue, setInputEmailValue] = useState<string>('');
     const [inputPasswordValue, setInputPasswordValue] = useState<string>('');
 
-    const [validEmailValue, setValidEmailValue] = useState<string>('');
-    const [validPasswordValue, setValidPasswordValue] = useState<string>('');
+    const [isHideMode, setIsHideMode] = useState<boolean>(false);
+
 
     const isError:boolean = useSelector(isLogInError);
 
     const handleChangeEmail = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
-        setInputEmailValue(e.target.value);
-        validateField('email', e.target.value);
+        setInputEmailValue(e.target.value)
     }, [inputEmailValue]);
 
     const handleChangePassword = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
-        setInputPasswordValue(e.target.value);
-        validateField('password', e.target.value);
+        setInputPasswordValue(e.target.value)
     }, [inputPasswordValue]);
 
     const handleClickLogIn = useCallback((e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        validateField('email', inputEmailValue);
-        validateField('password', inputPasswordValue);
-        !validEmailValue.length && !validPasswordValue.length && doLogIn()
-    }, [validEmailValue, validPasswordValue]);
-
-    const doLogIn = useCallback(() => {
-        dispatch(logIn({
-            id: Date.now().toString(),
-            login: inputEmailValue,
-            password: inputPasswordValue
-        }));
+        doLogIn(inputEmailValue, inputPasswordValue);
         setInputEmailValue('');
         setInputPasswordValue('');
-    },[inputEmailValue, inputPasswordValue])
+    }, [inputEmailValue, inputPasswordValue]);
 
-    const validateField = useCallback((fieldName:string, value:string) => {
-        switch(fieldName) {
-          case 'email':
-            if(value === ''){
-                setValidEmailValue('Please fill out this field'); 
-                break;
-            }
-            value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-            ? setValidEmailValue('')
-            : setValidEmailValue('Email is invalid');
-            break;
-          case 'password':
-            if(value === ''){
-                setValidPasswordValue('Please fill out this field'); 
-                break;
-            }
-            value.length >= 6
-            ? setValidPasswordValue('')
-            : setValidPasswordValue('Password is too short')
-            break;
-          default:
-            break;
+    const doLogIn = useCallback((email:string, password:string) => {
+        dispatch(logIn({
+            id: Date.now().toString(),
+            login: email,
+            password: password
+        }));
+    },[])
+
+    const handleClickHideEye = useCallback((e:any) => {
+        if(e.target.parentNode.firstChild.type === 'text'){
+            e.target.parentNode.firstChild.type = 'password';
+            setIsHideMode(false)
+        } else {
+            e.target.parentNode.firstChild.type = 'text';
+            setIsHideMode(true)
         }
-      },[])
+    }, [])
 
     return (
         <StyledLogin>
              <Title>Authorization</Title>
              {isError && <ErrorTitleSpan>Authorization was fail</ErrorTitleSpan>}
             <Form>
-                {
-                    !!validEmailValue.length && <ErrorSpan>{validEmailValue}</ErrorSpan>
-                }
                 <Input type="text" placeholder="Email" 
                 value={inputEmailValue} 
                 onChange={handleChangeEmail}
                 />
-                 {
-                    !!validPasswordValue.length && <ErrorSpan>{validPasswordValue}</ErrorSpan>
-                }
+                <InputArea>
                 <Input type="password" placeholder="Password" 
                 value={inputPasswordValue}
                 onChange={handleChangePassword}/>
+                <HideEye onClick={handleClickHideEye} show={isHideMode}/>
+                </InputArea>
                 <LogIn
                 onClick={handleClickLogIn}
                 >Log in</LogIn>
@@ -189,4 +169,29 @@ const ErrorSpan = styled.span`
 const ErrorTitleSpan = styled(ErrorSpan)`
     font-size:28px;
 `
+
+const InputArea = styled.div`
+    position:relative;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+`
+
+const HideEye = styled.div<{show?:boolean}>`
+    position:absolute;
+    right: 7%;
+    height:30px;
+    width:30px;
+    background-image: url(${props => props.show ? Show : Hide});
+    background-size: 30px 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index:2;
+
+    :hover{
+        cursor:pointer;
+    }
+`
+
 export default Login
