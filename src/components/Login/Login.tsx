@@ -47,26 +47,25 @@ function Login() {
           ) {
             errors.email = 'Invalid email address'
           }
-          
+
           if (!values.password) {
             errors.password = 'Required'
           } else if (values.password.length < 6) {
             errors.password = 'Too small'
           }
 
-          return errors;
+          return errors
         }}
         onSubmit={(values, actions) => {
-            doLogIn(values.email, values.password)
-            actions.setSubmitting(false)
-            actions.resetForm({
-              values: {
-                email: '',
-                password: '',
-              },
-            })
-          }
-        }
+          doLogIn(values.email, values.password)
+          actions.setSubmitting(false)
+          actions.resetForm({
+            values: {
+              email: '',
+              password: '',
+            },
+          })
+        }}
       >
         <StyledForm>
           <InputField name="email" component="div" placeholder="Email" />
