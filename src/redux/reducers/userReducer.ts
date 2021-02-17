@@ -14,6 +14,7 @@ const initialState: UserState = {
 const users = [
   { id: 1, login: '123@123.123', password: '123123' },
   { id: 2, login: 'pavel@gmail.com', password: '123123' },
+  { id: 3, login: 'qw@qw.qw', password: '123123' },
 ]
 
 function userReducer(

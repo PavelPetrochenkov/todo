@@ -1,129 +1,64 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
+import { Formik, Form } from 'formik'
 import styled from 'styled-components'
-import {
-  validateField,
-  isInputEmpty,
-} from '../../validations/registrationValid'
-import PasswordField from '../layout/PasswordField/PasswordField'
+import PasswordField from '../layout/Fields/PasswordField'
+import InputField from '../layout/Fields/InputField'
 
 function Registration() {
-  const [inputEmailValue, setInputEmailValue] = useState<string>('')
-  const [inputPasswordValue, setInputPasswordValue] = useState<string>('')
-  const [
-    inputConfirmPasswordValue,
-    setInputConfirmPasswordValue,
-  ] = useState<string>('')
-
-  const [errorEmailValue, setErrorEmailValue] = useState<string>('')
-  const [errorPasswordValue, setErrorPasswordValue] = useState<string>('')
-  const [
-    errorConfirmPasswordValue,
-    setErrorConfirmPasswordValue,
-  ] = useState<string>('')
-
-  const [isHideMode, setIsHideMode] = useState<boolean>(false)
-  const [isHideModeConfirm, setIsHideModeConfirm] = useState<boolean>(false)
-
-  const handleChangeEmail = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputEmailValue(e.target.value)
-      setErrorEmailValue(validateField('email', e.target.value))
-    },
-    []
-  )
-
-  const handleChangePassword = useCallback(
-    (value: string) => {
-      setInputPasswordValue(value)
-      setErrorPasswordValue(validateField('password', value))
-      !!inputConfirmPasswordValue &&
-        setErrorConfirmPasswordValue(
-          validateField('confirm-password', inputConfirmPasswordValue, value)
-        )
-    },
-    [inputConfirmPasswordValue]
-  )
-
-  const handleChangeConfirmPassword = useCallback(
-    (value: string) => {
-      setInputConfirmPasswordValue(value)
-      setErrorConfirmPasswordValue(
-        validateField('confirm-password', value, inputPasswordValue)
-      )
-    },
-    [inputPasswordValue]
-  )
-
-  const handleClickRegistration = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault()
-      checkAllFields()
-      if (
-        !errorEmailValue &&
-        !errorPasswordValue &&
-        !errorConfirmPasswordValue
-      ) {
-        doRegister()
-      }
-    },
-    [errorEmailValue, errorPasswordValue, errorConfirmPasswordValue]
-  )
-
-  const checkAllFields = useCallback(() => {
-    if (!errorEmailValue) {
-      setErrorEmailValue(isInputEmpty(inputEmailValue))
-    }
-    if (!errorPasswordValue) {
-      setErrorPasswordValue(isInputEmpty(inputPasswordValue))
-    }
-    if (!errorConfirmPasswordValue) {
-      setErrorConfirmPasswordValue(isInputEmpty(inputConfirmPasswordValue))
-    }
-  }, [
-    errorEmailValue,
-    errorPasswordValue,
-    errorConfirmPasswordValue,
-    inputEmailValue,
-    inputPasswordValue,
-    inputConfirmPasswordValue,
-  ])
-
-  const doRegister = useCallback(() => {
-    setInputEmailValue('')
-    setInputPasswordValue('')
-    setInputConfirmPasswordValue('')
-  }, [])
+  type ErrorState = {
+    email?: string
+    password?: string
+    passwordConfirm?: string
+  }
 
   return (
     <StyledRegistration>
       <Title>Registration</Title>
-      <Form>
-        {<ErrorSpan>{errorEmailValue}</ErrorSpan>}
-        <Input
-          type="text"
-          placeholder="Email"
-          value={inputEmailValue}
-          onChange={handleChangeEmail}
-        />
-        {<ErrorSpan>{errorPasswordValue}</ErrorSpan>}
-        <PasswordField
-          value={inputPasswordValue}
-          setValue={handleChangePassword}
-          isHideMode={isHideMode}
-          setHideMode={setIsHideMode}
-        />
-        {<ErrorSpan>{errorConfirmPasswordValue}</ErrorSpan>}
-        <PasswordField
-          value={inputConfirmPasswordValue}
-          setValue={handleChangeConfirmPassword}
-          isHideMode={isHideModeConfirm}
-          setHideMode={setIsHideModeConfirm}
-          placeholder="Confirm password"
-        />
-        <CreateNewAccount onClick={handleClickRegistration}>
-          Registration
-        </CreateNewAccount>
-      </Form>
+      <Formik
+        initialValues={{ email: '', password: '', passwordConfirm: '' }}
+        validate={(values) => {
+          let errors: ErrorState = {}
+          if (!values.email) {
+            errors.email = 'Required'
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address'
+          }
+          if (!values.password) {
+            errors.password = 'Required'
+          } else if (values.password.length < 6) {
+            errors.password = 'Too small'
+          }
+
+          if (!values.passwordConfirm) {
+            errors.passwordConfirm = 'Required'
+          } else if (values.passwordConfirm !== values.password) {
+            errors.passwordConfirm = 'Not matches'
+          }
+          return errors
+        }}
+        onSubmit={(values, actions) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2))
+            actions.setSubmitting(false)
+            actions.resetForm({
+              values: {
+                email: '',
+                password: '',
+                passwordConfirm: '',
+              },
+            })
+          }, 400)
+        }}
+      >
+        <StyledForm>
+          <InputField name="email" component="div" placeholder="Email" />
+          <PasswordField name="password" component="div" />
+          <PasswordField name="passwordConfirm" component="div" />
+          <CreateNewAccount type="submit">Submit</CreateNewAccount>
+        </StyledForm>
+      </Formik>
       <Hr />
       <LogIn>Log In</LogIn>
     </StyledRegistration>
@@ -136,7 +71,7 @@ const StyledRegistration = styled.div`
   align-items: center;
 `
 
-const Form = styled.form`
+const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,29 +82,6 @@ const Title = styled.span`
   text-align: center;
   margin: 10px 0;
   font-size: 32px;
-`
-
-const Input = styled.input`
-  margin: 5px;
-  font-size: 18px;
-  line-height: 36px;
-  outline: none;
-  width: 85%;
-  box-sizing: border;
-  opacity: 0.6;
-  padding: 0 15px;
-
-  ::first-letter {
-    margin-left: 5px;
-  }
-
-  ::placeholder {
-    opacity: 0.6;
-  }
-
-  :focus {
-    opacity: 0.9;
-  }
 `
 
 const Button = styled.button`
@@ -214,11 +126,6 @@ const Hr = styled.hr`
   border: none;
   border-top: 1px solid black;
   opacity: 0.2;
-`
-
-const ErrorSpan = styled.span`
-  width: 90%;
-  color: rgb(130, 0, 0);
 `
 
 export default Registration

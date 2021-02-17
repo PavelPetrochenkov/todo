@@ -1,41 +1,20 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { logIn, clearError } from '../../redux/actions/userAction'
 import { isLogInError } from '../../redux/selectors/userSelector'
-import PasswordField from '../layout/PasswordField/PasswordField'
+import PasswordField from '../layout/Fields/PasswordField'
+import InputField from '../layout/Fields/InputField'
 
 function Login() {
   const dispatch = useDispatch()
-
-  const [inputEmailValue, setInputEmailValue] = useState<string>('')
-
-  const [inputPasswordValue, setInputPasswordValue] = useState<string>('')
-
-  const [isHideMode, setIsHideMode] = useState<boolean>(false)
 
   const isError: boolean = useSelector(isLogInError)
 
   useEffect(() => {
     dispatch(clearError())
   }, [])
-
-  const handleChangeEmail = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputEmailValue(e.target.value)
-    },
-    [inputEmailValue]
-  )
-
-  const handleClickLogIn = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault()
-      doLogIn(inputEmailValue, inputPasswordValue)
-      setInputEmailValue('')
-      setInputPasswordValue('')
-    },
-    [inputEmailValue, inputPasswordValue]
-  )
 
   const doLogIn = useCallback((email: string, password: string) => {
     dispatch(
@@ -47,27 +26,56 @@ function Login() {
     )
   }, [])
 
+  type ErrorState = {
+    email?: string
+    password?: string
+  }
+
   return (
     <StyledLogin>
       <Title>Authorization</Title>
       {isError && <ErrorTitleSpan>Authorization was fail</ErrorTitleSpan>}
-      <Form>
-        <Input
-          type="text"
-          placeholder="Email"
-          value={inputEmailValue}
-          onChange={handleChangeEmail}
-        />
-        <PasswordField
-          isHideMode={isHideMode}
-          setHideMode={setIsHideMode}
-          value={inputPasswordValue}
-          setValue={setInputPasswordValue}
-        />
-        <LogIn onClick={handleClickLogIn}>Log in</LogIn>
-      </Form>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validate={(values) => {
+          let errors: ErrorState = {}
+
+          if (!values.email) {
+            errors.email = 'Required'
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,}$/i.test(values.email)
+          ) {
+            errors.email = 'Invalid email address'
+          }
+          
+          if (!values.password) {
+            errors.password = 'Required'
+          } else if (values.password.length < 6) {
+            errors.password = 'Too small'
+          }
+
+          return errors;
+        }}
+        onSubmit={(values, actions) => {
+            doLogIn(values.email, values.password)
+            actions.setSubmitting(false)
+            actions.resetForm({
+              values: {
+                email: '',
+                password: '',
+              },
+            })
+          }
+        }
+      >
+        <StyledForm>
+          <InputField name="email" component="div" placeholder="Email" />
+          <PasswordField name="password" component="div" />
+          <LogIn type="submit">Log in</LogIn>
+        </StyledForm>
+      </Formik>
       <Hr />
-      <CreateNewAccount>Create new account</CreateNewAccount>
+      <CreateNewAccount>Create New Account</CreateNewAccount>
     </StyledLogin>
   )
 }
@@ -78,7 +86,7 @@ const StyledLogin = styled.div`
   align-items: center;
 `
 
-const Form = styled.form`
+const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,29 +97,6 @@ const Title = styled.span`
   text-align: center;
   margin: 10px 0;
   font-size: 32px;
-`
-
-const Input = styled.input`
-  margin: 5px;
-  font-size: 18px;
-  line-height: 36px;
-  outline: none;
-  width: 85%;
-  box-sizing: border;
-  opacity: 0.6;
-  padding: 0 15px;
-
-  ::first-letter {
-    margin-left: 5px;
-  }
-
-  ::placeholder {
-    opacity: 0.6;
-  }
-
-  :focus {
-    opacity: 1;
-  }
 `
 
 const Button = styled.button`
@@ -157,11 +142,9 @@ const Hr = styled.hr`
   opacity: 0.2;
 `
 
-const ErrorSpan = styled.span`
+const ErrorTitleSpan = styled.span`
   width: 90%;
   color: rgb(130, 0, 0);
-`
-const ErrorTitleSpan = styled(ErrorSpan)`
   font-size: 28px;
 `
 

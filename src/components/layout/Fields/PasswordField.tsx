@@ -1,46 +1,34 @@
-import React, { useCallback, InputHTMLAttributes } from 'react'
+import { Field, ErrorMessage } from 'formik'
+import React, { useState, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 import Show from '../../../icon/Show.png'
 import Hide from '../../../icon/Hide.png'
 
 type Props = {
-  isHideMode: boolean
-  setHideMode: (val: boolean) => void
-  value: string
-  setValue: (val: string) => void
+  name: string
+  component: string
   placeholder?: string
 } & InputHTMLAttributes<HTMLInputElement>
 
-function PasswordField({
-  isHideMode,
-  setHideMode,
-  value,
-  setValue,
-  placeholder,
-  ...opts
-}: Props) {
-  const handleChangePassword = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value)
-    },
-    [value]
-  )
+function PasswordField({ name, component, placeholder, ...opts }: Props) {
+  const [isHideMode, setIsHideMode] = useState<boolean>(false)
 
   const handleClickHideEye = () => {
-    setHideMode(!isHideMode)
+    setIsHideMode(!isHideMode)
   }
 
   return (
-    <InputArea>
-      <Input
-        type={!isHideMode ? 'password' : 'text'}
-        placeholder={placeholder || 'Password'}
-        value={value}
-        onChange={handleChangePassword}
-        {...opts}
-      />
-      <HideEye onClick={handleClickHideEye} show={isHideMode} />
-    </InputArea>
+    <>
+      <ErrorSpan name={name} component={component} />
+      <InputArea>
+        <Input
+          type={!isHideMode ? 'password' : 'text'}
+          name={name}
+          placeholder={placeholder || 'Password'}
+        />
+        <HideEye onClick={handleClickHideEye} show={isHideMode} />
+      </InputArea>
+    </>
   )
 }
 
@@ -67,7 +55,7 @@ const HideEye = styled.div<{ show?: boolean }>`
     cursor: pointer;
   }
 `
-const Input = styled.input`
+const Input = styled(Field)`
   margin: 5px;
   font-size: 18px;
   line-height: 36px;
@@ -88,6 +76,10 @@ const Input = styled.input`
   :focus {
     opacity: 1;
   }
+`
+const ErrorSpan = styled(ErrorMessage)`
+  width: 90%;
+  color: rgb(130, 0, 0);
 `
 
 export default PasswordField
