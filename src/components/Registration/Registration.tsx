@@ -3,41 +3,15 @@ import { Formik, Form } from 'formik'
 import styled from 'styled-components'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
+import { registrationValidate } from '../../validates/FormValidates'
 
 function Registration() {
-  type ErrorState = {
-    email?: string
-    password?: string
-    passwordConfirm?: string
-  }
-
   return (
     <StyledRegistration>
       <Title>Registration</Title>
       <Formik
         initialValues={{ email: '', password: '', passwordConfirm: '' }}
-        validate={(values) => {
-          let errors: ErrorState = {}
-          if (!values.email) {
-            errors.email = 'Required'
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address'
-          }
-          if (!values.password) {
-            errors.password = 'Required'
-          } else if (values.password.length < 6) {
-            errors.password = 'Too small'
-          }
-
-          if (!values.passwordConfirm) {
-            errors.passwordConfirm = 'Required'
-          } else if (values.passwordConfirm !== values.password) {
-            errors.passwordConfirm = 'Not matches'
-          }
-          return errors
-        }}
+        validate={(values) => registrationValidate(values)}
         onSubmit={(values, actions) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2))

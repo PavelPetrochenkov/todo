@@ -6,6 +6,7 @@ import { logIn, clearError } from '../../redux/actions/userAction'
 import { isLogInError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
+import { loginValidate } from '../../validates/FormValidates'
 
 function Login() {
   const dispatch = useDispatch()
@@ -26,36 +27,13 @@ function Login() {
     )
   }, [])
 
-  type ErrorState = {
-    email?: string
-    password?: string
-  }
-
   return (
     <StyledLogin>
       <Title>Authorization</Title>
       {isError && <ErrorTitleSpan>Authorization was fail</ErrorTitleSpan>}
       <Formik
         initialValues={{ email: '', password: '' }}
-        validate={(values) => {
-          let errors: ErrorState = {}
-
-          if (!values.email) {
-            errors.email = 'Required'
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address'
-          }
-
-          if (!values.password) {
-            errors.password = 'Required'
-          } else if (values.password.length < 6) {
-            errors.password = 'Too small'
-          }
-
-          return errors
-        }}
+        validate={(values) => loginValidate(values)}
         onSubmit={(values, actions) => {
           doLogIn(values.email, values.password)
           actions.setSubmitting(false)
