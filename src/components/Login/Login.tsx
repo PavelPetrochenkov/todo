@@ -18,6 +18,7 @@ function Login() {
   }, [])
 
   const doLogIn = useCallback((email: string, password: string) => {
+    dispatch({ type: 'LOGIN_USER' })
     dispatch(
       logIn({
         id: Date.now().toString(),
