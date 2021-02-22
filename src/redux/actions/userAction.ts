@@ -1,14 +1,27 @@
 import { ACTIONS_USER } from '../../constants'
 import { User } from '../../typescript/User'
 
-type LogIn = {
-  type: ACTIONS_USER.LOG_IN
+type LogInDefault = {
+  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_PENDING
   payload: User
 }
 
-export const logIn = (user: User): LogIn => ({
-  type: ACTIONS_USER.LOG_IN,
+export const logInSuccess = (user: User): LogInDefault => ({
+  type: ACTIONS_USER.LOG_IN_SUCCESS,
   payload: user,
+})
+
+type AuthError = {
+  type: ACTIONS_USER.AUTH_FAIL
+}
+
+export const logInPending = (user: User): LogInDefault => ({
+  type: ACTIONS_USER.LOG_IN_PENDING,
+  payload: user,
+})
+
+export const authFail = (): AuthError => ({
+  type: ACTIONS_USER.AUTH_FAIL,
 })
 
 type LogOut = {
@@ -27,4 +40,14 @@ export const clearError = (): ClearError => ({
   type: ACTIONS_USER.CLEAR_ERROR,
 })
 
-export type UserActions = LogIn | LogOut | ClearError
+type Registration = {
+  type: ACTIONS_USER.REGISTRATION_USER
+  payload: User
+}
+
+export const registrationAction = (user: User): Registration => ({
+  type: ACTIONS_USER.REGISTRATION_USER,
+  payload: user,
+})
+
+export type UserActions = AuthError | LogInDefault | LogOut | ClearError

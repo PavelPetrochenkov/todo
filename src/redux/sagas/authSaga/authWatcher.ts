@@ -1,6 +1,8 @@
 import { takeEvery } from 'redux-saga/effects'
-import { loginUser } from './authWorker'
+import { loginUser, registrationUser } from './authWorker'
+import { ACTIONS_USER } from '../../../constants'
 
 export default function* authWatcher() {
-  yield takeEvery('LOGIN_USER', loginUser)
+  yield takeEvery(ACTIONS_USER.LOG_IN_PENDING, loginUser)
+  yield takeEvery(ACTIONS_USER.REGISTRATION_USER, registrationUser)
 }

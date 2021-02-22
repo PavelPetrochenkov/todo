@@ -1,11 +1,11 @@
 export type User = {
   id?: string
   login: string
-  password: string
+  password?: string
 }
 
 export type UserState = {
   user: User
-  isLogInError: boolean
+  isAuthError: boolean
   isAuthorized: boolean
 }

@@ -1,17 +1,23 @@
 import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { createTodo, checkAllTodos } from '../../redux/actions/todoAction'
+import {
+  createTodoPending,
+  checkAllTodos,
+} from '../../redux/actions/todoAction'
 import {
   isTodosHaveTodo,
   getModeAllCheck,
 } from '../../redux/selectors/todoSelectors'
+import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
 
 function Header() {
   const dispatch = useDispatch()
 
   const isArrayHaveTodo: boolean = useSelector(isTodosHaveTodo)
+
+  const userId: string | undefined = useSelector(getUserId)
 
   const isAllCheck: boolean = useSelector(getModeAllCheck)
 
@@ -27,7 +33,7 @@ function Header() {
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && inputValue) {
-        dispatch(createTodo(inputValue))
+        dispatch(createTodoPending(userId, inputValue))
         setInputValue('')
       }
     },
@@ -35,8 +41,8 @@ function Header() {
   )
 
   const handleCheckAll = useCallback(() => {
-    dispatch(checkAllTodos())
-  }, [])
+    dispatch(checkAllTodos(userId, !isAllCheck))
+  }, [isAllCheck])
 
   return (
     <StyledHeader>

@@ -2,7 +2,7 @@ import { FilterTypes } from '../constants'
 export type { TodoActions } from '../redux/actions/todoAction'
 
 export type Todo = {
-  id: number
+  _id: string
   text: string
   check: boolean
 }

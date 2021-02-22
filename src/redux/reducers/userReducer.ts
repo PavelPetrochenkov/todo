@@ -4,42 +4,29 @@ import { UserState } from '../../typescript/User'
 
 const initialState: UserState = {
   isAuthorized: false,
-  isLogInError: false,
+  isAuthError: false,
   user: {
     login: 'Guest',
     password: '',
   },
 }
 
-const users = [
-  { id: 1, login: '123@123.123', password: '123123' },
-  { id: 2, login: 'pavel@gmail.com', password: '123123' },
-  { id: 3, login: 'qw@qw.qw', password: '123123' },
-]
-
 function userReducer(
   state: UserState = initialState,
   action: UserActions
 ): UserState {
   switch (action.type) {
-    case ACTIONS_USER.LOG_IN: {
-      const logState: UserState = !!users.find(
-        (user) =>
-          user.login === action.payload.login &&
-          user.password === action.payload.password
-      )
-        ? {
-            user: action.payload,
-            isAuthorized: true,
-            isLogInError: false,
-          }
-        : {
-            ...state,
-            isLogInError: true,
-          }
-
+    case ACTIONS_USER.LOG_IN_SUCCESS: {
       return {
-        ...logState,
+        user: action.payload,
+        isAuthorized: true,
+        isAuthError: false,
+      }
+    }
+    case ACTIONS_USER.AUTH_FAIL: {
+      return {
+        ...state,
+        isAuthError: true,
       }
     }
     case ACTIONS_USER.LOG_OUT: {
@@ -49,13 +36,13 @@ function userReducer(
           password: '',
         },
         isAuthorized: false,
-        isLogInError: false,
+        isAuthError: false,
       }
     }
     case ACTIONS_USER.CLEAR_ERROR: {
       return {
         ...state,
-        isLogInError: false,
+        isAuthError: false,
       }
     }
   }

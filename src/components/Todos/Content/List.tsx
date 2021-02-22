@@ -30,7 +30,7 @@ function List() {
   return (
     <StyledList>
       {filteredTodos.map((todo) => (
-        <ItemTodo key={todo.id} todo={todo} />
+        <ItemTodo key={todo._id} todo={todo} />
       ))}
     </StyledList>
   )

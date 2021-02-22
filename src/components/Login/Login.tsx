@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logIn, clearError } from '../../redux/actions/userAction'
-import { isLogInError } from '../../redux/selectors/userSelector'
+import { logInPending, clearError } from '../../redux/actions/userAction'
+import { isAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { loginValidate } from '../../validates/FormValidates'
@@ -11,17 +11,15 @@ import { loginValidate } from '../../validates/FormValidates'
 function Login() {
   const dispatch = useDispatch()
 
-  const isError: boolean = useSelector(isLogInError)
+  const isError: boolean = useSelector(isAuthError)
 
   useEffect(() => {
     dispatch(clearError())
   }, [])
 
   const doLogIn = useCallback((email: string, password: string) => {
-    dispatch({ type: 'LOGIN_USER' })
     dispatch(
-      logIn({
-        id: Date.now().toString(),
+      logInPending({
         login: email,
         password: password,
       })
@@ -31,7 +29,7 @@ function Login() {
   return (
     <StyledLogin>
       <Title>Authorization</Title>
-      {isError && <ErrorTitleSpan>Authorization was fail</ErrorTitleSpan>}
+      {isError && <ErrorTitleSpan>Authorization was failed</ErrorTitleSpan>}
       <Formik
         initialValues={{ email: '', password: '' }}
         validate={(values) => loginValidate(values)}

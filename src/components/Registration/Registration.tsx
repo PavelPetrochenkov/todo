@@ -1,29 +1,48 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form } from 'formik'
 import styled from 'styled-components'
+import { isAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { registrationValidate } from '../../validates/FormValidates'
+import { registrationAction, clearError } from '../../redux/actions/userAction'
 
 function Registration() {
+  const dispatch = useDispatch()
+
+  const isError: boolean = useSelector(isAuthError)
+
+  useEffect(() => {
+    dispatch(clearError())
+  }, [])
+
+  const handleRegistration = useCallback((email: string, password: string) => {
+    dispatch(
+      registrationAction({
+        login: email,
+        password: password,
+      })
+    )
+  }, [])
+
   return (
     <StyledRegistration>
       <Title>Registration</Title>
+      {isError && <ErrorTitleSpan>Registration was failed</ErrorTitleSpan>}
       <Formik
         initialValues={{ email: '', password: '', passwordConfirm: '' }}
         validate={(values) => registrationValidate(values)}
         onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            actions.setSubmitting(false)
-            actions.resetForm({
-              values: {
-                email: '',
-                password: '',
-                passwordConfirm: '',
-              },
-            })
-          }, 400)
+          handleRegistration(values.email, values.password)
+          actions.setSubmitting(false)
+          actions.resetForm({
+            values: {
+              email: '',
+              password: '',
+              passwordConfirm: '',
+            },
+          })
         }}
       >
         <StyledForm>
@@ -100,6 +119,11 @@ const Hr = styled.hr`
   border: none;
   border-top: 1px solid black;
   opacity: 0.2;
+`
+const ErrorTitleSpan = styled.span`
+  width: 90%;
+  color: rgb(130, 0, 0);
+  font-size: 28px;
 `
 
 export default Registration

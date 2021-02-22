@@ -10,9 +10,12 @@ import {
   getTodosType,
   getFooterCounter,
 } from '../../redux/selectors/todoSelectors'
+import { getUserId } from '../../redux/selectors/userSelector'
 
 function Footer() {
   const dispatch = useDispatch()
+
+  const userId: string | undefined = useSelector(getUserId)
 
   const filterType: FilterTypes = useSelector(getTodosType)
 
@@ -23,7 +26,7 @@ function Footer() {
   }
 
   const handleRemoveAllCompletedTodos = useCallback(() => {
-    dispatch(deleteCompletedTodos())
+    dispatch(deleteCompletedTodos(userId))
   }, [])
 
   return (
