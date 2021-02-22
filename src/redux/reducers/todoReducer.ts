@@ -29,7 +29,8 @@ function todoReducer(
         isAllCheck: false,
       }
     }
-    case ACTIONS_TODO.CHANGE_TODO_SUCCESS: {
+    case ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS:
+    case ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS: {
       const todos: Array<Todo> = state.todos.map((item) =>
         item._id === action.payload.id.toString()
           ? { ...action.payload.todo }
@@ -53,7 +54,7 @@ function todoReducer(
         isAllCheck: !changedTodos.find((item) => !item.check),
       }
     }
-    case ACTIONS_TODO.CHANGE_TYPE_PENDING: {
+    case ACTIONS_TODO.CHANGE_TYPE_REQUESTED: {
       return {
         ...state,
         type: action.payload,

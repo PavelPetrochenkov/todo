@@ -2,7 +2,7 @@ import { ACTIONS_USER } from '../../constants'
 import { User } from '../../typescript/User'
 
 type LogInDefault = {
-  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_PENDING
+  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_REQUESTED
   payload: User
 }
 
@@ -15,8 +15,8 @@ type AuthError = {
   type: ACTIONS_USER.AUTH_FAIL
 }
 
-export const logInPending = (user: User): LogInDefault => ({
-  type: ACTIONS_USER.LOG_IN_PENDING,
+export const logInREQUESTED = (user: User): LogInDefault => ({
+  type: ACTIONS_USER.LOG_IN_REQUESTED,
   payload: user,
 })
 

@@ -11,31 +11,31 @@ export const setTodos = (todos: Array<Todo>): SetTodos => ({
   payload: todos,
 })
 
-type getAllTodosPending = {
-  type: ACTIONS_TODO.GET_TODOS_PENDING
+type getAllTodosREQUESTED = {
+  type: ACTIONS_TODO.GET_TODOS_REQUESTED
   payload: string | undefined
 }
 
-export const getAllTodosPending = (
+export const getAllTodosREQUESTED = (
   userId: string | undefined
-): getAllTodosPending => ({
-  type: ACTIONS_TODO.GET_TODOS_PENDING,
+): getAllTodosREQUESTED => ({
+  type: ACTIONS_TODO.GET_TODOS_REQUESTED,
   payload: userId,
 })
 
-type CreateTodoPending = {
-  type: ACTIONS_TODO.ADD_TODO_PENDING
+type CreateTodoREQUESTED = {
+  type: ACTIONS_TODO.ADD_TODO_REQUESTED
   payload: {
     text: string
     userId: string | undefined
   }
 }
 
-export const createTodoPending = (
+export const createTodoREQUESTED = (
   userId: string | undefined,
   text: string
-): CreateTodoPending => ({
-  type: ACTIONS_TODO.ADD_TODO_PENDING,
+): CreateTodoREQUESTED => ({
+  type: ACTIONS_TODO.ADD_TODO_REQUESTED,
   payload: {
     text,
     userId,
@@ -52,8 +52,8 @@ export const createTodoSuccess = (todo: Todo): CreateTodoSuccess => ({
   payload: todo,
 })
 
-type ChangeTextTodoPending = {
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_PENDING
+type ChangeTextTodoREQUESTED = {
+  type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUESTED
   payload: {
     id: string
     text: string
@@ -61,55 +61,71 @@ type ChangeTextTodoPending = {
   }
 }
 
-export const changeTextTodoPending = (
+export const changeTextTodoREQUESTED = (
   id: string,
   userId: string | undefined,
   text: string
-): ChangeTextTodoPending => ({
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_PENDING,
+): ChangeTextTodoREQUESTED => ({
+  type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUESTED,
   payload: { id, userId, text },
 })
 
-type ChangeCheckTodoPending = {
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_PENDING
+type ChangeCheckTodoREQUESTED = {
+  type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUESTED
   payload: { id: string; userId: string | undefined; check: boolean }
 }
 
-export const changeCheckTodoPending = (
+export const changeCheckTodoREQUESTED = (
   id: string,
   userId: string | undefined,
   check: boolean
-): ChangeCheckTodoPending => ({
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_PENDING,
+): ChangeCheckTodoREQUESTED => ({
+  type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUESTED,
   payload: { id, userId, check },
 })
 
-type ChangeTodoSuccess = {
-  type: ACTIONS_TODO.CHANGE_TODO_SUCCESS
+type ChangeCheckTodoSuccess = {
+  type: ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS
   payload: {
     id: string
     todo: Todo
   }
 }
 
-export const changeTodoSuccess = (
+export const changeCheckTodoSuccess = (
   id: string,
   todo: Todo
-): ChangeTodoSuccess => ({
-  type: ACTIONS_TODO.CHANGE_TODO_SUCCESS,
+): ChangeCheckTodoSuccess => ({
+  type: ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS,
   payload: { id, todo },
 })
 
-type DeleteTodoPending = {
-  type: ACTIONS_TODO.DELETE_TODO_PENDING
+type ChangeTextTodoSuccess = {
+  type: ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS
+  payload: {
+    id: string
+    todo: Todo
+  }
+}
+
+export const changeTextTodoSuccess = (
+  id: string,
+  todo: Todo
+): ChangeTextTodoSuccess => ({
+  type: ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS,
+  payload: { id, todo },
+})
+
+type DeleteTodoREQUESTED = {
+  type: ACTIONS_TODO.DELETE_TODO_REQUESTED
   payload: { id: string; userId: string | undefined }
 }
 
-export const deleteTodoPending = (
+export const deleteTodoREQUESTED = (
   id: string,
   userId: string | undefined
-): DeleteTodoPending => ({
-  type: ACTIONS_TODO.DELETE_TODO_PENDING,
+): DeleteTodoREQUESTED => ({
+  type: ACTIONS_TODO.DELETE_TODO_REQUESTED,
   payload: { id, userId },
 })
 
@@ -123,46 +139,71 @@ export const deleteTodoSuccess = (id: string): DeleteTodoSuccess => ({
   payload: id,
 })
 
-type DeleteCompletedTodos = {
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_PENDING
+type DeleteCompletedTodosRequested = {
+  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_REQUESTED
   payload: string | undefined
 }
 
-export const deleteCompletedTodos = (
+export const deleteCompletedTodosRequested = (
   userId: string | undefined
-): DeleteCompletedTodos => ({
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_PENDING,
+): DeleteCompletedTodosRequested => ({
+  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_REQUESTED,
   payload: userId,
 })
 
-type CheckAllTodos = {
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_PENDING
+type DeleteCompletedTodosSuccess = {
+  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS
+  payload: Array<Todo>
+}
+
+export const deleteCompletedTodosSuccess = (
+  todos: Array<Todo>
+): DeleteCompletedTodosSuccess => ({
+  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS,
+  payload: todos,
+})
+
+type CheckAllTodosRequested = {
+  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUESTED
   payload: { userId: string | undefined; check: boolean }
 }
 
-export const checkAllTodos = (
+export const checkAllTodosRequested = (
   userId: string | undefined,
   check: boolean
-): CheckAllTodos => ({
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_PENDING,
+): CheckAllTodosRequested => ({
+  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUESTED,
   payload: { userId, check },
 })
 
+type CheckAllTodosSuccess = {
+  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUESTED
+  payload: Array<Todo>
+}
+
+export const checkAllTodosSuccess = (
+  todos: Array<Todo>
+): CheckAllTodosSuccess => ({
+  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUESTED,
+  payload: todos,
+})
+
 type ChangeType = {
-  type: ACTIONS_TODO.CHANGE_TYPE_PENDING
+  type: ACTIONS_TODO.CHANGE_TYPE_REQUESTED
   payload: FilterTypes
 }
 
 export const changeType = (type: FilterTypes): ChangeType => ({
-  type: ACTIONS_TODO.CHANGE_TYPE_PENDING,
+  type: ACTIONS_TODO.CHANGE_TYPE_REQUESTED,
   payload: type,
 })
 
 export type TodoActions =
-  | DeleteCompletedTodos
-  | CheckAllTodos
+  | DeleteCompletedTodosSuccess
+  | CheckAllTodosSuccess
   | SetTodos
   | CreateTodoSuccess
-  | ChangeTodoSuccess
+  | ChangeCheckTodoSuccess
+  | ChangeTextTodoSuccess
   | DeleteTodoSuccess
   | ChangeType

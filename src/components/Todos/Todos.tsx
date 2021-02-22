@@ -5,7 +5,7 @@ import List from './Content/List'
 import Footer from './Footer'
 import Header from './Header'
 import { isTodosHaveTodo } from '../../redux/selectors/todoSelectors'
-import { getAllTodosPending } from '../../redux/actions/todoAction'
+import { getAllTodosREQUESTED } from '../../redux/actions/todoAction'
 import { getUserId } from '../../redux/selectors/userSelector'
 
 function Todos() {
@@ -14,7 +14,7 @@ function Todos() {
   const userId: string | undefined = useSelector(getUserId)
 
   useEffect(() => {
-    dispatch(getAllTodosPending(userId))
+    dispatch(getAllTodosREQUESTED(userId))
   }, [])
 
   const isTodos: boolean = useSelector(isTodosHaveTodo)

@@ -2,9 +2,9 @@ import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
-  changeCheckTodoPending,
-  deleteTodoPending,
-  changeTextTodoPending,
+  changeCheckTodoREQUESTED,
+  deleteTodoREQUESTED,
+  changeTextTodoREQUESTED,
 } from '../../../redux/actions/todoAction'
 import checkedIcon from '../../../icon/Ok.png'
 import deleteIcon from '../../../icon/Delete.png'
@@ -24,11 +24,11 @@ function ItemTodo({ todo }: ItemTodoProps) {
   const userId: string | undefined = useSelector(getUserId)
 
   const handleChangeCheckbox = useCallback(() => {
-    dispatch(changeCheckTodoPending(todo._id, userId, todo.check))
+    dispatch(changeCheckTodoREQUESTED(todo._id, userId, todo.check))
   }, [todo])
 
   const handleDelete = useCallback(() => {
-    dispatch(deleteTodoPending(todo._id, userId))
+    dispatch(deleteTodoREQUESTED(todo._id, userId))
   }, [todo])
 
   const handleChangeInput = useCallback(
@@ -41,7 +41,7 @@ function ItemTodo({ todo }: ItemTodoProps) {
   const handleKeyPressInput = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && inputValue) {
-        dispatch(changeTextTodoPending(todo._id, userId, inputValue))
+        dispatch(changeTextTodoREQUESTED(todo._id, userId, inputValue))
         setEditMode(false)
       }
     },

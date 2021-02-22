@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logInPending, clearError } from '../../redux/actions/userAction'
+import { logInREQUESTED, clearError } from '../../redux/actions/userAction'
 import { isAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
@@ -19,7 +19,7 @@ function Login() {
 
   const doLogIn = useCallback((email: string, password: string) => {
     dispatch(
-      logInPending({
+      logInREQUESTED({
         login: email,
         password: password,
       })

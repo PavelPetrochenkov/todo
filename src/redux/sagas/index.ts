@@ -1,7 +1,8 @@
-import { all } from 'redux-saga/effects'
-import authWatcher from './authSaga/authWatcher'
-import todoWatcher from './todoSaga/todoWatcher'
+import { fork } from 'redux-saga/effects'
+import authSaga from './authSaga/authSaga'
+import todosSaga from './todoSaga/todosSaga'
 
 export default function* rootWatcher() {
-  yield all([authWatcher(), todoWatcher()])
+  yield fork(authSaga)
+  yield fork(todosSaga)
 }
