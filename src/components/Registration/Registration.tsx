@@ -8,6 +8,12 @@ import InputField from '../layout/Fields/InputField'
 import { registrationValidate } from '../../validates/FormValidates'
 import { registrationAction, clearError } from '../../redux/actions/userAction'
 
+type formValue = {
+  email: string
+  password: string
+  passwordConfirm: string
+}
+
 function Registration() {
   const dispatch = useDispatch()
 
@@ -26,6 +32,18 @@ function Registration() {
     )
   }, [])
 
+  const handleSubmit = (values: formValue, actions: any) => {
+    handleRegistration(values.email, values.password)
+    actions.setSubmitting(false)
+    actions.resetForm({
+      values: {
+        email: '',
+        password: '',
+        passwordConfirm: '',
+      },
+    })
+  }
+
   return (
     <StyledRegistration>
       <Title>Registration</Title>
@@ -33,17 +51,7 @@ function Registration() {
       <Formik
         initialValues={{ email: '', password: '', passwordConfirm: '' }}
         validate={(values) => registrationValidate(values)}
-        onSubmit={(values, actions) => {
-          handleRegistration(values.email, values.password)
-          actions.setSubmitting(false)
-          actions.resetForm({
-            values: {
-              email: '',
-              password: '',
-              passwordConfirm: '',
-            },
-          })
-        }}
+        onSubmit={(values, actions) => handleSubmit(values, actions)}
       >
         <StyledForm>
           <InputField name="email" component="div" placeholder="Email" />

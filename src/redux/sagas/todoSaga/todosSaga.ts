@@ -2,7 +2,7 @@ import { takeEvery } from 'redux-saga/effects'
 import { put } from 'redux-saga/effects'
 import { Todo } from '../../../typescript/Todos'
 import {
-  setTodos,
+  getAllTodosSuccess,
   createTodoSuccess,
   deleteTodoSuccess,
   changeTextTodoSuccess,
@@ -94,7 +94,7 @@ function* getTodos(action: any) {
 
     const todos: Array<Todo> = response.data.todos
 
-    yield put(setTodos(todos))
+    yield put(getAllTodosSuccess(todos))
   } catch (err) {
     console.log(err)
   }

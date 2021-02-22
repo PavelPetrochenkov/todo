@@ -13,7 +13,9 @@ function todoReducer(
   action: TodoActions
 ): TodosState {
   switch (action.type) {
-    case ACTIONS_TODO.GET_TODOS_SUCCESS: {
+    case ACTIONS_TODO.GET_TODOS_SUCCESS:
+    case ACTIONS_TODO.CHECK_ALL_TODOS_SUCCESS:
+    case ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS: {
       const todos: Array<Todo> = [...action.payload]
 
       return {

@@ -4,8 +4,8 @@ import { ACTIONS_TODO } from '../../constants'
 import List from './Content/List'
 import Footer from './Footer'
 import Header from './Header'
-import { isTodosHaveTodo } from '../../redux/selectors/todoSelectors'
-import { getAllTodosREQUESTED } from '../../redux/actions/todoAction'
+import { getIsTodosNotEmpty } from '../../redux/selectors/todoSelectors'
+import { getAllTodosRequested } from '../../redux/actions/todoAction'
 import { getUserId } from '../../redux/selectors/userSelector'
 
 function Todos() {
@@ -14,15 +14,15 @@ function Todos() {
   const userId: string | undefined = useSelector(getUserId)
 
   useEffect(() => {
-    dispatch(getAllTodosREQUESTED(userId))
+    dispatch(getAllTodosRequested(userId))
   }, [])
 
-  const isTodos: boolean = useSelector(isTodosHaveTodo)
+  const isTodosNotEmpty: boolean = useSelector(getIsTodosNotEmpty)
 
   return (
     <>
       <Header />
-      {isTodos && (
+      {isTodosNotEmpty && (
         <>
           <List />
           <Footer />

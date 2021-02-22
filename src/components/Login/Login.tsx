@@ -8,6 +8,11 @@ import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { loginValidate } from '../../validates/FormValidates'
 
+type formValue = {
+  email: string
+  password: string
+}
+
 function Login() {
   const dispatch = useDispatch()
 
@@ -26,6 +31,17 @@ function Login() {
     )
   }, [])
 
+  const handleSubmit = useCallback((values: formValue, actions: any) => {
+    doLogIn(values.email, values.password)
+    actions.setSubmitting(false)
+    actions.resetForm({
+      values: {
+        email: '',
+        password: '',
+      },
+    })
+  }, [])
+
   return (
     <StyledLogin>
       <Title>Authorization</Title>
@@ -33,16 +49,7 @@ function Login() {
       <Formik
         initialValues={{ email: '', password: '' }}
         validate={(values) => loginValidate(values)}
-        onSubmit={(values, actions) => {
-          doLogIn(values.email, values.password)
-          actions.setSubmitting(false)
-          actions.resetForm({
-            values: {
-              email: '',
-              password: '',
-            },
-          })
-        }}
+        onSubmit={(values, actions) => handleSubmit(values, actions)}
       >
         <StyledForm>
           <InputField name="email" component="div" placeholder="Email" />
