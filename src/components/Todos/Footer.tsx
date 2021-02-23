@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { FilterTypes } from '../../constants'
 import {
   changeType,
-  deleteCompletedTodosRequested,
+  deleteCompletedTodosRequest,
 } from '../../redux/actions/todoAction'
 import {
   getTodosType,
@@ -15,7 +15,7 @@ import { getUserId } from '../../redux/selectors/userSelector'
 function Footer() {
   const dispatch = useDispatch()
 
-  const userId: string | undefined = useSelector(getUserId)
+  const userId: string = useSelector(getUserId)
 
   const filterType: FilterTypes = useSelector(getTodosType)
 
@@ -26,7 +26,7 @@ function Footer() {
   }
 
   const handleRemoveAllCompletedTodos = useCallback(() => {
-    dispatch(deleteCompletedTodosRequested(userId))
+    dispatch(deleteCompletedTodosRequest(userId))
   }, [])
 
   return (

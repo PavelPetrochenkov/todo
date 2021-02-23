@@ -6,8 +6,8 @@ export const isUserAuthorized = ({ userReducer }: IStore): boolean =>
 
 export const getUser = ({ userReducer }: IStore): User => userReducer.user
 
-export const getUserId = ({ userReducer }: IStore): string | undefined =>
-  userReducer.user.id
+export const getUserId = ({ userReducer }: IStore): string =>
+  userReducer.user.id || ''
 
 export const isAuthError = ({ userReducer }: IStore): boolean =>
   userReducer.isAuthError

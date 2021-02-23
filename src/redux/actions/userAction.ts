@@ -2,7 +2,7 @@ import { ACTIONS_USER } from '../../constants'
 import { User } from '../../typescript/User'
 
 type LogInDefault = {
-  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_REQUESTED
+  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_REQUEST
   payload: User
 }
 
@@ -11,17 +11,31 @@ export const logInSuccess = (user: User): LogInDefault => ({
   payload: user,
 })
 
-type AuthError = {
-  type: ACTIONS_USER.AUTH_FAIL
+type RegistrationSuccess = {
+  type: ACTIONS_USER.REGISTRATION_SUCCESS
+  payload: User
 }
 
-export const logInREQUESTED = (user: User): LogInDefault => ({
-  type: ACTIONS_USER.LOG_IN_REQUESTED,
+export const registrationSuccess = (user: User): RegistrationSuccess => ({
+  type: ACTIONS_USER.REGISTRATION_SUCCESS,
   payload: user,
 })
 
-export const authFail = (): AuthError => ({
-  type: ACTIONS_USER.AUTH_FAIL,
+export const logInRequest = (user: User): LogInDefault => ({
+  type: ACTIONS_USER.LOG_IN_REQUEST,
+  payload: user,
+})
+
+type AuthError = {
+  type: ACTIONS_USER.LOG_IN_FAIL | ACTIONS_USER.REGISTRATION_FAIL
+}
+
+export const logInFail = (): AuthError => ({
+  type: ACTIONS_USER.LOG_IN_FAIL,
+})
+
+export const registrationFail = (): AuthError => ({
+  type: ACTIONS_USER.REGISTRATION_FAIL,
 })
 
 type LogOut = {
@@ -40,13 +54,13 @@ export const clearError = (): ClearError => ({
   type: ACTIONS_USER.CLEAR_ERROR,
 })
 
-type Registration = {
-  type: ACTIONS_USER.REGISTRATION_USER
+type RegistrationRequest = {
+  type: ACTIONS_USER.REGISTRATION_REQUEST
   payload: User
 }
 
-export const registrationAction = (user: User): Registration => ({
-  type: ACTIONS_USER.REGISTRATION_USER,
+export const registrationRequest = (user: User): RegistrationRequest => ({
+  type: ACTIONS_USER.REGISTRATION_REQUEST,
   payload: user,
 })
 

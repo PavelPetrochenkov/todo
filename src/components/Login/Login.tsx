@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logInREQUESTED, clearError } from '../../redux/actions/userAction'
+import { logInRequest, clearError } from '../../redux/actions/userAction'
 import { isAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
@@ -22,17 +22,13 @@ function Login() {
     dispatch(clearError())
   }, [])
 
-  const doLogIn = useCallback((email: string, password: string) => {
+  const handleSubmit = useCallback((values: formValue, actions: any) => {
     dispatch(
-      logInREQUESTED({
-        login: email,
-        password: password,
+      logInRequest({
+        login: values.email,
+        password: values.password,
       })
     )
-  }, [])
-
-  const handleSubmit = useCallback((values: formValue, actions: any) => {
-    doLogIn(values.email, values.password)
     actions.setSubmitting(false)
     actions.resetForm({
       values: {
@@ -48,17 +44,17 @@ function Login() {
       {isError && <ErrorTitleSpan>Authorization was failed</ErrorTitleSpan>}
       <Formik
         initialValues={{ email: '', password: '' }}
-        validate={(values) => loginValidate(values)}
-        onSubmit={(values, actions) => handleSubmit(values, actions)}
+        validate={loginValidate}
+        onSubmit={handleSubmit}
       >
         <StyledForm>
           <InputField name="email" component="div" placeholder="Email" />
           <PasswordField name="password" component="div" />
-          <LogIn type="submit">Log in</LogIn>
+          <LogInButton type="submit">Log in</LogInButton>
         </StyledForm>
       </Formik>
       <Hr />
-      <CreateNewAccount>Create New Account</CreateNewAccount>
+      <RegistrationButton>Create New Account</RegistrationButton>
     </StyledLogin>
   )
 }
@@ -91,7 +87,7 @@ const Button = styled.button`
   transition: 1s;
 `
 
-const LogIn = styled(Button)`
+const LogInButton = styled(Button)`
   background: #4267b2;
   border: none;
   border-radius: 6px;
@@ -105,7 +101,7 @@ const LogIn = styled(Button)`
   }
 `
 
-const CreateNewAccount = styled(Button)`
+const RegistrationButton = styled(Button)`
   background-color: #3da529;
   border: none;
   border-radius: 6px;

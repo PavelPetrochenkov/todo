@@ -7,6 +7,8 @@ export const addTodo = (userId: string, text: string) =>
       userId,
       text,
     },
+  }).catch((err) => {
+    throw err.response
   })
 
 export const changeTodoText = (id: string, userId: string, text: string) =>
@@ -17,6 +19,8 @@ export const changeTodoText = (id: string, userId: string, text: string) =>
       userId,
       text,
     },
+  }).catch((err) => {
+    throw err.response
   })
 
 export const changeTodoCheck = (id: string, userId: string, check: boolean) =>
@@ -27,6 +31,8 @@ export const changeTodoCheck = (id: string, userId: string, check: boolean) =>
       userId,
       check,
     },
+  }).catch((err) => {
+    throw err.response
   })
 
 export const deleteTodo = (id: string, userId: string) =>
@@ -36,6 +42,8 @@ export const deleteTodo = (id: string, userId: string) =>
       userId,
       id,
     },
+  }).catch((err) => {
+    throw err.response
   })
 
 export const getTodos = (userId: string) =>
@@ -44,7 +52,10 @@ export const getTodos = (userId: string) =>
     data: {
       userId,
     },
+  }).catch((err) => {
+    throw err.response
   })
+
 export const checkAllTodos = (userId: string, check: boolean) =>
   api({
     url: 'todo/all/check',
@@ -52,6 +63,8 @@ export const checkAllTodos = (userId: string, check: boolean) =>
       userId,
       check,
     },
+  }).catch((err) => {
+    throw err.response
   })
 
 export const deleteCompletedTodos = (userId: string) =>
@@ -60,4 +73,6 @@ export const deleteCompletedTodos = (userId: string) =>
     data: {
       userId,
     },
+  }).catch((err) => {
+    throw err.response
   })

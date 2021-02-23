@@ -6,7 +6,7 @@ import { isAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { registrationValidate } from '../../validates/FormValidates'
-import { registrationAction, clearError } from '../../redux/actions/userAction'
+import { registrationRequest, clearError } from '../../redux/actions/userAction'
 
 type formValue = {
   email: string
@@ -23,17 +23,13 @@ function Registration() {
     dispatch(clearError())
   }, [])
 
-  const handleRegistration = useCallback((email: string, password: string) => {
+  const handleSubmit = useCallback((values: formValue, actions: any) => {
     dispatch(
-      registrationAction({
-        login: email,
-        password: password,
+      registrationRequest({
+        login: values.email,
+        password: values.password,
       })
     )
-  }, [])
-
-  const handleSubmit = (values: formValue, actions: any) => {
-    handleRegistration(values.email, values.password)
     actions.setSubmitting(false)
     actions.resetForm({
       values: {
@@ -42,7 +38,7 @@ function Registration() {
         passwordConfirm: '',
       },
     })
-  }
+  }, [])
 
   return (
     <StyledRegistration>
@@ -50,18 +46,18 @@ function Registration() {
       {isError && <ErrorTitleSpan>Registration was failed</ErrorTitleSpan>}
       <Formik
         initialValues={{ email: '', password: '', passwordConfirm: '' }}
-        validate={(values) => registrationValidate(values)}
-        onSubmit={(values, actions) => handleSubmit(values, actions)}
+        validate={registrationValidate}
+        onSubmit={handleSubmit}
       >
         <StyledForm>
           <InputField name="email" component="div" placeholder="Email" />
           <PasswordField name="password" component="div" />
           <PasswordField name="passwordConfirm" component="div" />
-          <CreateNewAccount type="submit">Submit</CreateNewAccount>
+          <RegistrationButton type="submit">Submit</RegistrationButton>
         </StyledForm>
       </Formik>
       <Hr />
-      <LogIn>Log In</LogIn>
+      <LogInButton>Log In</LogInButton>
     </StyledRegistration>
   )
 }
@@ -94,7 +90,7 @@ const Button = styled.button`
   transition: 1s;
 `
 
-const LogIn = styled(Button)`
+const LogInButton = styled(Button)`
   background: #4267b2;
   border: none;
 
@@ -108,7 +104,7 @@ const LogIn = styled(Button)`
   }
 `
 
-const CreateNewAccount = styled(Button)`
+const RegistrationButton = styled(Button)`
   background-color: #3da529;
   border: none;
   border-radius: 6px;

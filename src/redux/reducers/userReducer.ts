@@ -23,7 +23,8 @@ function userReducer(
         isAuthError: false,
       }
     }
-    case ACTIONS_USER.AUTH_FAIL: {
+    case ACTIONS_USER.REGISTRATION_FAIL:
+    case ACTIONS_USER.LOG_IN_FAIL: {
       return {
         ...state,
         isAuthError: true,
