@@ -76,3 +76,11 @@ export const deleteCompletedTodos = (userId: string) =>
   }).catch((err) => {
     throw err.response
   })
+
+export const resendTodo = (url: string, data: string) =>
+  api({
+    url,
+    data,
+  }).catch((err) => {
+    throw err.response
+  })

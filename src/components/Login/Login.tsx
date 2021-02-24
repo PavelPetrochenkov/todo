@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { logInRequest, clearError } from '../../redux/actions/userAction'
-import { isAuthError } from '../../redux/selectors/userSelector'
+import { getIsAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { loginValidate } from '../../validates/FormValidates'
@@ -16,7 +16,7 @@ type formValue = {
 function Login() {
   const dispatch = useDispatch()
 
-  const isError: boolean = useSelector(isAuthError)
+  const isError: boolean = useSelector(getIsAuthError)
 
   useEffect(() => {
     dispatch(clearError())

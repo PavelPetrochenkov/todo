@@ -6,7 +6,7 @@ const initialState: UserState = {
   isAuthorized: false,
   isAuthError: false,
   user: {
-    login: 'Guest',
+    login: '',
     password: '',
   },
 }
@@ -18,7 +18,8 @@ function userReducer(
   switch (action.type) {
     case ACTIONS_USER.LOG_IN_SUCCESS: {
       return {
-        user: action.payload,
+        ...state,
+        user: { ...state.user, ...action.payload },
         isAuthorized: true,
         isAuthError: false,
       }
@@ -30,14 +31,22 @@ function userReducer(
         isAuthError: true,
       }
     }
-    case ACTIONS_USER.LOG_OUT: {
+    case ACTIONS_USER.LOG_OUT:
+    case ACTIONS_USER.REFRESH_TOKENS_FAIL: {
       return {
+        ...state,
         user: {
           login: 'Guest',
           password: '',
         },
         isAuthorized: false,
         isAuthError: false,
+      }
+    }
+    case ACTIONS_USER.SAVE_LAST_ACTION: {
+      return {
+        ...state,
+        lastAction: action.payload,
       }
     }
     case ACTIONS_USER.CLEAR_ERROR: {

@@ -5,12 +5,12 @@ import styled from 'styled-components'
 import { logOut } from '../../../redux/actions/userAction'
 import {
   getUser,
-  isUserAuthorized,
+  getIsUserAuthorized,
 } from '../../../redux/selectors/userSelector'
 import { User } from '../../../typescript/User'
 
 function NavigationBar() {
-  const isAuthorized: boolean = useSelector(isUserAuthorized)
+  const isAuthorized: boolean = useSelector(getIsUserAuthorized)
 
   const user: User = useSelector(getUser)
 

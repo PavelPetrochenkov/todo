@@ -3,10 +3,10 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegistrationPage from './pages/RegistrationPage'
 import TodosPage from './pages/TodosPage'
-import { isUserAuthorized } from './redux/selectors/userSelector'
+import { getIsUserAuthorized } from './redux/selectors/userSelector'
 
 function App() {
-  const isAuthorized: boolean = useSelector(isUserAuthorized)
+  const isAuthorized: boolean = useSelector(getIsUserAuthorized)
   return (
     <BrowserRouter>
       {!isAuthorized ? (

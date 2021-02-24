@@ -64,4 +64,50 @@ export const registrationRequest = (user: User): RegistrationRequest => ({
   payload: user,
 })
 
-export type UserActions = AuthError | LogInDefault | LogOut | ClearError
+type RefreshTokensRequest = {
+  type: ACTIONS_USER.REFRESH_TOKENS_REQUEST
+  payload: {
+    type: string
+    payload: any
+  }
+}
+
+export const refreshTokensRequest = (
+  oldType: string,
+  payload: any
+): RefreshTokensRequest => ({
+  type: ACTIONS_USER.REFRESH_TOKENS_REQUEST,
+  payload: {
+    type: oldType,
+    payload,
+  },
+})
+
+type RefreshTokensFail = {
+  type: ACTIONS_USER.REFRESH_TOKENS_FAIL
+}
+
+export const refreshTokensFail = (): RefreshTokensFail => ({
+  type: ACTIONS_USER.REFRESH_TOKENS_FAIL,
+})
+
+type SaveLastAction = {
+  type: ACTIONS_USER.SAVE_LAST_ACTION
+  payload: {
+    type: string
+    payload: any
+  }
+}
+
+export const saveLastAction = (type: string, payload: any): SaveLastAction => ({
+  type: ACTIONS_USER.SAVE_LAST_ACTION,
+  payload: { type, payload },
+})
+
+export type UserActions =
+  | AuthError
+  | LogInDefault
+  | LogOut
+  | ClearError
+  | RefreshTokensFail
+  | SaveLastAction
