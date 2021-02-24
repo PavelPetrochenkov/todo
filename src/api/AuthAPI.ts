@@ -9,6 +9,14 @@ export const login = (login: string, password: string) =>
     },
   })
 
+export const loginToken = (refreshToken: string) =>
+  api({
+    url: 'login/token',
+    data: {
+      refreshToken,
+    },
+  })
+
 export const registration = (login: string, password: string) =>
   api({
     url: 'registration/',

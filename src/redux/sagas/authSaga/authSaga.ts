@@ -1,4 +1,4 @@
-import { put, call, select } from 'redux-saga/effects'
+import { put, call } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
 import {
   logInFail,
@@ -6,11 +6,12 @@ import {
   logInSuccess,
   registrationSuccess,
   logOut,
+  logInTokenSuccess,
+  logInTokenFail,
 } from '../../actions/userAction'
 import { ACTIONS_USER } from '../../../constants'
 import * as AuthAPI from '../../../api/AuthAPI'
 import api from '../../../api/api'
-import { getRefreshToken } from '../../selectors/userSelector'
 
 type LoginUser = {
   type: string
@@ -28,18 +29,36 @@ function* loginUser(action: LoginUser) {
       action.payload.password
     )
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-    localStorage.setItem('token', response.data.token)
     localStorage.setItem('refreshToken', response.data.refreshToken)
     yield put(
       logInSuccess({
         id: response.data.id,
         login: response.data.login,
-        token: response.data.token,
-        refreshToken: response.data.refreshToken,
       })
     )
   } catch {
     yield put(logInFail())
+  }
+}
+
+type LoginTokenUser = {
+  type: string
+  payload: string
+}
+
+function* loginTokenUser(action: LoginTokenUser) {
+  try {
+    const response = yield call(AuthAPI.loginToken, action.payload)
+    api.defaults.headers.Authorization = `Bearer ${response.data.token}`
+    localStorage.setItem('refreshToken', response.data.refreshToken)
+    yield put(
+      logInTokenSuccess({
+        id: response.data.id,
+        login: response.data.login,
+      })
+    )
+  } catch {
+    yield put(logInTokenFail())
   }
 }
 
@@ -59,14 +78,11 @@ function* registrationUser(action: RegistrationUser) {
       action.payload.password
     )
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-    localStorage.setItem('token', response.data.token)
     localStorage.setItem('refreshToken', response.data.refreshToken)
     yield put(
       logInSuccess({
         id: response.data.id,
         login: response.data.login,
-        token: response.data.token,
-        refreshToken: response.data.refreshToken,
       })
     )
     yield put(
@@ -87,20 +103,10 @@ type RefreshToken = {
 
 function* refreshToken(action: RefreshToken) {
   try {
-    const refreshToken = yield select(getRefreshToken)
-
-    const response = yield call(AuthAPI.refreshToken, refreshToken)
+    const response = yield call(AuthAPI.refreshToken, localStorage.refreshToken)
 
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-    localStorage.setItem('token', response.data.token)
     localStorage.setItem('refreshToken', response.data.refreshToken)
-
-    yield put(
-      logInSuccess({
-        token: response.data.token,
-        refreshToken: response.data.refreshToken,
-      })
-    )
 
     yield put({
       type: action.payload.type,
@@ -113,6 +119,7 @@ function* refreshToken(action: RefreshToken) {
 
 export default function* authWatcher() {
   yield takeEvery(ACTIONS_USER.LOG_IN_REQUEST, loginUser)
+  yield takeEvery(ACTIONS_USER.LOG_IN_TOKEN_REQUEST, loginTokenUser)
   yield takeEvery(ACTIONS_USER.REGISTRATION_REQUEST, registrationUser)
   yield takeEvery(ACTIONS_USER.REFRESH_TOKENS_REQUEST, refreshToken)
 }

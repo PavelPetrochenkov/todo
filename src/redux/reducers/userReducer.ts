@@ -16,6 +16,7 @@ function userReducer(
   action: UserActions
 ): UserState {
   switch (action.type) {
+    case ACTIONS_USER.LOG_IN_TOKEN_SUCCESS:
     case ACTIONS_USER.LOG_IN_SUCCESS: {
       return {
         ...state,
@@ -32,7 +33,9 @@ function userReducer(
       }
     }
     case ACTIONS_USER.LOG_OUT:
+    case ACTIONS_USER.LOG_IN_TOKEN_FAIL:
     case ACTIONS_USER.REFRESH_TOKENS_FAIL: {
+      localStorage.refreshToken = ''
       return {
         ...state,
         user: {
@@ -41,12 +44,6 @@ function userReducer(
         },
         isAuthorized: false,
         isAuthError: false,
-      }
-    }
-    case ACTIONS_USER.SAVE_LAST_ACTION: {
-      return {
-        ...state,
-        lastAction: action.payload,
       }
     }
     case ACTIONS_USER.CLEAR_ERROR: {

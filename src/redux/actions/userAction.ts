@@ -91,17 +91,32 @@ export const refreshTokensFail = (): RefreshTokensFail => ({
   type: ACTIONS_USER.REFRESH_TOKENS_FAIL,
 })
 
-type SaveLastAction = {
-  type: ACTIONS_USER.SAVE_LAST_ACTION
-  payload: {
-    type: string
-    payload: any
-  }
+type LogInTokenRequest = {
+  type: ACTIONS_USER.LOG_IN_TOKEN_REQUEST
+  payload: string
 }
 
-export const saveLastAction = (type: string, payload: any): SaveLastAction => ({
-  type: ACTIONS_USER.SAVE_LAST_ACTION,
-  payload: { type, payload },
+export const logInTokenRequest = (refreshToken: string): LogInTokenRequest => ({
+  type: ACTIONS_USER.LOG_IN_TOKEN_REQUEST,
+  payload: refreshToken,
+})
+
+type LogInTokenSuccess = {
+  type: ACTIONS_USER.LOG_IN_TOKEN_SUCCESS
+  payload: User
+}
+
+export const logInTokenSuccess = (user: User): LogInTokenSuccess => ({
+  type: ACTIONS_USER.LOG_IN_TOKEN_SUCCESS,
+  payload: user,
+})
+
+type LogInTokenFail = {
+  type: ACTIONS_USER.LOG_IN_TOKEN_FAIL
+}
+
+export const logInTokenFail = (): LogInTokenFail => ({
+  type: ACTIONS_USER.LOG_IN_TOKEN_FAIL,
 })
 
 export type UserActions =
@@ -110,4 +125,5 @@ export type UserActions =
   | LogOut
   | ClearError
   | RefreshTokensFail
-  | SaveLastAction
+  | LogInTokenFail
+  | LogInTokenSuccess

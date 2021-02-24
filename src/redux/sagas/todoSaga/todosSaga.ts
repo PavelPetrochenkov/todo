@@ -31,11 +31,7 @@ function* addTodo(action: AddTodo) {
 
     yield put(createTodoSuccess(response.data.todo))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 
@@ -59,11 +55,7 @@ function* changeTextTodo(action: ChangeTextTodo) {
 
     yield put(changeTextTodoSuccess(response.data.todo))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 
@@ -87,11 +79,7 @@ function* changeCheckTodo(action: ChangeCheckTodo) {
 
     yield put(changeCheckTodoSuccess(response.data.todo))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 
@@ -113,11 +101,7 @@ function* deleteTodo(action: DeleteTodo) {
 
     yield put(deleteTodoSuccess(response.data.id))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 
@@ -132,11 +116,7 @@ function* getTodos(action: GetTodos) {
 
     yield put(getAllTodosSuccess(response.data.todos))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 
@@ -158,11 +138,7 @@ function* checkAllTodos(action: CheckAllTodos) {
 
     yield put(checkAllTodosSuccess(response.data.todos))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    yield put(logOut())
   }
 }
 

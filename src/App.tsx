@@ -1,12 +1,21 @@
-import { useSelector } from 'react-redux'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegistrationPage from './pages/RegistrationPage'
 import TodosPage from './pages/TodosPage'
 import { getIsUserAuthorized } from './redux/selectors/userSelector'
+import { logInTokenRequest } from './redux/actions/userAction'
 
 function App() {
+  const dispatch = useDispatch()
+
   const isAuthorized: boolean = useSelector(getIsUserAuthorized)
+  useEffect(() => {
+    if (localStorage.refreshToken) {
+      dispatch(logInTokenRequest(localStorage.refreshToken))
+    }
+  }, [])
   return (
     <BrowserRouter>
       {!isAuthorized ? (
