@@ -31,10 +31,11 @@ const refreshAccessToken = async () => {
       refreshToken: localStorage.refreshToken,
     },
   }).catch((err) => {
-    console.log(err.response.status)
     if (err.response.status === 401) {
+      localStorage.refreshToken = ''
       store.dispatch(logOut())
     }
+    return Promise.reject(err)
   })
   api.defaults.headers.Authorization = `Bearer ${response.data.token}`
   localStorage.setItem('refreshToken', response.data.refreshToken)

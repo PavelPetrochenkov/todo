@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage'
 import RegistrationPage from './pages/RegistrationPage'
 import TodosPage from './pages/TodosPage'
 import { getIsUserAuthorized } from './redux/selectors/userSelector'
-import { logInTokenRequest } from './redux/actions/userAction'
+import { getUserRequest } from './redux/actions/userAction'
 
 function App() {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ function App() {
   const isAuthorized: boolean = useSelector(getIsUserAuthorized)
   useEffect(() => {
     if (localStorage.refreshToken) {
-      dispatch(logInTokenRequest(localStorage.refreshToken))
+      dispatch(getUserRequest(localStorage.refreshToken))
     }
   }, [])
   return (

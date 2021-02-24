@@ -64,31 +64,31 @@ export const registrationRequest = (user: User): RegistrationRequest => ({
   payload: user,
 })
 
-type LogInTokenRequest = {
+type GetUserRequest = {
   type: ACTIONS_USER.GET_USER_REQUEST
   payload: string
 }
 
-export const logInTokenRequest = (refreshToken: string): LogInTokenRequest => ({
+export const getUserRequest = (refreshToken: string): GetUserRequest => ({
   type: ACTIONS_USER.GET_USER_REQUEST,
   payload: refreshToken,
 })
 
-type LogInTokenSuccess = {
+type GetUserSuccess = {
   type: ACTIONS_USER.GET_USER_SUCCESS
   payload: User
 }
 
-export const logInTokenSuccess = (user: User): LogInTokenSuccess => ({
+export const getUserSuccess = (user: User): GetUserSuccess => ({
   type: ACTIONS_USER.GET_USER_SUCCESS,
   payload: user,
 })
 
-type LogInTokenFail = {
+type GetUserFail = {
   type: ACTIONS_USER.GET_USER_FAIL
 }
 
-export const logInTokenFail = (): LogInTokenFail => ({
+export const getUserFail = (): GetUserFail => ({
   type: ACTIONS_USER.GET_USER_FAIL,
 })
 
@@ -97,5 +97,5 @@ export type UserActions =
   | LogInDefault
   | LogOut
   | ClearError
-  | LogInTokenFail
-  | LogInTokenSuccess
+  | GetUserFail
+  | GetUserSuccess

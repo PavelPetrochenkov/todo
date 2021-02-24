@@ -25,11 +25,3 @@ export const registration = (login: string, password: string) =>
       password,
     },
   })
-
-export const refreshToken = (refreshToken: string) =>
-  api({
-    url: 'refresh/',
-    data: {
-      refreshToken,
-    },
-  })

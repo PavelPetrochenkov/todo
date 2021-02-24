@@ -5,8 +5,8 @@ import {
   registrationFail,
   logInSuccess,
   registrationSuccess,
-  logInTokenSuccess,
-  logInTokenFail,
+  getUserSuccess,
+  getUserFail,
 } from '../../actions/userAction'
 import { ACTIONS_USER } from '../../../constants'
 import * as AuthAPI from '../../../api/AuthAPI'
@@ -53,13 +53,14 @@ function* getUserInfo(action: LoginTokenUser) {
     localStorage.setItem('token', response.data.token)
 
     yield put(
-      logInTokenSuccess({
+      getUserSuccess({
         id: response.data.id,
         login: response.data.login,
       })
     )
   } catch {
-    yield put(logInTokenFail())
+    localStorage.refreshToken = ''
+    yield put(getUserFail())
   }
 }
 
