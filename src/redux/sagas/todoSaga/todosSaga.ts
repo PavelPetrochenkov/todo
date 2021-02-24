@@ -11,7 +11,7 @@ import {
 } from '../../actions/todoAction'
 import { ACTIONS_TODO } from '../../../constants'
 import * as TodosAPI from '../../../api/TodosAPI'
-import { logOut, refreshTokensRequest } from '../../actions/userAction'
+import { logOut } from '../../actions/userAction'
 
 type AddTodo = {
   type: string
@@ -31,7 +31,7 @@ function* addTodo(action: AddTodo) {
 
     yield put(createTodoSuccess(response.data.todo))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -55,7 +55,7 @@ function* changeTextTodo(action: ChangeTextTodo) {
 
     yield put(changeTextTodoSuccess(response.data.todo))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -79,7 +79,7 @@ function* changeCheckTodo(action: ChangeCheckTodo) {
 
     yield put(changeCheckTodoSuccess(response.data.todo))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -101,7 +101,7 @@ function* deleteTodo(action: DeleteTodo) {
 
     yield put(deleteTodoSuccess(response.data.id))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -116,7 +116,7 @@ function* getTodos(action: GetTodos) {
 
     yield put(getAllTodosSuccess(response.data.todos))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -138,7 +138,7 @@ function* checkAllTodos(action: CheckAllTodos) {
 
     yield put(checkAllTodosSuccess(response.data.todos))
   } catch (err) {
-    yield put(logOut())
+    console.log(err)
   }
 }
 
@@ -153,11 +153,7 @@ function* deleteCompletedTodos(action: DeleteCompletedTodos) {
 
     yield put(deleteCompletedTodosSuccess(response.data.todos))
   } catch (err) {
-    if (err.status === 401) {
-      yield put(refreshTokensRequest(action.type, action.payload))
-    } else {
-      yield put(logOut())
-    }
+    console.log(err)
   }
 }
 

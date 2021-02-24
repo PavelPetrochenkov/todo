@@ -9,9 +9,9 @@ export const login = (login: string, password: string) =>
     },
   })
 
-export const loginToken = (refreshToken: string) =>
+export const getUserInfo = (refreshToken: string) =>
   api({
-    url: 'login/token',
+    url: 'user/info',
     data: {
       refreshToken,
     },

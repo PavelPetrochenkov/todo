@@ -5,7 +5,6 @@ import {
   registrationFail,
   logInSuccess,
   registrationSuccess,
-  logOut,
   logInTokenSuccess,
   logInTokenFail,
 } from '../../actions/userAction'
@@ -46,11 +45,13 @@ type LoginTokenUser = {
   payload: string
 }
 
-function* loginTokenUser(action: LoginTokenUser) {
+function* getUserInfo(action: LoginTokenUser) {
   try {
-    const response = yield call(AuthAPI.loginToken, action.payload)
+    const response = yield call(AuthAPI.getUserInfo, action.payload)
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
+    localStorage.setItem('token', response.data.token)
+
     yield put(
       logInTokenSuccess({
         id: response.data.id,
@@ -79,6 +80,8 @@ function* registrationUser(action: RegistrationUser) {
     )
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
+    localStorage.setItem('token', response.data.token)
+
     yield put(
       logInSuccess({
         id: response.data.id,
@@ -93,33 +96,8 @@ function* registrationUser(action: RegistrationUser) {
   }
 }
 
-type RefreshToken = {
-  type: string
-  payload: {
-    type: string
-    payload: any
-  }
-}
-
-function* refreshToken(action: RefreshToken) {
-  try {
-    const response = yield call(AuthAPI.refreshToken, localStorage.refreshToken)
-
-    api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-    localStorage.setItem('refreshToken', response.data.refreshToken)
-
-    yield put({
-      type: action.payload.type,
-      payload: action.payload.payload,
-    })
-  } catch {
-    yield put(logOut())
-  }
-}
-
 export default function* authWatcher() {
   yield takeEvery(ACTIONS_USER.LOG_IN_REQUEST, loginUser)
-  yield takeEvery(ACTIONS_USER.LOG_IN_TOKEN_REQUEST, loginTokenUser)
+  yield takeEvery(ACTIONS_USER.GET_USER_REQUEST, getUserInfo)
   yield takeEvery(ACTIONS_USER.REGISTRATION_REQUEST, registrationUser)
-  yield takeEvery(ACTIONS_USER.REFRESH_TOKENS_REQUEST, refreshToken)
 }

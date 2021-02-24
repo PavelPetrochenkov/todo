@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { logOut } from '../redux/actions/userAction'
+import store from '../redux/store'
 
 const api = axios
 
@@ -24,13 +26,19 @@ api.interceptors.response.use(
 
 const refreshAccessToken = async () => {
   const response: any = await api({
-    url: 'login/token',
+    url: 'refresh',
     data: {
       refreshToken: localStorage.refreshToken,
     },
+  }).catch((err) => {
+    console.log(err.response.status)
+    if (err.response.status === 401) {
+      store.dispatch(logOut())
+    }
   })
   api.defaults.headers.Authorization = `Bearer ${response.data.token}`
   localStorage.setItem('refreshToken', response.data.refreshToken)
+  localStorage.setItem('token', response.data.refreshToken)
 }
 
 export default api

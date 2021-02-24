@@ -64,59 +64,32 @@ export const registrationRequest = (user: User): RegistrationRequest => ({
   payload: user,
 })
 
-type RefreshTokensRequest = {
-  type: ACTIONS_USER.REFRESH_TOKENS_REQUEST
-  payload: {
-    type: string
-    payload: any
-  }
-}
-
-export const refreshTokensRequest = (
-  oldType: string,
-  payload: any
-): RefreshTokensRequest => ({
-  type: ACTIONS_USER.REFRESH_TOKENS_REQUEST,
-  payload: {
-    type: oldType,
-    payload,
-  },
-})
-
-type RefreshTokensFail = {
-  type: ACTIONS_USER.REFRESH_TOKENS_FAIL
-}
-
-export const refreshTokensFail = (): RefreshTokensFail => ({
-  type: ACTIONS_USER.REFRESH_TOKENS_FAIL,
-})
-
 type LogInTokenRequest = {
-  type: ACTIONS_USER.LOG_IN_TOKEN_REQUEST
+  type: ACTIONS_USER.GET_USER_REQUEST
   payload: string
 }
 
 export const logInTokenRequest = (refreshToken: string): LogInTokenRequest => ({
-  type: ACTIONS_USER.LOG_IN_TOKEN_REQUEST,
+  type: ACTIONS_USER.GET_USER_REQUEST,
   payload: refreshToken,
 })
 
 type LogInTokenSuccess = {
-  type: ACTIONS_USER.LOG_IN_TOKEN_SUCCESS
+  type: ACTIONS_USER.GET_USER_SUCCESS
   payload: User
 }
 
 export const logInTokenSuccess = (user: User): LogInTokenSuccess => ({
-  type: ACTIONS_USER.LOG_IN_TOKEN_SUCCESS,
+  type: ACTIONS_USER.GET_USER_SUCCESS,
   payload: user,
 })
 
 type LogInTokenFail = {
-  type: ACTIONS_USER.LOG_IN_TOKEN_FAIL
+  type: ACTIONS_USER.GET_USER_FAIL
 }
 
 export const logInTokenFail = (): LogInTokenFail => ({
-  type: ACTIONS_USER.LOG_IN_TOKEN_FAIL,
+  type: ACTIONS_USER.GET_USER_FAIL,
 })
 
 export type UserActions =
@@ -124,6 +97,5 @@ export type UserActions =
   | LogInDefault
   | LogOut
   | ClearError
-  | RefreshTokensFail
   | LogInTokenFail
   | LogInTokenSuccess
