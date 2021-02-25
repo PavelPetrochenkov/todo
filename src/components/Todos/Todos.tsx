@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ACTIONS_TODO } from '../../constants'
 import List from './Content/List'
 import Footer from './Footer'
 import Header from './Header'
@@ -14,8 +13,8 @@ function Todos() {
   const userId: string = useSelector(getUserId)
 
   useEffect(() => {
-    dispatch(getAllTodosRequest(userId))
-  }, [])
+    !!userId && dispatch(getAllTodosRequest(userId))
+  }, [userId])
 
   const isTodosNotEmpty: boolean = useSelector(getIsTodosNotEmpty)
 

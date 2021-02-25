@@ -11,17 +11,17 @@ export const getAllTodosSuccess = (todos: Array<Todo>): GetAllTodosSuccess => ({
   payload: todos,
 })
 
-type getAllTodosREQUEST = {
+type GetAllTodosRequest = {
   type: ACTIONS_TODO.GET_TODOS_REQUEST
   payload: string
 }
 
-export const getAllTodosRequest = (userId: string): getAllTodosREQUEST => ({
+export const getAllTodosRequest = (userId: string): GetAllTodosRequest => ({
   type: ACTIONS_TODO.GET_TODOS_REQUEST,
   payload: userId,
 })
 
-type CreateTodoREQUEST = {
+type CreateTodoRequest = {
   type: ACTIONS_TODO.ADD_TODO_REQUEST
   payload: {
     text: string
@@ -32,7 +32,7 @@ type CreateTodoREQUEST = {
 export const createTodoRequest = (
   userId: string,
   text: string
-): CreateTodoREQUEST => ({
+): CreateTodoRequest => ({
   type: ACTIONS_TODO.ADD_TODO_REQUEST,
   payload: {
     text,
@@ -50,7 +50,7 @@ export const createTodoSuccess = (todo: Todo): CreateTodoSuccess => ({
   payload: todo,
 })
 
-type ChangeTextTodoREQUEST = {
+type ChangeTextTodoRequest = {
   type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUEST
   payload: {
     id: string
@@ -63,12 +63,12 @@ export const changeTextTodoRequest = (
   id: string,
   userId: string,
   text: string
-): ChangeTextTodoREQUEST => ({
+): ChangeTextTodoRequest => ({
   type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUEST,
   payload: { id, userId, text },
 })
 
-type ChangeCheckTodoREQUEST = {
+type ChangeCheckTodoRequest = {
   type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUEST
   payload: { id: string; userId: string; check: boolean }
 }
@@ -77,7 +77,7 @@ export const changeCheckTodoRequest = (
   id: string,
   userId: string,
   check: boolean
-): ChangeCheckTodoREQUEST => ({
+): ChangeCheckTodoRequest => ({
   type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUEST,
   payload: { id, userId, check },
 })
@@ -102,7 +102,7 @@ export const changeTextTodoSuccess = (todo: Todo): ChangeTextTodoSuccess => ({
   payload: todo,
 })
 
-type DeleteTodoREQUEST = {
+type DeleteTodoRequest = {
   type: ACTIONS_TODO.DELETE_TODO_REQUEST
   payload: { id: string; userId: string }
 }
@@ -110,7 +110,7 @@ type DeleteTodoREQUEST = {
 export const deleteTodoRequest = (
   id: string,
   userId: string
-): DeleteTodoREQUEST => ({
+): DeleteTodoRequest => ({
   type: ACTIONS_TODO.DELETE_TODO_REQUEST,
   payload: { id, userId },
 })

@@ -1,16 +1,18 @@
 import { put, call } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
+import { createBrowserHistory } from 'history'
 import {
   logInFail,
   registrationFail,
   logInSuccess,
-  registrationSuccess,
   getUserSuccess,
   getUserFail,
 } from '../../actions/userAction'
 import { ACTIONS_USER } from '../../../constants'
 import * as AuthAPI from '../../../api/AuthAPI'
 import api from '../../../api/api'
+
+const history = createBrowserHistory()
 
 type LoginUser = {
   type: string
@@ -29,12 +31,14 @@ function* loginUser(action: LoginUser) {
     )
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
+    localStorage.setItem('token', response.data.token)
     yield put(
       logInSuccess({
         id: response.data.id,
         login: response.data.login,
       })
     )
+    history.push('/')
   } catch {
     yield put(logInFail())
   }
@@ -58,8 +62,10 @@ function* getUserInfo(action: LoginTokenUser) {
         login: response.data.login,
       })
     )
+    history.push('/')
   } catch {
     localStorage.refreshToken = ''
+    localStorage.token = ''
     yield put(getUserFail())
   }
 }
@@ -89,9 +95,7 @@ function* registrationUser(action: RegistrationUser) {
         login: response.data.login,
       })
     )
-    yield put(
-      registrationSuccess({ id: response.data.id, login: response.data.login })
-    )
+    history.push('/')
   } catch {
     yield put(registrationFail())
   }

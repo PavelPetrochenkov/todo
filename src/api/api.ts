@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { logOut } from '../redux/actions/userAction'
-import store from '../redux/store'
+import { createBrowserHistory } from 'history'
 
 const api = axios
+const history = createBrowserHistory({ forceRefresh: true })
 
 api.defaults.baseURL = 'http://localhost:1328/api/'
 api.defaults.method = 'POST'
@@ -25,21 +25,25 @@ api.interceptors.response.use(
 )
 
 const refreshAccessToken = async () => {
-  const response: any = await api({
-    url: 'refresh',
-    data: {
-      refreshToken: localStorage.refreshToken,
-    },
-  }).catch((err) => {
+  try {
+    const response = await api({
+      url: 'refresh',
+      data: {
+        refreshToken: localStorage.refreshToken,
+      },
+    })
+
+    api.defaults.headers.Authorization = `Bearer ${response.data.token}`
+    localStorage.setItem('refreshToken', response.data.refreshToken)
+    localStorage.setItem('token', response.data.token)
+  } catch (err) {
     if (err.response.status === 401) {
       localStorage.refreshToken = ''
-      store.dispatch(logOut())
+      localStorage.token = ''
+      history.push('/login')
     }
     return Promise.reject(err)
-  })
-  api.defaults.headers.Authorization = `Bearer ${response.data.token}`
-  localStorage.setItem('refreshToken', response.data.refreshToken)
-  localStorage.setItem('token', response.data.refreshToken)
+  }
 }
 
 export default api

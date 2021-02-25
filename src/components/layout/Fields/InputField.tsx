@@ -1,8 +1,6 @@
 import { Field, ErrorMessage } from 'formik'
-import React, { useState, InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
-import Show from '../../../icon/Show.png'
-import Hide from '../../../icon/Hide.png'
 
 type Props = {
   name: string

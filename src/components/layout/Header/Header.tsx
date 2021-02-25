@@ -1,17 +1,12 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { logOut } from '../../../redux/actions/userAction'
-import {
-  getUser,
-  getIsUserAuthorized,
-} from '../../../redux/selectors/userSelector'
+import { getUser } from '../../../redux/selectors/userSelector'
 import { User } from '../../../typescript/User'
 
 function NavigationBar() {
-  const isAuthorized: boolean = useSelector(getIsUserAuthorized)
-
   const user: User = useSelector(getUser)
 
   const history = useHistory()
@@ -19,13 +14,19 @@ function NavigationBar() {
   const dispatch = useDispatch()
 
   const handleLogOut = useCallback(() => {
-    dispatch(logOut())
+    localStorage.clear()
     history.push('/login')
   }, [])
 
+  useEffect(() => {
+    if (!localStorage.refreshToken && user.id) {
+      dispatch(logOut())
+    }
+  })
+
   return (
     <StyledNavigationBar>
-      {isAuthorized ? (
+      {!!localStorage.refreshToken ? (
         <>
           <Link to="/">
             <Button>Todos</Button>

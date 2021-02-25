@@ -3,7 +3,6 @@ import { UserActions } from '../actions/userAction'
 import { UserState } from '../../typescript/User'
 
 const initialState: UserState = {
-  isAuthorized: false,
   isAuthError: false,
   user: {
     login: '',
@@ -21,7 +20,6 @@ function userReducer(
       return {
         ...state,
         user: { ...state.user, ...action.payload },
-        isAuthorized: true,
         isAuthError: false,
       }
     }
@@ -34,13 +32,15 @@ function userReducer(
     }
     case ACTIONS_USER.LOG_OUT:
     case ACTIONS_USER.GET_USER_FAIL: {
+      localStorage.refreshToken = ''
+      localStorage.token = ''
       return {
         ...state,
         user: {
+          id: '',
           login: 'Guest',
           password: '',
         },
-        isAuthorized: false,
         isAuthError: false,
       }
     }

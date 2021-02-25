@@ -10,7 +10,7 @@ type Props = {
   placeholder?: string
 } & InputHTMLAttributes<HTMLInputElement>
 
-function PasswordField({ name, component, placeholder, ...opts }: Props) {
+function PasswordField({ name, component, placeholder }: Props) {
   const [isHideMode, setIsHideMode] = useState<boolean>(false)
 
   const handleClickHideEye = () => {

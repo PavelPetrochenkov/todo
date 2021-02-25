@@ -11,56 +11,23 @@ export const logInSuccess = (user: User): LogInDefault => ({
   payload: user,
 })
 
-type RegistrationSuccess = {
-  type: ACTIONS_USER.REGISTRATION_SUCCESS
-  payload: User
-}
-
-export const registrationSuccess = (user: User): RegistrationSuccess => ({
-  type: ACTIONS_USER.REGISTRATION_SUCCESS,
-  payload: user,
-})
-
 export const logInRequest = (user: User): LogInDefault => ({
   type: ACTIONS_USER.LOG_IN_REQUEST,
   payload: user,
 })
 
-type AuthError = {
-  type: ACTIONS_USER.LOG_IN_FAIL | ACTIONS_USER.REGISTRATION_FAIL
-}
-
-export const logInFail = (): AuthError => ({
-  type: ACTIONS_USER.LOG_IN_FAIL,
-})
-
-export const registrationFail = (): AuthError => ({
-  type: ACTIONS_USER.REGISTRATION_FAIL,
-})
-
-type LogOut = {
-  type: ACTIONS_USER.LOG_OUT
-}
-
-export const logOut = (): LogOut => ({
-  type: ACTIONS_USER.LOG_OUT,
-})
-
-type ClearError = {
-  type: ACTIONS_USER.CLEAR_ERROR
-}
-
-export const clearError = (): ClearError => ({
-  type: ACTIONS_USER.CLEAR_ERROR,
-})
-
-type RegistrationRequest = {
-  type: ACTIONS_USER.REGISTRATION_REQUEST
+type RegistrationDefault = {
+  type: ACTIONS_USER.REGISTRATION_REQUEST | ACTIONS_USER.REGISTRATION_SUCCESS
   payload: User
 }
 
-export const registrationRequest = (user: User): RegistrationRequest => ({
+export const registrationRequest = (user: User): RegistrationDefault => ({
   type: ACTIONS_USER.REGISTRATION_REQUEST,
+  payload: user,
+})
+
+export const registrationSuccess = (user: User): RegistrationDefault => ({
+  type: ACTIONS_USER.REGISTRATION_SUCCESS,
   payload: user,
 })
 
@@ -84,18 +51,37 @@ export const getUserSuccess = (user: User): GetUserSuccess => ({
   payload: user,
 })
 
-type GetUserFail = {
-  type: ACTIONS_USER.GET_USER_FAIL
+type AuthFail = {
+  type:
+    | ACTIONS_USER.LOG_IN_FAIL
+    | ACTIONS_USER.REGISTRATION_FAIL
+    | ACTIONS_USER.LOG_OUT
+    | ACTIONS_USER.CLEAR_ERROR
+    | ACTIONS_USER.GET_USER_FAIL
 }
 
-export const getUserFail = (): GetUserFail => ({
+export const logInFail = (): AuthFail => ({
+  type: ACTIONS_USER.LOG_IN_FAIL,
+})
+
+export const registrationFail = (): AuthFail => ({
+  type: ACTIONS_USER.REGISTRATION_FAIL,
+})
+
+export const logOut = (): AuthFail => ({
+  type: ACTIONS_USER.LOG_OUT,
+})
+
+export const clearError = (): AuthFail => ({
+  type: ACTIONS_USER.CLEAR_ERROR,
+})
+
+export const getUserFail = (): AuthFail => ({
   type: ACTIONS_USER.GET_USER_FAIL,
 })
 
 export type UserActions =
-  | AuthError
+  | AuthFail
   | LogInDefault
-  | LogOut
-  | ClearError
-  | GetUserFail
   | GetUserSuccess
+  | RegistrationDefault
