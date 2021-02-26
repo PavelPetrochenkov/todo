@@ -2,7 +2,6 @@ import { takeEvery } from 'redux-saga/effects'
 import { put, call } from 'redux-saga/effects'
 import {
   getAllTodosSuccess,
-  createTodoSuccess,
   deleteTodoSuccess,
   changeTextTodoSuccess,
   changeCheckTodoSuccess,
@@ -11,7 +10,7 @@ import {
 } from '../../actions/todoAction'
 import { ACTIONS_TODO } from '../../../constants'
 import * as TodosAPI from '../../../api/TodosAPI'
-import { logOut } from '../../actions/userAction'
+import socket from '../../../socket/socket'
 
 type AddTodo = {
   type: string
@@ -23,13 +22,11 @@ type AddTodo = {
 
 function* addTodo(action: AddTodo) {
   try {
-    const response = yield call(
-      TodosAPI.addTodo,
-      action.payload.userId,
-      action.payload.text
-    )
-
-    yield put(createTodoSuccess(response.data.todo))
+    socket.emit('addTodo', {
+      text: action.payload.text,
+      userId: action.payload.userId,
+      token: localStorage.token,
+    })
   } catch (err) {
     console.log(err)
   }
