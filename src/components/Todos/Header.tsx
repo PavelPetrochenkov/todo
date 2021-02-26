@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react'
+import React, { useState, useCallback, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
@@ -11,9 +11,20 @@ import {
 } from '../../redux/selectors/todoSelectors'
 import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
+import socketIOClient from 'socket.io-client'
+const ENDPOINT = 'http://127.0.0.1:1328'
 
 function Header() {
   const dispatch = useDispatch()
+
+  const [response, setResponse] = useState('')
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT)
+    socket.on('FromAPI', (data: any) => {
+      setResponse(data)
+    })
+  }, [])
 
   const isArrayNotEmpty: boolean = useSelector(getIsTodosNotEmpty)
 
@@ -46,6 +57,9 @@ function Header() {
 
   return (
     <StyledHeader>
+      <p>
+        It's <time dateTime={response}>{response}</time>
+      </p>
       {isArrayNotEmpty && (
         <CheckAllButton onClick={handleCheckAll} active={isAllCheck} />
       )}
