@@ -1,8 +1,7 @@
-import React, { useState, useCallback, memo, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
-  createTodoRequest,
   checkAllTodosRequest,
 } from '../../redux/actions/todoAction'
 import {
@@ -11,6 +10,8 @@ import {
 } from '../../redux/selectors/todoSelectors'
 import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
+import {initSocket, disconnectSocket} from '../../socket'
+import { addTodo, checkAllTodos, getTodos } from '../../socket/todo'
 
 function Header() {
   const dispatch = useDispatch()
@@ -18,6 +19,16 @@ function Header() {
   const isArrayNotEmpty: boolean = useSelector(getIsTodosNotEmpty)
 
   const userId: string = useSelector(getUserId)
+
+  useEffect(() => {
+    if(!!userId && !!localStorage.token){
+      initSocket(userId, localStorage.token, localStorage.refreshToken, dispatch)
+      getTodos(userId)
+    }
+    return function cleanup() {
+      disconnectSocket()
+    };
+  }, [userId])
 
   const isAllCheck: boolean = useSelector(getModeAllCheck)
 
@@ -33,7 +44,7 @@ function Header() {
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && inputValue) {
-        dispatch(createTodoRequest(userId, inputValue))
+        addTodo(inputValue)
         setInputValue('')
       }
     },
@@ -41,8 +52,8 @@ function Header() {
   )
 
   const handleCheckAll = useCallback(() => {
-    dispatch(checkAllTodosRequest(userId, !isAllCheck))
-  }, [isAllCheck])
+   checkAllTodos(userId, !isAllCheck)
+  }, [userId, isAllCheck])
 
   return (
     <StyledHeader>

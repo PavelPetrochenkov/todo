@@ -22,9 +22,18 @@ type LoginUser = {
   }
 }
 
+type loginUserResponse = {
+  data: {
+    token:string
+    refreshToken:string
+    id:string
+    login:string
+  }
+}
+
 function* loginUser(action: LoginUser) {
   try {
-    const response = yield call(
+    const response:loginUserResponse = yield call(
       AuthAPI.login,
       action.payload.login,
       action.payload.password
@@ -49,9 +58,18 @@ type LoginTokenUser = {
   payload: string
 }
 
+type getUserInfoResponse = {
+  data: {
+    token:string
+    refreshToken:string
+    id:string
+    login:string
+  }
+}
+
 function* getUserInfo(action: LoginTokenUser) {
   try {
-    const response = yield call(AuthAPI.getUserInfo, action.payload)
+    const response:getUserInfoResponse = yield call(AuthAPI.getUserInfo, action.payload)
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
     localStorage.setItem('token', response.data.token)
@@ -78,9 +96,18 @@ type RegistrationUser = {
   }
 }
 
+type registrationUserResponse = {
+  data: {
+    token:string
+    refreshToken:string
+    id:string
+    login:string
+  }
+}
+
 function* registrationUser(action: RegistrationUser) {
   try {
-    const response = yield call(
+    const response:registrationUserResponse = yield call(
       AuthAPI.registration,
       action.payload.login,
       action.payload.password

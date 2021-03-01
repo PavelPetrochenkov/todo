@@ -10,6 +10,7 @@ import checkedIcon from '../../../icon/Ok.png'
 import deleteIcon from '../../../icon/Delete.png'
 import { Todo } from '../../../typescript/Todos'
 import { getUserId } from '../../../redux/selectors/userSelector'
+import { changeTodoText,changeTodoCheck, deleteTodo } from '../../../socket/todo'
 
 type ItemTodoProps = {
   todo: Todo
@@ -24,11 +25,11 @@ function ItemTodo({ todo }: ItemTodoProps) {
   const userId: string = useSelector(getUserId)
 
   const handleChangeCheckbox = useCallback(() => {
-    dispatch(changeCheckTodoRequest(todo._id, userId, todo.check))
+    changeTodoCheck(todo._id, userId, !todo.check)
   }, [todo])
 
   const handleDelete = useCallback(() => {
-    dispatch(deleteTodoRequest(todo._id, userId))
+    deleteTodo(todo._id)
   }, [todo])
 
   const handleChangeInput = useCallback(
@@ -41,7 +42,7 @@ function ItemTodo({ todo }: ItemTodoProps) {
   const handleKeyPressInput = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && inputValue) {
-        dispatch(changeTextTodoRequest(todo._id, userId, inputValue))
+        changeTodoText(todo._id, userId, inputValue)
         setEditMode(false)
       }
     },
