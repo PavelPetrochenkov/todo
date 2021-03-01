@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react'
+import React, { useState, useCallback, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
@@ -42,7 +42,7 @@ function Header() {
 
   const handleCheckAll = useCallback(() => {
     dispatch(checkAllTodosRequest(userId, !isAllCheck))
-  }, [isAllCheck])
+  }, [userId, isAllCheck])
 
   return (
     <StyledHeader>

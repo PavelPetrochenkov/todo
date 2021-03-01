@@ -1,11 +1,12 @@
 import api from './api'
 
-export const addTodo = (userId: string, text: string) =>
+export const addTodo = (userId: string, text: string, socketId: string) =>
   api({
     url: 'todo/',
     data: {
       userId,
       text,
+      socketId,
     },
   })
 
@@ -38,13 +39,15 @@ export const deleteTodo = (id: string, userId: string) =>
     },
   })
 
-export const getTodos = (userId: string) =>
-  api({
+export const getTodos = (userId: string, socketId: string) => {
+  return api({
     url: 'todo/all',
     data: {
       userId,
+      socketId,
     },
   })
+}
 
 export const checkAllTodos = (userId: string, check: boolean) =>
   api({
