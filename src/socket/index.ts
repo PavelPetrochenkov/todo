@@ -87,9 +87,9 @@ export const disconnectSocket = () => {
 export const reconnectSocket = (
   userId: string,
   token: string,
-  refreshToke: string,
+  refreshToken: string,
   dispatch: Dispatch<any>
 ) => {
   socket.disconnect()
-  initSocket(userId, token, refreshToke, dispatch)
+  initSocket(userId, token, refreshToken, dispatch)
 }
