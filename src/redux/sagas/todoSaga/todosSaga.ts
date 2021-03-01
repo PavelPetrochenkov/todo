@@ -23,7 +23,7 @@ type AddTodo = {
 
 function* addTodo(action: AddTodo) {
   try {
-    const response = yield call(
+    const response:any = yield call(
       TodosAPI.addTodo,
       action.payload.userId,
       action.payload.text
@@ -46,7 +46,7 @@ type ChangeTextTodo = {
 
 function* changeTextTodo(action: ChangeTextTodo) {
   try {
-    const response = yield call(
+    const response:any = yield call(
       TodosAPI.changeTodoText,
       action.payload.id,
       action.payload.userId,
@@ -70,7 +70,7 @@ type ChangeCheckTodo = {
 
 function* changeCheckTodo(action: ChangeCheckTodo) {
   try {
-    const response = yield call(
+    const response:any = yield call(
       TodosAPI.changeTodoCheck,
       action.payload.id,
       action.payload.userId,
@@ -93,7 +93,7 @@ type DeleteTodo = {
 
 function* deleteTodo(action: DeleteTodo) {
   try {
-    const response = yield call(
+    const response:any = yield call(
       TodosAPI.deleteTodo,
       action.payload.id,
       action.payload.userId
@@ -112,7 +112,7 @@ type GetTodos = {
 
 function* getTodos(action: GetTodos) {
   try {
-    const response = yield call(TodosAPI.getTodos, action.payload)
+    const response:any = yield call(TodosAPI.getTodos, action.payload)
 
     yield put(getAllTodosSuccess(response.data.todos))
   } catch (err) {
@@ -130,7 +130,7 @@ type CheckAllTodos = {
 
 function* checkAllTodos(action: CheckAllTodos) {
   try {
-    const response = yield call(
+    const response:any = yield call(
       TodosAPI.checkAllTodos,
       action.payload.userId,
       !action.payload.check
@@ -149,7 +149,7 @@ type DeleteCompletedTodos = {
 
 function* deleteCompletedTodos(action: DeleteCompletedTodos) {
   try {
-    const response = yield call(TodosAPI.deleteCompletedTodos, action.payload)
+    const response:any = yield call(TodosAPI.deleteCompletedTodos, action.payload)
 
     yield put(deleteCompletedTodosSuccess(response.data.todos))
   } catch (err) {
