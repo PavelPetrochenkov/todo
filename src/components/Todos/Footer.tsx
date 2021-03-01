@@ -2,10 +2,7 @@ import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { FilterTypes } from '../../constants'
-import {
-  changeType,
-  deleteCompletedTodosRequest,
-} from '../../redux/actions/todoAction'
+import { changeType } from '../../redux/actions/todoAction'
 import {
   getTodosType,
   getFooterCounter,
@@ -27,7 +24,7 @@ function Footer() {
   }
 
   const handleRemoveAllCompletedTodos = useCallback(() => {
-   clearAllCompletedTodos(userId)
+    clearAllCompletedTodos(userId)
   }, [])
 
   return (

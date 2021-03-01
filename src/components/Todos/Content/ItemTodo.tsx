@@ -1,16 +1,15 @@
 import React, { useState, useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import {
-  changeCheckTodoRequest,
-  deleteTodoRequest,
-  changeTextTodoRequest,
-} from '../../../redux/actions/todoAction'
 import checkedIcon from '../../../icon/Ok.png'
 import deleteIcon from '../../../icon/Delete.png'
 import { Todo } from '../../../typescript/Todos'
 import { getUserId } from '../../../redux/selectors/userSelector'
-import { changeTodoText,changeTodoCheck, deleteTodo } from '../../../socket/todo'
+import {
+  changeTodoText,
+  changeTodoCheck,
+  deleteTodo,
+} from '../../../socket/todo'
 
 type ItemTodoProps = {
   todo: Todo

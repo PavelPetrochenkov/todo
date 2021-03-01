@@ -1,55 +1,95 @@
-import { createTodoSuccess, deleteTodoSuccess, changeTextTodoSuccess, checkAllTodosSuccess, deleteCompletedTodosSuccess, getAllTodosSuccess } from './../redux/actions/todoAction';
+import { createBrowserHistory } from 'history'
+import {
+  createTodoSuccess,
+  deleteTodoSuccess,
+  changeTextTodoSuccess,
+  checkAllTodosSuccess,
+  deleteCompletedTodosSuccess,
+  getAllTodosSuccess,
+} from './../redux/actions/todoAction'
 import io from 'socket.io-client'
-const ENDPOINT = 'http://localHost:1328'
+import { Todo } from '../typescript/Todos'
+import { Dispatch } from 'react'
 
+const ENDPOINT = 'http://localHost:1328'
+const history = createBrowserHistory({ forceRefresh: true })
 let socket = io({ autoConnect: false })
 
-export const initSocket = (userId: string, token: string, refreshToken:string, dispatch:any) => {
+export const initSocket = (
+  userId: string,
+  token: string,
+  refreshToken: string,
+  dispatch: Dispatch<any>
+) => {
   socket = io(ENDPOINT, {
     transportOptions: {
       polling: {
         extraHeaders: {
           userId,
           token,
-          refreshToken
+          refreshToken,
         },
       },
     },
-     autoConnect: false 
+    autoConnect: false,
   })
 
   socket.connect()
 
-  socket.on('getTodosSuccess', async(data:any)=>{
-    dispatch(getAllTodosSuccess(data))
+  socket.on('getTodosSuccess', async (todos: Array<Todo>) => {
+    dispatch(getAllTodosSuccess(todos))
   })
 
-  socket.on('addTodoSuccess', async(data:any)=>{
-    dispatch(createTodoSuccess(data))
+  socket.on('addTodoSuccess', async (todo: Todo) => {
+    dispatch(createTodoSuccess(todo))
   })
 
-  socket.on('deleteTodoSuccess', async(data:any)=>{
-    dispatch(deleteTodoSuccess(data))
+  socket.on('deleteTodoSuccess', async (id: string) => {
+    dispatch(deleteTodoSuccess(id))
   })
 
-  socket.on('changeTodoSuccess', async(data:any)=>{
-    dispatch(changeTextTodoSuccess(data))
+  socket.on('changeTodoSuccess', async (todo: Todo) => {
+    dispatch(changeTextTodoSuccess(todo))
   })
 
-  socket.on('checkAllTodosSuccess', async(data:any)=>{
-    dispatch(checkAllTodosSuccess(data))
+  socket.on('checkAllTodosSuccess', async (todos: Array<Todo>) => {
+    dispatch(checkAllTodosSuccess(todos))
   })
 
-  socket.on('clearAllCompletedTodosSuccess', async(data:any)=>{
-    dispatch(deleteCompletedTodosSuccess(data))
+  socket.on('clearAllCompletedTodosSuccess', async (todos: Array<Todo>) => {
+    dispatch(deleteCompletedTodosSuccess(todos))
   })
+
+  socket.on('clearAuth', async () => {
+    localStorage.token = ''
+    localStorage.refreshToken = ''
+    history.push('/')
+  })
+
+  socket.on(
+    'refreshToken',
+    async (data: { token: string; refreshToken: string }) => {
+      localStorage.token = data.token
+      localStorage.refreshToken = data.refreshToken
+      await reconnectSocket(userId, data.token, data.refreshToken, dispatch)
+    }
+  )
 }
 
 export const getSocket = () => {
   return socket
 }
 
-
 export const disconnectSocket = () => {
   socket.disconnect()
+}
+
+export const reconnectSocket = (
+  userId: string,
+  token: string,
+  refreshToke: string,
+  dispatch: Dispatch<any>
+) => {
+  socket.disconnect()
+  initSocket(userId, token, refreshToke, dispatch)
 }

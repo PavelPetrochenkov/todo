@@ -2,15 +2,12 @@ import React, { useState, useCallback, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
-  checkAllTodosRequest,
-} from '../../redux/actions/todoAction'
-import {
   getIsTodosNotEmpty,
   getModeAllCheck,
 } from '../../redux/selectors/todoSelectors'
 import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
-import {initSocket, disconnectSocket} from '../../socket'
+import { initSocket, disconnectSocket } from '../../socket'
 import { addTodo, checkAllTodos, getTodos } from '../../socket/todo'
 
 function Header() {
@@ -21,13 +18,18 @@ function Header() {
   const userId: string = useSelector(getUserId)
 
   useEffect(() => {
-    if(!!userId && !!localStorage.token){
-      initSocket(userId, localStorage.token, localStorage.refreshToken, dispatch)
+    if (!!userId && !!localStorage.token) {
+      initSocket(
+        userId,
+        localStorage.token,
+        localStorage.refreshToken,
+        dispatch
+      )
       getTodos(userId)
     }
     return function cleanup() {
       disconnectSocket()
-    };
+    }
   }, [userId])
 
   const isAllCheck: boolean = useSelector(getModeAllCheck)
@@ -52,7 +54,7 @@ function Header() {
   )
 
   const handleCheckAll = useCallback(() => {
-   checkAllTodos(userId, !isAllCheck)
+    checkAllTodos(userId, !isAllCheck)
   }, [userId, isAllCheck])
 
   return (
