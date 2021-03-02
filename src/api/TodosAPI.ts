@@ -10,59 +10,77 @@ export const addTodo = (userId: string, text: string, socketId: string) =>
     },
   })
 
-export const changeTodoText = (id: string, userId: string, text: string) =>
+export const changeTodoText = (
+  id: string,
+  userId: string,
+  text: string,
+  socketId: string
+) =>
   api({
     url: 'todo/change',
     data: {
       id,
       userId,
       text,
+      socketId,
     },
   })
 
-export const changeTodoCheck = (id: string, userId: string, check: boolean) =>
+export const changeTodoCheck = (
+  id: string,
+  userId: string,
+  check: boolean,
+  socketId: string
+) =>
   api({
     url: 'todo/change',
     data: {
       id,
       userId,
       check,
+      socketId,
     },
   })
 
-export const deleteTodo = (id: string, userId: string) =>
+export const deleteTodo = (id: string, userId: string, socketId: string) =>
   api({
     url: 'todo/delete',
     data: {
       userId,
       id,
+      socketId,
     },
   })
 
-export const getTodos = (userId: string, socketId: string) => {
+export const getTodos = (userId: string) => {
   return api({
     url: 'todo/all',
     data: {
       userId,
-      socketId,
     },
   })
 }
 
-export const checkAllTodos = (userId: string, check: boolean) =>
+export const checkAllTodos = (
+  userId: string,
+  check: boolean,
+  socketId: string
+) =>
   api({
     url: 'todo/all/check',
     data: {
       userId,
       check,
+      socketId,
     },
   })
 
-export const deleteCompletedTodos = (userId: string) =>
+export const deleteCompletedTodos = (userId: string, socketId: string) =>
   api({
     url: 'todo/all/delete',
     data: {
       userId,
+      socketId,
     },
   })
 

@@ -22,7 +22,9 @@ function Todos() {
         dispatch
       )
     }
-    dispatch(getAllTodosRequest(userId))
+    if (!!userId) {
+      dispatch(getAllTodosRequest(userId))
+    }
     return function cleanup() {
       disconnectSocket()
     }

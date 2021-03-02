@@ -51,7 +51,8 @@ function* changeTextTodo(action: ChangeTextTodo) {
       TodosAPI.changeTodoText,
       action.payload.id,
       action.payload.userId,
-      action.payload.text
+      action.payload.text,
+      getSocketId()
     )
 
     yield put(changeTextTodoSuccess(response.data.todo))
@@ -75,7 +76,8 @@ function* changeCheckTodo(action: ChangeCheckTodo) {
       TodosAPI.changeTodoCheck,
       action.payload.id,
       action.payload.userId,
-      !action.payload.check
+      !action.payload.check,
+      getSocketId()
     )
 
     yield put(changeCheckTodoSuccess(response.data.todo))
@@ -97,7 +99,8 @@ function* deleteTodo(action: DeleteTodo) {
     const response: any = yield call(
       TodosAPI.deleteTodo,
       action.payload.id,
-      action.payload.userId
+      action.payload.userId,
+      getSocketId()
     )
 
     yield put(deleteTodoSuccess(response.data.id))
@@ -113,11 +116,7 @@ type GetTodos = {
 
 function* getTodos(action: GetTodos) {
   try {
-    const response: any = yield call(
-      TodosAPI.getTodos,
-      action.payload,
-      getSocketId()
-    )
+    const response: any = yield call(TodosAPI.getTodos, action.payload)
 
     yield put(getAllTodosSuccess(response.data.todos))
   } catch (err) {
@@ -138,7 +137,8 @@ function* checkAllTodos(action: CheckAllTodos) {
     const response: any = yield call(
       TodosAPI.checkAllTodos,
       action.payload.userId,
-      !action.payload.check
+      !action.payload.check,
+      getSocketId()
     )
 
     yield put(checkAllTodosSuccess(response.data.todos))
@@ -156,7 +156,8 @@ function* deleteCompletedTodos(action: DeleteCompletedTodos) {
   try {
     const response: any = yield call(
       TodosAPI.deleteCompletedTodos,
-      action.payload
+      action.payload,
+      getSocketId()
     )
 
     yield put(deleteCompletedTodosSuccess(response.data.todos))

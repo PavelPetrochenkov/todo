@@ -34,28 +34,23 @@ export const initSocket = async (
 
   socket.connect()
 
-  console.log(socket.id)
-  socket.on('getTodosSuccess', async (todos: Array<Todo>) => {
-    dispatch(getAllTodosSuccess(todos))
-  })
-
-  socket.on('addTodoSuccess', async (todo: Todo) => {
+  socket.on('addTodo', async (todo: Todo) => {
     dispatch(createTodoSuccess(todo))
   })
 
-  socket.on('deleteTodoSuccess', async (id: string) => {
+  socket.on('deleteTodo', async (id: string) => {
     dispatch(deleteTodoSuccess(id))
   })
 
-  socket.on('changeTextTodoSuccess', async (todo: Todo) => {
+  socket.on('changeTextTodo', async (todo: Todo) => {
     dispatch(changeTextTodoSuccess(todo))
   })
 
-  socket.on('checkAllTodosSuccess', async (todos: Array<Todo>) => {
+  socket.on('checkAllTodos', async (todos: Array<Todo>) => {
     dispatch(checkAllTodosSuccess(todos))
   })
 
-  socket.on('deleteCompletedTodosSuccess', async (todos: Array<Todo>) => {
+  socket.on('deleteCompletedTodos', async (todos: Array<Todo>) => {
     dispatch(deleteCompletedTodosSuccess(todos))
   })
 }
