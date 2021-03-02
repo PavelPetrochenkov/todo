@@ -2,15 +2,13 @@ import { put, call } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
 import { createBrowserHistory } from 'history'
 import {
-  logInFail,
-  registrationFail,
-  logInSuccess,
-  getUserSuccess,
-  getUserFail,
+  logInAction,
+  registrationAction,
+  getUserInfoAction,
 } from '../../actions/userAction'
-import { ACTIONS_USER } from '../../../constants'
 import * as AuthAPI from '../../../api/AuthAPI'
 import api from '../../../api/api'
+import { ACTIONS_USER } from '../../../constants'
 
 const history = createBrowserHistory()
 
@@ -33,14 +31,14 @@ function* loginUser(action: LoginUser) {
     localStorage.setItem('refreshToken', response.data.refreshToken)
     localStorage.setItem('token', response.data.token)
     yield put(
-      logInSuccess({
+      logInAction.success({
         id: response.data.id,
         login: response.data.login,
       })
     )
     history.push('/')
   } catch {
-    yield put(logInFail())
+    yield put(logInAction.fail())
   }
 }
 
@@ -57,7 +55,7 @@ function* getUserInfo(action: LoginTokenUser) {
     localStorage.setItem('token', response.data.token)
 
     yield put(
-      getUserSuccess({
+      getUserInfoAction.success({
         id: response.data.id,
         login: response.data.login,
       })
@@ -66,7 +64,7 @@ function* getUserInfo(action: LoginTokenUser) {
   } catch {
     localStorage.refreshToken = ''
     localStorage.token = ''
-    yield put(getUserFail())
+    yield put(getUserInfoAction.fail())
   }
 }
 
@@ -90,19 +88,19 @@ function* registrationUser(action: RegistrationUser) {
     localStorage.setItem('token', response.data.token)
 
     yield put(
-      logInSuccess({
+      registrationAction.success({
         id: response.data.id,
         login: response.data.login,
       })
     )
     history.push('/')
   } catch {
-    yield put(registrationFail())
+    yield put(registrationAction.fail())
   }
 }
 
 export default function* authWatcher() {
-  yield takeEvery(ACTIONS_USER.LOG_IN_REQUEST, loginUser)
-  yield takeEvery(ACTIONS_USER.GET_USER_REQUEST, getUserInfo)
-  yield takeEvery(ACTIONS_USER.REGISTRATION_REQUEST, registrationUser)
+  yield takeEvery(logInAction.types.REQUEST, loginUser)
+  yield takeEvery(getUserInfoAction.types.REQUEST, getUserInfo)
+  yield takeEvery(registrationAction.types.REQUEST, registrationUser)
 }

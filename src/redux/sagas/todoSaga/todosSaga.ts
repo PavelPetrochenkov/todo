@@ -1,13 +1,13 @@
 import { takeEvery } from 'redux-saga/effects'
 import { put, call } from 'redux-saga/effects'
 import {
-  getAllTodosSuccess,
-  createTodoSuccess,
-  deleteTodoSuccess,
-  changeTextTodoSuccess,
-  changeCheckTodoSuccess,
-  checkAllTodosSuccess,
-  deleteCompletedTodosSuccess,
+  getAllTodosAction,
+  createTodoAction,
+  deleteTodoAction,
+  changeTextTodoAction,
+  changeCheckTodoAction,
+  checkAllTodosAction,
+  deleteCompletedTodosAction,
 } from '../../actions/todoAction'
 import { ACTIONS_TODO } from '../../../constants'
 import * as TodosAPI from '../../../api/TodosAPI'
@@ -30,7 +30,7 @@ function* addTodo(action: AddTodo) {
       getSocketId()
     )
 
-    yield put(createTodoSuccess(response.data.todo))
+    yield put(createTodoAction.success(response.data.todo))
   } catch (err) {
     console.log(err)
   }
@@ -55,7 +55,7 @@ function* changeTextTodo(action: ChangeTextTodo) {
       getSocketId()
     )
 
-    yield put(changeTextTodoSuccess(response.data.todo))
+    yield put(changeTextTodoAction.success(response.data.todo))
   } catch (err) {
     console.log(err)
   }
@@ -80,7 +80,7 @@ function* changeCheckTodo(action: ChangeCheckTodo) {
       getSocketId()
     )
 
-    yield put(changeCheckTodoSuccess(response.data.todo))
+    yield put(changeCheckTodoAction.success(response.data.todo))
   } catch (err) {
     console.log(err)
   }
@@ -103,7 +103,7 @@ function* deleteTodo(action: DeleteTodo) {
       getSocketId()
     )
 
-    yield put(deleteTodoSuccess(response.data.id))
+    yield put(deleteTodoAction.success(response.data.id))
   } catch (err) {
     console.log(err)
   }
@@ -118,7 +118,7 @@ function* getTodos(action: GetTodos) {
   try {
     const response: any = yield call(TodosAPI.getTodos, action.payload)
 
-    yield put(getAllTodosSuccess(response.data.todos))
+    yield put(getAllTodosAction.success(response.data.todos))
   } catch (err) {
     console.log(err)
   }
@@ -141,7 +141,7 @@ function* checkAllTodos(action: CheckAllTodos) {
       getSocketId()
     )
 
-    yield put(checkAllTodosSuccess(response.data.todos))
+    yield put(checkAllTodosAction.success(response.data.todos))
   } catch (err) {
     console.log(err)
   }
@@ -160,21 +160,21 @@ function* deleteCompletedTodos(action: DeleteCompletedTodos) {
       getSocketId()
     )
 
-    yield put(deleteCompletedTodosSuccess(response.data.todos))
+    yield put(deleteCompletedTodosAction.success(response.data.todos))
   } catch (err) {
     console.log(err)
   }
 }
 
 export default function* todosSaga() {
-  yield takeEvery(ACTIONS_TODO.GET_TODOS_REQUEST, getTodos)
-  yield takeEvery(ACTIONS_TODO.ADD_TODO_REQUEST, addTodo)
-  yield takeEvery(ACTIONS_TODO.CHANGE_TEXT_TODO_REQUEST, changeTextTodo)
-  yield takeEvery(ACTIONS_TODO.CHANGE_CHECK_TODO_REQUEST, changeCheckTodo)
-  yield takeEvery(ACTIONS_TODO.CHECK_ALL_TODOS_REQUEST, checkAllTodos)
-  yield takeEvery(ACTIONS_TODO.DELETE_TODO_REQUEST, deleteTodo)
+  yield takeEvery(getAllTodosAction.types.REQUEST, getTodos)
+  yield takeEvery(createTodoAction.types.REQUEST, addTodo)
+  yield takeEvery(changeTextTodoAction.types.REQUEST, changeTextTodo)
+  yield takeEvery(changeCheckTodoAction.types.REQUEST, changeCheckTodo)
+  yield takeEvery(checkAllTodosAction.types.REQUEST, checkAllTodos)
+  yield takeEvery(deleteTodoAction.types.REQUEST, deleteTodo)
   yield takeEvery(
-    ACTIONS_TODO.DELETE_COMPLETED_TODOS_REQUEST,
+    deleteCompletedTodosAction.types.REQUEST,
     deleteCompletedTodos
   )
 }

@@ -1,12 +1,12 @@
 import { Dispatch } from 'react'
 import io from 'socket.io-client'
 import {
-  createTodoSuccess,
-  deleteTodoSuccess,
-  changeTextTodoSuccess,
-  checkAllTodosSuccess,
-  deleteCompletedTodosSuccess,
-  getAllTodosSuccess,
+  createTodoAction,
+  deleteTodoAction,
+  changeTextTodoAction,
+  checkAllTodosAction,
+  deleteCompletedTodosAction,
+  getAllTodosAction,
 } from './../redux/actions/todoAction'
 import { Todo } from '../typescript/Todos'
 
@@ -35,23 +35,23 @@ export const initSocket = async (
   socket.connect()
 
   socket.on('addTodo', async (todo: Todo) => {
-    dispatch(createTodoSuccess(todo))
+    dispatch(createTodoAction.success(todo))
   })
 
   socket.on('deleteTodo', async (id: string) => {
-    dispatch(deleteTodoSuccess(id))
+    dispatch(deleteTodoAction.success(id))
   })
 
   socket.on('changeTextTodo', async (todo: Todo) => {
-    dispatch(changeTextTodoSuccess(todo))
+    dispatch(changeTextTodoAction.success(todo))
   })
 
   socket.on('checkAllTodos', async (todos: Array<Todo>) => {
-    dispatch(checkAllTodosSuccess(todos))
+    dispatch(checkAllTodosAction.success(todos))
   })
 
   socket.on('deleteCompletedTodos', async (todos: Array<Todo>) => {
-    dispatch(deleteCompletedTodosSuccess(todos))
+    dispatch(deleteCompletedTodosAction.success(todos))
   })
 }
 

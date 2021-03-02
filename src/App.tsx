@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegistrationPage from './pages/RegistrationPage'
 import TodosPage from './pages/TodosPage'
-import { getUserRequest } from './redux/actions/userAction'
+import { getUserInfoAction } from './redux/actions/userAction'
 import { getUserId } from './redux/selectors/userSelector'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     if (localStorage.refreshToken) {
-      dispatch(getUserRequest(localStorage.refreshToken))
+      dispatch(getUserInfoAction.request(localStorage.refreshToken))
     }
   }, [])
 

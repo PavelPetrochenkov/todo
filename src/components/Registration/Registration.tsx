@@ -6,7 +6,7 @@ import { getIsAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { registrationValidate } from '../../validates/FormValidates'
-import { registrationRequest, clearError } from '../../redux/actions/userAction'
+import { registrationAction, clearError } from '../../redux/actions/userAction'
 
 type formValue = {
   email: string
@@ -25,7 +25,7 @@ function Registration() {
 
   const handleSubmit = useCallback((values: formValue, actions: any) => {
     dispatch(
-      registrationRequest({
+      registrationAction.request({
         login: values.email,
         password: values.password,
       })

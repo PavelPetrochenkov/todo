@@ -1,72 +1,89 @@
+import createActions from '.'
 import { ACTIONS_USER } from '../../constants'
 import { User } from '../../typescript/User'
 
-type LogInDefault = {
-  type: ACTIONS_USER.LOG_IN_SUCCESS | ACTIONS_USER.LOG_IN_REQUEST
-  payload: User
+type LogIn = {
+  request: (
+    payload: User
+  ) => {
+    type: string
+    payload: User
+  }
+  success: (
+    payload: User
+  ) => {
+    type: string
+    payload: User
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const logInSuccess = (user: User): LogInDefault => ({
-  type: ACTIONS_USER.LOG_IN_SUCCESS,
-  payload: user,
-})
+export const logInAction = createActions(ACTIONS_USER.LOG_IN)
 
-export const logInRequest = (user: User): LogInDefault => ({
-  type: ACTIONS_USER.LOG_IN_REQUEST,
-  payload: user,
-})
-
-type RegistrationDefault = {
-  type: ACTIONS_USER.REGISTRATION_REQUEST | ACTIONS_USER.REGISTRATION_SUCCESS
-  payload: User
+type Registration = {
+  request: (
+    payload: User
+  ) => {
+    type: string
+    payload: User
+  }
+  success: (
+    payload: User
+  ) => {
+    type: string
+    payload: User
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const registrationRequest = (user: User): RegistrationDefault => ({
-  type: ACTIONS_USER.REGISTRATION_REQUEST,
-  payload: user,
-})
+export const registrationAction: Registration = createActions(
+  ACTIONS_USER.REGISTRATION
+)
 
-export const registrationSuccess = (user: User): RegistrationDefault => ({
-  type: ACTIONS_USER.REGISTRATION_SUCCESS,
-  payload: user,
-})
-
-type GetUserRequest = {
-  type: ACTIONS_USER.GET_USER_REQUEST
-  payload: string
+type GetUserInfo = {
+  request: (
+    payload: User
+  ) => {
+    type: string
+    payload: string
+  }
+  success: (
+    payload: User
+  ) => {
+    type: string
+    payload: User
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const getUserRequest = (refreshToken: string): GetUserRequest => ({
-  type: ACTIONS_USER.GET_USER_REQUEST,
-  payload: refreshToken,
-})
-
-type GetUserSuccess = {
-  type: ACTIONS_USER.GET_USER_SUCCESS
-  payload: User
-}
-
-export const getUserSuccess = (user: User): GetUserSuccess => ({
-  type: ACTIONS_USER.GET_USER_SUCCESS,
-  payload: user,
-})
+export const getUserInfoAction: GetUserInfo = createActions(
+  ACTIONS_USER.GET_USER
+)
 
 type AuthFail = {
-  type:
-    | ACTIONS_USER.LOG_IN_FAIL
-    | ACTIONS_USER.REGISTRATION_FAIL
-    | ACTIONS_USER.LOG_OUT
-    | ACTIONS_USER.CLEAR_ERROR
-    | ACTIONS_USER.GET_USER_FAIL
+  type: string
 }
-
-export const logInFail = (): AuthFail => ({
-  type: ACTIONS_USER.LOG_IN_FAIL,
-})
-
-export const registrationFail = (): AuthFail => ({
-  type: ACTIONS_USER.REGISTRATION_FAIL,
-})
 
 export const logOut = (): AuthFail => ({
   type: ACTIONS_USER.LOG_OUT,
@@ -75,13 +92,3 @@ export const logOut = (): AuthFail => ({
 export const clearError = (): AuthFail => ({
   type: ACTIONS_USER.CLEAR_ERROR,
 })
-
-export const getUserFail = (): AuthFail => ({
-  type: ACTIONS_USER.GET_USER_FAIL,
-})
-
-export type UserActions =
-  | AuthFail
-  | LogInDefault
-  | GetUserSuccess
-  | RegistrationDefault

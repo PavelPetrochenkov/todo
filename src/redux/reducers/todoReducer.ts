@@ -1,6 +1,15 @@
 import { FilterTypes } from '../../constants'
 import { ACTIONS_TODO } from '../../constants'
-import { TodoActions, TodosState, Todo } from '../../typescript/Todos'
+import { TodosState, Todo } from '../../typescript/Todos'
+import {
+  changeCheckTodoAction,
+  changeTextTodoAction,
+  checkAllTodosAction,
+  createTodoAction,
+  deleteCompletedTodosAction,
+  deleteTodoAction,
+  getAllTodosAction,
+} from '../actions/todoAction'
 
 const initialState: TodosState = {
   todos: [],
@@ -10,12 +19,12 @@ const initialState: TodosState = {
 
 function todoReducer(
   state: TodosState = initialState,
-  action: TodoActions
+  action: any
 ): TodosState {
   switch (action.type) {
-    case ACTIONS_TODO.GET_TODOS_SUCCESS:
-    case ACTIONS_TODO.CHECK_ALL_TODOS_SUCCESS:
-    case ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS: {
+    case getAllTodosAction.types.SUCCESS:
+    case checkAllTodosAction.types.SUCCESS:
+    case deleteCompletedTodosAction.types.SUCCESS: {
       const todos: Array<Todo> = [...action.payload]
 
       return {
@@ -24,15 +33,15 @@ function todoReducer(
         isAllCheck: !todos.find((item) => !item.check),
       }
     }
-    case ACTIONS_TODO.ADD_TODO_SUCCESS: {
+    case createTodoAction.types.SUCCESS: {
       return {
         ...state,
         todos: [...state.todos, action.payload],
         isAllCheck: false,
       }
     }
-    case ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS:
-    case ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS: {
+    case changeCheckTodoAction.types.SUCCESS:
+    case changeTextTodoAction.types.SUCCESS: {
       const todos: Array<Todo> = state.todos.map((item) =>
         item._id === action.payload._id.toString()
           ? { ...action.payload }
@@ -45,7 +54,7 @@ function todoReducer(
         isAllCheck: !todos.find((item) => !item.check),
       }
     }
-    case ACTIONS_TODO.DELETE_TODO_SUCCESS: {
+    case deleteTodoAction.types.SUCCESS: {
       const changedTodos = state.todos.filter(
         (todo) => todo._id !== action.payload.toString()
       )
@@ -56,7 +65,7 @@ function todoReducer(
         isAllCheck: !changedTodos.find((item) => !item.check),
       }
     }
-    case ACTIONS_TODO.CHANGE_TYPE_REQUEST: {
+    case ACTIONS_TODO.CHANGE_TYPE: {
       return {
         ...state,
         type: action.payload,

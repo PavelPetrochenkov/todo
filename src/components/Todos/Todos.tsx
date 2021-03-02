@@ -6,7 +6,7 @@ import Header from './Header'
 import { getIsTodosNotEmpty } from '../../redux/selectors/todoSelectors'
 import { getUserId } from '../../redux/selectors/userSelector'
 import { disconnectSocket, initSocket } from '../../socket'
-import { getAllTodosRequest } from '../../redux/actions/todoAction'
+import { getAllTodosAction } from '../../redux/actions/todoAction'
 
 function Todos() {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ function Todos() {
       )
     }
     if (!!userId) {
-      dispatch(getAllTodosRequest(userId))
+      dispatch(getAllTodosAction.request(userId))
     }
     return function cleanup() {
       disconnectSocket()

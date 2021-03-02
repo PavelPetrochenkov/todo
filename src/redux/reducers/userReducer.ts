@@ -1,6 +1,10 @@
 import { ACTIONS_USER } from '../../constants'
-import { UserActions } from '../actions/userAction'
 import { UserState } from '../../typescript/User'
+import {
+  getUserInfoAction,
+  logInAction,
+  registrationAction,
+} from '../actions/userAction'
 
 const initialState: UserState = {
   isAuthError: false,
@@ -10,28 +14,25 @@ const initialState: UserState = {
   },
 }
 
-function userReducer(
-  state: UserState = initialState,
-  action: UserActions
-): UserState {
+function userReducer(state: UserState = initialState, action: any): UserState {
   switch (action.type) {
-    case ACTIONS_USER.GET_USER_SUCCESS:
-    case ACTIONS_USER.LOG_IN_SUCCESS: {
+    case getUserInfoAction.types.SUCCESS:
+    case logInAction.types.SUCCESS: {
       return {
         ...state,
         user: { ...state.user, ...action.payload },
         isAuthError: false,
       }
     }
-    case ACTIONS_USER.REGISTRATION_FAIL:
-    case ACTIONS_USER.LOG_IN_FAIL: {
+    case registrationAction.types.FAIL:
+    case logInAction.types.FAIL: {
       return {
         ...state,
         isAuthError: true,
       }
     }
     case ACTIONS_USER.LOG_OUT:
-    case ACTIONS_USER.GET_USER_FAIL: {
+    case getUserInfoAction.types.FAIL: {
       localStorage.refreshToken = ''
       localStorage.token = ''
       return {

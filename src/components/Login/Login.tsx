@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { logInRequest, clearError } from '../../redux/actions/userAction'
+import { logInAction, clearError } from '../../redux/actions/userAction'
 import { getIsAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
@@ -24,7 +24,7 @@ function Login() {
 
   const handleSubmit = useCallback((values: formValue, actions: any) => {
     dispatch(
-      logInRequest({
+      logInAction.request({
         login: values.email,
         password: values.password,
       })

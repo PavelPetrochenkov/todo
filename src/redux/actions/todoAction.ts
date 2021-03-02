@@ -1,195 +1,221 @@
+import createActions from '.'
 import { ACTIONS_TODO, FilterTypes } from '../../constants'
 import { Todo } from '../../typescript/Todos'
 
-type GetAllTodosSuccess = {
-  type: ACTIONS_TODO.GET_TODOS_SUCCESS
-  payload: Array<Todo>
-}
-
-export const getAllTodosSuccess = (todos: Array<Todo>): GetAllTodosSuccess => ({
-  type: ACTIONS_TODO.GET_TODOS_SUCCESS,
-  payload: todos,
-})
-
-type GetAllTodosRequest = {
-  type: ACTIONS_TODO.GET_TODOS_REQUEST
-  payload: string
-}
-
-export const getAllTodosRequest = (userId: string): GetAllTodosRequest => ({
-  type: ACTIONS_TODO.GET_TODOS_REQUEST,
-  payload: userId,
-})
-
-type CreateTodoRequest = {
-  type: ACTIONS_TODO.ADD_TODO_REQUEST
-  payload: {
-    text: string
-    userId: string
+type GetAllTodos = {
+  request: (
+    payload: string
+  ) => {
+    type: string
+    payload: string
+  }
+  success: (
+    payload: Array<Todo>
+  ) => {
+    type: string
+    payload: Array<Todo>
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
   }
 }
 
-export const createTodoRequest = (
-  userId: string,
-  text: string
-): CreateTodoRequest => ({
-  type: ACTIONS_TODO.ADD_TODO_REQUEST,
-  payload: {
-    text,
-    userId,
-  },
-})
+export const getAllTodosAction: GetAllTodos = createActions(
+  ACTIONS_TODO.GET_TODOS
+)
 
-type CreateTodoSuccess = {
-  type: ACTIONS_TODO.ADD_TODO_SUCCESS
-  payload: Todo
+type CreateTodo = {
+  request: (payload: {
+    userId: string
+    text: string
+  }) => {
+    type: string
+    payload: {
+      userId: string
+      text: string
+    }
+  }
+  success: (
+    payload: Todo
+  ) => {
+    type: string
+    payload: Todo
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const createTodoSuccess = (todo: Todo): CreateTodoSuccess => ({
-  type: ACTIONS_TODO.ADD_TODO_SUCCESS,
-  payload: todo,
-})
+export const createTodoAction: CreateTodo = createActions(ACTIONS_TODO.ADD_TODO)
 
-type ChangeTextTodoRequest = {
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUEST
-  payload: {
+type ChangeTextTodo = {
+  request: (payload: {
     id: string
-    text: string
     userId: string
+    text: string
+  }) => {
+    type: string
+    payload: {
+      id: string
+      userId: string
+      text: string
+    }
+  }
+  success: (
+    payload: Todo
+  ) => {
+    type: string
+    payload: Todo
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
   }
 }
 
-export const changeTextTodoRequest = (
-  id: string,
-  userId: string,
-  text: string
-): ChangeTextTodoRequest => ({
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_REQUEST,
-  payload: { id, userId, text },
-})
+export const changeTextTodoAction: ChangeTextTodo = createActions(
+  ACTIONS_TODO.CHANGE_TEXT_TODO
+)
 
-type ChangeCheckTodoRequest = {
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUEST
-  payload: { id: string; userId: string; check: boolean }
+type ChangeCheckTodo = {
+  request: (payload: {
+    id: string
+    userId: string
+    check: boolean
+  }) => {
+    type: string
+    payload: {
+      id: string
+      userId: string
+      check: boolean
+    }
+  }
+  success: (
+    payload: Todo
+  ) => {
+    type: string
+    payload: Todo
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const changeCheckTodoRequest = (
-  id: string,
-  userId: string,
-  check: boolean
-): ChangeCheckTodoRequest => ({
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_REQUEST,
-  payload: { id, userId, check },
-})
+export const changeCheckTodoAction: ChangeCheckTodo = createActions(
+  ACTIONS_TODO.CHANGE_CHECK_TODO
+)
 
-type ChangeCheckTodoSuccess = {
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS
-  payload: Todo
+type DeleteTodo = {
+  request: (payload: {
+    id: string
+    userId: string
+  }) => {
+    type: string
+    payload: {
+      id: string
+      userId: string
+    }
+  }
+  success: (
+    payload: string
+  ) => {
+    type: string
+    payload: string
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const changeCheckTodoSuccess = (todo: Todo): ChangeCheckTodoSuccess => ({
-  type: ACTIONS_TODO.CHANGE_CHECK_TODO_SUCCESS,
-  payload: todo,
-})
+export const deleteTodoAction: DeleteTodo = createActions(
+  ACTIONS_TODO.DELETE_TODO
+)
 
-type ChangeTextTodoSuccess = {
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS
-  payload: Todo
+type DeleteCompletedTodos = {
+  request: (
+    payload: string
+  ) => {
+    type: string
+    payload: string
+  }
+  success: (
+    payload: Array<Todo>
+  ) => {
+    type: string
+    payload: Array<Todo>
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const changeTextTodoSuccess = (todo: Todo): ChangeTextTodoSuccess => ({
-  type: ACTIONS_TODO.CHANGE_TEXT_TODO_SUCCESS,
-  payload: todo,
-})
+export const deleteCompletedTodosAction: DeleteCompletedTodos = createActions(
+  ACTIONS_TODO.DELETE_COMPLETED_TODOS
+)
 
-type DeleteTodoRequest = {
-  type: ACTIONS_TODO.DELETE_TODO_REQUEST
-  payload: { id: string; userId: string }
+type CheckAllTodos = {
+  request: (payload: {
+    userId: string
+    check: boolean
+  }) => {
+    type: string
+    payload: { userId: string; check: boolean }
+  }
+  success: (
+    payload: Array<Todo>
+  ) => {
+    type: string
+    payload: Array<Todo>
+  }
+  fail: () => {
+    type: string
+  }
+  types: {
+    REQUEST: string
+    SUCCESS: string
+    FAIL: string
+  }
 }
 
-export const deleteTodoRequest = (
-  id: string,
-  userId: string
-): DeleteTodoRequest => ({
-  type: ACTIONS_TODO.DELETE_TODO_REQUEST,
-  payload: { id, userId },
-})
-
-type DeleteTodoSuccess = {
-  type: ACTIONS_TODO.DELETE_TODO_SUCCESS
-  payload: string
-}
-
-export const deleteTodoSuccess = (id: string): DeleteTodoSuccess => ({
-  type: ACTIONS_TODO.DELETE_TODO_SUCCESS,
-  payload: id,
-})
-
-type DeleteCompletedTodosRequest = {
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_REQUEST
-  payload: string
-}
-
-export const deleteCompletedTodosRequest = (
-  userId: string
-): DeleteCompletedTodosRequest => ({
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_REQUEST,
-  payload: userId,
-})
-
-type DeleteCompletedTodosSuccess = {
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS
-  payload: Array<Todo>
-}
-
-export const deleteCompletedTodosSuccess = (
-  todos: Array<Todo>
-): DeleteCompletedTodosSuccess => ({
-  type: ACTIONS_TODO.DELETE_COMPLETED_TODOS_SUCCESS,
-  payload: todos,
-})
-
-type CheckAllTodosRequest = {
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUEST
-  payload: { userId: string; check: boolean }
-}
-
-export const checkAllTodosRequest = (
-  userId: string,
-  check: boolean
-): CheckAllTodosRequest => ({
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_REQUEST,
-  payload: { userId, check },
-})
-
-type CheckAllTodosSuccess = {
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_SUCCESS
-  payload: Array<Todo>
-}
-
-export const checkAllTodosSuccess = (
-  todos: Array<Todo>
-): CheckAllTodosSuccess => ({
-  type: ACTIONS_TODO.CHECK_ALL_TODOS_SUCCESS,
-  payload: todos,
-})
+export const checkAllTodosAction: CheckAllTodos = createActions(
+  ACTIONS_TODO.CHECK_ALL_TODOS
+)
 
 type ChangeType = {
-  type: ACTIONS_TODO.CHANGE_TYPE_REQUEST
+  type: ACTIONS_TODO.CHANGE_TYPE
   payload: FilterTypes
 }
 
 export const changeType = (type: FilterTypes): ChangeType => ({
-  type: ACTIONS_TODO.CHANGE_TYPE_REQUEST,
+  type: ACTIONS_TODO.CHANGE_TYPE,
   payload: type,
 })
-
-export type TodoActions =
-  | DeleteCompletedTodosSuccess
-  | CheckAllTodosSuccess
-  | GetAllTodosSuccess
-  | CreateTodoSuccess
-  | ChangeCheckTodoSuccess
-  | ChangeTextTodoSuccess
-  | DeleteTodoSuccess
-  | ChangeType

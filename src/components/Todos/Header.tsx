@@ -2,8 +2,8 @@ import React, { useState, useCallback, useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
-  createTodoRequest,
-  checkAllTodosRequest,
+  createTodoAction,
+  checkAllTodosAction,
 } from '../../redux/actions/todoAction'
 import {
   getIsTodosNotEmpty,
@@ -33,7 +33,7 @@ function Header() {
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && inputValue) {
-        dispatch(createTodoRequest(userId, inputValue))
+        dispatch(createTodoAction.request({ userId, text: inputValue }))
         setInputValue('')
       }
     },
@@ -41,7 +41,7 @@ function Header() {
   )
 
   const handleCheckAll = useCallback(() => {
-    dispatch(checkAllTodosRequest(userId, !isAllCheck))
+    dispatch(checkAllTodosAction.request({ userId, check: !isAllCheck }))
   }, [userId, isAllCheck])
 
   return (
