@@ -25,12 +25,10 @@ function todoReducer(
     case getAllTodosAction.types.SUCCESS:
     case checkAllTodosAction.types.SUCCESS:
     case deleteCompletedTodosAction.types.SUCCESS: {
-      const todos: Array<Todo> = [...action.payload]
-
       return {
         ...state,
-        todos: todos,
-        isAllCheck: !todos.find((item) => !item.check),
+        todos: action.payload.todos,
+        isAllCheck: action.payload.isAllTodosCheck,
       }
     }
     case createTodoAction.types.SUCCESS: {

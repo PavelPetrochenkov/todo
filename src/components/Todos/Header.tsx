@@ -41,7 +41,7 @@ function Header() {
   )
 
   const handleCheckAll = useCallback(() => {
-    dispatch(checkAllTodosAction.request({ userId, check: !isAllCheck }))
+    dispatch(checkAllTodosAction.request({ userId, check: isAllCheck }))
   }, [userId, isAllCheck])
 
   return (

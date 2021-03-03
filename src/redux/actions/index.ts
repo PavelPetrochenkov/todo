@@ -18,7 +18,7 @@ type Action = {
 }
 
 export function createAction(type: string) {
-  let a: Action = (payload = null) => ({ type, payload })
-  a.type = type
-  return a
+  let action: Action = (payload = null) => ({ type, payload })
+  action.type = type
+  return action
 }

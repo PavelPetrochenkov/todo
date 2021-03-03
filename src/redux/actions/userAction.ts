@@ -1,11 +1,12 @@
 import createActions, { createAction } from '.'
+import { ACTIONS_USER } from '../../constants'
 
-export const logInAction = createActions('LOG_IN')
+export const logInAction = createActions(ACTIONS_USER.LOG_IN)
 
-export const registrationAction = createActions('REGISTRATION')
+export const registrationAction = createActions(ACTIONS_USER.REGISTRATION)
 
-export const getUserInfoAction = createActions('GET_USER')
+export const getUserInfoAction = createActions(ACTIONS_USER.GET_USER)
 
-export const logOutAction = createAction('LOG_OUT')
+export const logOutAction = createAction(ACTIONS_USER.LOG_OUT)
 
-export const clearErrorAction = createAction('CLEAR_ERROR')
+export const clearErrorAction = createAction(ACTIONS_USER.CLEAR_ERROR)

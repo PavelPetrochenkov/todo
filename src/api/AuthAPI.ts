@@ -1,11 +1,10 @@
 import api from './api'
 
-export const login = (login: string, password: string) =>
+export const login = (data: { login: string; password: string }) =>
   api({
     url: 'login/',
     data: {
-      login,
-      password,
+      ...data,
     },
   })
 
@@ -17,11 +16,10 @@ export const getUserInfo = (refreshToken: string) =>
     },
   })
 
-export const registration = (login: string, password: string) =>
+export const registration = (data: { login: string; password: string }) =>
   api({
     url: 'registration/',
     data: {
-      login,
-      password,
+      ...data,
     },
   })

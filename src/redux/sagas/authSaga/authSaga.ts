@@ -21,11 +21,7 @@ type LoginUser = {
 
 function* loginUser(action: LoginUser) {
   try {
-    const response = yield call(
-      AuthAPI.login,
-      action.payload.login,
-      action.payload.password
-    )
+    const response = yield call(AuthAPI.login, action.payload)
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
     localStorage.setItem('token', response.data.token)
@@ -77,11 +73,7 @@ type RegistrationUser = {
 
 function* registrationUser(action: RegistrationUser) {
   try {
-    const response = yield call(
-      AuthAPI.registration,
-      action.payload.login,
-      action.payload.password
-    )
+    const response = yield call(AuthAPI.registration, action.payload)
     api.defaults.headers.Authorization = `Bearer ${response.data.token}`
     localStorage.setItem('refreshToken', response.data.refreshToken)
     localStorage.setItem('token', response.data.token)

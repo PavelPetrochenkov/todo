@@ -10,6 +10,7 @@ import checkedIcon from '../../../icon/Ok.png'
 import deleteIcon from '../../../icon/Delete.png'
 import { Todo } from '../../../typescript/Todos'
 import { getUserId } from '../../../redux/selectors/userSelector'
+import { getTodosList } from '../../../redux/selectors/todoSelectors'
 
 type ItemTodoProps = {
   todo: Todo
@@ -25,7 +26,11 @@ function ItemTodo({ todo }: ItemTodoProps) {
 
   const handleChangeCheckbox = useCallback(() => {
     dispatch(
-      changeCheckTodoAction.request({ id: todo._id, userId, check: todo.check })
+      changeCheckTodoAction.request({
+        id: todo._id,
+        userId,
+        check: !todo.check,
+      })
     )
   }, [todo])
 

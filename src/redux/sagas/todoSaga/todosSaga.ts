@@ -24,8 +24,7 @@ function* addTodo(action: AddTodo) {
   try {
     const response: any = yield call(
       TodosAPI.addTodo,
-      action.payload.userId,
-      action.payload.text,
+      action.payload,
       getSocketId()
     )
 
@@ -48,9 +47,7 @@ function* changeTextTodo(action: ChangeTextTodo) {
   try {
     const response: any = yield call(
       TodosAPI.changeTodoText,
-      action.payload.id,
-      action.payload.userId,
-      action.payload.text,
+      action.payload,
       getSocketId()
     )
 
@@ -73,9 +70,7 @@ function* changeCheckTodo(action: ChangeCheckTodo) {
   try {
     const response: any = yield call(
       TodosAPI.changeTodoCheck,
-      action.payload.id,
-      action.payload.userId,
-      !action.payload.check,
+      action.payload,
       getSocketId()
     )
 
@@ -97,8 +92,7 @@ function* deleteTodo(action: DeleteTodo) {
   try {
     const response: any = yield call(
       TodosAPI.deleteTodo,
-      action.payload.id,
-      action.payload.userId,
+      action.payload,
       getSocketId()
     )
 
@@ -117,7 +111,13 @@ function* getTodos(action: GetTodos) {
   try {
     const response: any = yield call(TodosAPI.getTodos, action.payload)
 
-    yield put(getAllTodosAction.success(response.data.todos))
+    const isAllTodosCheck = !response.data.todos.find(
+      (item: any) => !item.check
+    )
+
+    yield put(
+      getAllTodosAction.success({ todos: response.data.todos, isAllTodosCheck })
+    )
   } catch (err) {
     console.log(err)
   }
@@ -135,12 +135,20 @@ function* checkAllTodos(action: CheckAllTodos) {
   try {
     const response: any = yield call(
       TodosAPI.checkAllTodos,
-      action.payload.userId,
-      !action.payload.check,
+      action.payload,
       getSocketId()
     )
 
-    yield put(checkAllTodosAction.success(response.data.todos))
+    const isAllTodosCheck = !response.data.todos.find(
+      (item: any) => !item.check
+    )
+
+    yield put(
+      checkAllTodosAction.success({
+        todos: response.data.todos,
+        isAllTodosCheck,
+      })
+    )
   } catch (err) {
     console.log(err)
   }
@@ -159,7 +167,16 @@ function* deleteCompletedTodos(action: DeleteCompletedTodos) {
       getSocketId()
     )
 
-    yield put(deleteCompletedTodosAction.success(response.data.todos))
+    const isAllTodosCheck = !response.data.todos.find(
+      (item: any) => !item.check
+    )
+
+    yield put(
+      deleteCompletedTodosAction.success({
+        todos: response.data.todos,
+        isAllTodosCheck,
+      })
+    )
   } catch (err) {
     console.log(err)
   }

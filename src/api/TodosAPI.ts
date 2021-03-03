@@ -1,53 +1,49 @@
 import api from './api'
 
-export const addTodo = (userId: string, text: string, socketId: string) =>
+export const addTodo = (
+  data: { userId: string; text: string },
+  socketId: string
+) =>
   api({
     url: 'todo/',
     data: {
-      userId,
-      text,
+      ...data,
       socketId,
     },
   })
 
 export const changeTodoText = (
-  id: string,
-  userId: string,
-  text: string,
+  data: { id: string; userId: string; text: string },
   socketId: string
 ) =>
   api({
     url: 'todo/change',
     data: {
-      id,
-      userId,
-      text,
+      ...data,
       socketId,
     },
   })
 
 export const changeTodoCheck = (
-  id: string,
-  userId: string,
-  check: boolean,
+  data: { id: string; userId: string; check: boolean },
   socketId: string
 ) =>
   api({
     url: 'todo/change',
     data: {
-      id,
-      userId,
-      check,
+      ...data,
       socketId,
     },
   })
 
-export const deleteTodo = (id: string, userId: string, socketId: string) =>
+export const deleteTodo = (
+  data: { id: string; userId: string },
+  socketId: string
+) =>
   api({
     url: 'todo/delete',
     data: {
-      userId,
-      id,
+      ...data,
       socketId,
     },
   })
@@ -62,18 +58,17 @@ export const getTodos = (userId: string) => {
 }
 
 export const checkAllTodos = (
-  userId: string,
-  check: boolean,
+  data: { userId: string; check: boolean },
   socketId: string
-) =>
-  api({
+) => {
+  return api({
     url: 'todo/all/check',
     data: {
-      userId,
-      check,
+      ...data,
       socketId,
     },
   })
+}
 
 export const deleteCompletedTodos = (userId: string, socketId: string) =>
   api({
