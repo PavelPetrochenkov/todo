@@ -6,17 +6,19 @@ export default function createActions(type: string) {
   }
   return {
     request: createAction(types.REQUEST),
-    success: (payload: any) => createAction(types.SUCCESS, payload),
-    fail: () => createAction(types.FAIL, null),
+    success: createAction(types.SUCCESS),
+    fail: createAction(types.FAIL),
     types,
   }
 }
 
-const createAction = (type: string) => (payload: any) => {
-  return { type, payload }
+type Action = {
+  (payload?: any): { type: string; payload: any }
+  type?: string
 }
 
-// const a = createAction('asdas')
-
-// a.type === 'asdas'
-// a()
+export function createAction(type: string) {
+  let a: Action = (payload = null) => ({ type, payload })
+  a.type = type
+  return a
+}

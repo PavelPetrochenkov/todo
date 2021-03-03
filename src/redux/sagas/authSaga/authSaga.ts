@@ -8,7 +8,6 @@ import {
 } from '../../actions/userAction'
 import * as AuthAPI from '../../../api/AuthAPI'
 import api from '../../../api/api'
-import { ACTIONS_USER } from '../../../constants'
 
 const history = createBrowserHistory()
 

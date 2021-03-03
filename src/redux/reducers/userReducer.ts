@@ -1,8 +1,9 @@
-import { ACTIONS_USER } from '../../constants'
 import { UserState } from '../../typescript/User'
 import {
+  clearErrorAction,
   getUserInfoAction,
   logInAction,
+  logOutAction,
   registrationAction,
 } from '../actions/userAction'
 
@@ -31,7 +32,7 @@ function userReducer(state: UserState = initialState, action: any): UserState {
         isAuthError: true,
       }
     }
-    case ACTIONS_USER.LOG_OUT:
+    case logOutAction.type:
     case getUserInfoAction.types.FAIL: {
       localStorage.refreshToken = ''
       localStorage.token = ''
@@ -45,7 +46,7 @@ function userReducer(state: UserState = initialState, action: any): UserState {
         isAuthError: false,
       }
     }
-    case ACTIONS_USER.CLEAR_ERROR: {
+    case clearErrorAction.type: {
       return {
         ...state,
         isAuthError: false,

@@ -6,7 +6,10 @@ import { getIsAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { registrationValidate } from '../../validates/FormValidates'
-import { registrationAction, clearError } from '../../redux/actions/userAction'
+import {
+  registrationAction,
+  clearErrorAction,
+} from '../../redux/actions/userAction'
 
 type formValue = {
   email: string
@@ -20,7 +23,7 @@ function Registration() {
   const isError: boolean = useSelector(getIsAuthError)
 
   useEffect(() => {
-    dispatch(clearError())
+    dispatch(clearErrorAction())
   }, [])
 
   const handleSubmit = useCallback((values: formValue, actions: any) => {

@@ -9,7 +9,6 @@ import {
   checkAllTodosAction,
   deleteCompletedTodosAction,
 } from '../../actions/todoAction'
-import { ACTIONS_TODO } from '../../../constants'
 import * as TodosAPI from '../../../api/TodosAPI'
 import { getSocketId } from '../../../socket'
 

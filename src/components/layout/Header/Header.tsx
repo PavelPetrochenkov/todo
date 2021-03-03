@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { logOut } from '../../../redux/actions/userAction'
+import { logOutAction } from '../../../redux/actions/userAction'
 import { getUser } from '../../../redux/selectors/userSelector'
 import { User } from '../../../typescript/User'
 
@@ -20,7 +20,7 @@ function NavigationBar() {
 
   useEffect(() => {
     if (!localStorage.refreshToken && user.id) {
-      dispatch(logOut())
+      dispatch(logOutAction())
     }
   })
 

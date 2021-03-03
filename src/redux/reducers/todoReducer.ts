@@ -1,9 +1,9 @@
 import { FilterTypes } from '../../constants'
-import { ACTIONS_TODO } from '../../constants'
 import { TodosState, Todo } from '../../typescript/Todos'
 import {
   changeCheckTodoAction,
   changeTextTodoAction,
+  changeTypeAction,
   checkAllTodosAction,
   createTodoAction,
   deleteCompletedTodosAction,
@@ -28,7 +28,7 @@ function todoReducer(
       const todos: Array<Todo> = [...action.payload]
 
       return {
-        type: FilterTypes.ALL,
+        ...state,
         todos: todos,
         isAllCheck: !todos.find((item) => !item.check),
       }
@@ -65,7 +65,7 @@ function todoReducer(
         isAllCheck: !changedTodos.find((item) => !item.check),
       }
     }
-    case ACTIONS_TODO.CHANGE_TYPE: {
+    case changeTypeAction.type: {
       return {
         ...state,
         type: action.payload,

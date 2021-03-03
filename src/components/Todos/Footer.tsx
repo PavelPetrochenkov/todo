@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { FilterTypes } from '../../constants'
 import {
-  changeType,
+  changeTypeAction,
   deleteCompletedTodosAction,
 } from '../../redux/actions/todoAction'
 import {
@@ -22,7 +22,7 @@ function Footer() {
   const counter: number = useSelector(getFooterCounter)
 
   const handleClickChangeType = (type: FilterTypes) => () => {
-    dispatch(changeType(type))
+    dispatch(changeTypeAction(type))
   }
 
   const handleRemoveAllCompletedTodos = useCallback(() => {
