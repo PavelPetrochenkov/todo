@@ -23,7 +23,7 @@ function Header() {
   const todos: Array<Todo> = useSelector(getTodosList)
 
   const isAllCheck: boolean = useMemo(
-    () => !todos.find((item) => !item.check),
+    () => !todos.find((item) => !item.ischeck),
     [todos]
   )
 

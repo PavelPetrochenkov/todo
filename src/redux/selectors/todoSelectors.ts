@@ -9,7 +9,7 @@ export const getTodosType = ({ todoReducer }: IStore): FilterTypes =>
   todoReducer.type
 
 export const getFooterCounter = ({ todoReducer }: IStore): number =>
-  todoReducer.todos.filter((item) => !item.check).length
+  todoReducer.todos.filter((item) => !item.ischeck).length
 
 export const getTodosList = ({ todoReducer }: IStore): Array<Todo> =>
   todoReducer.todos

@@ -1,9 +1,9 @@
 import { FilterTypes } from '../constants'
 
 export type Todo = {
-  _id: string
+  id: string
   text: string
-  check: boolean
+  ischeck: boolean
 }
 
 export type TodosState = {

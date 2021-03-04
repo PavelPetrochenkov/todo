@@ -40,18 +40,15 @@ function todoReducer(
       return {
         ...state,
         todos: state.todos.map((item) =>
-          item._id === action.payload._id.toString()
-            ? { ...action.payload }
-            : item
+          item.id === action.payload.id ? { ...action.payload } : item
         ),
       }
     }
     case deleteTodoAction.types.SUCCESS: {
+      const todos = state.todos.filter((todo) => todo.id !== action.payload)
       return {
         ...state,
-        todos: state.todos.filter(
-          (todo) => todo._id !== action.payload.toString()
-        ),
+        todos,
       }
     }
     case changeTypeAction.type: {

@@ -27,15 +27,15 @@ function ItemTodo({ todo }: ItemTodoProps) {
   const handleChangeCheckbox = useCallback(() => {
     dispatch(
       changeCheckTodoAction.request({
-        id: todo._id,
+        id: todo.id,
         userId,
-        check: !todo.check,
+        ischeck: !todo.ischeck,
       })
     )
   }, [todo])
 
   const handleDelete = useCallback(() => {
-    dispatch(deleteTodoAction.request({ id: todo._id, userId }))
+    dispatch(deleteTodoAction.request({ id: todo.id, userId }))
   }, [todo])
 
   const handleChangeInput = useCallback(
@@ -50,7 +50,7 @@ function ItemTodo({ todo }: ItemTodoProps) {
       if (e.key === 'Enter' && inputValue) {
         dispatch(
           changeTextTodoAction.request({
-            id: todo._id,
+            id: todo.id,
             userId,
             text: inputValue,
           })
@@ -71,7 +71,7 @@ function ItemTodo({ todo }: ItemTodoProps) {
 
   return (
     <StyledItemTodo>
-      {todo.check ? (
+      {todo.ischeck ? (
         <CheckedTodo onClick={handleChangeCheckbox} />
       ) : (
         <UncheckedTodo onClick={handleChangeCheckbox} />

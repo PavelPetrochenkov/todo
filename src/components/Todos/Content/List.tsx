@@ -16,10 +16,10 @@ function List() {
   const filteredTodos = useMemo((): Array<Todo> => {
     switch (todosType) {
       case FilterTypes.ACTIVE: {
-        return todosList.filter((item) => !item.check)
+        return todosList.filter((item) => !item.ischeck)
       }
       case FilterTypes.COMPLETED: {
-        return todosList.filter((item) => item.check)
+        return todosList.filter((item) => item.ischeck)
       }
       default: {
         return todosList
@@ -30,7 +30,7 @@ function List() {
   return (
     <StyledList>
       {filteredTodos.map((todo) => (
-        <ItemTodo key={todo._id} todo={todo} />
+        <ItemTodo key={todo.id} todo={todo} />
       ))}
     </StyledList>
   )
