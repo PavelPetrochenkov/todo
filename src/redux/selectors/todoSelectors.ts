@@ -11,8 +11,5 @@ export const getTodosType = ({ todoReducer }: IStore): FilterTypes =>
 export const getFooterCounter = ({ todoReducer }: IStore): number =>
   todoReducer.todos.filter((item) => !item.check).length
 
-export const getModeAllCheck = ({ todoReducer }: IStore): boolean =>
-  todoReducer.isAllCheck
-
 export const getTodosList = ({ todoReducer }: IStore): Array<Todo> =>
   todoReducer.todos

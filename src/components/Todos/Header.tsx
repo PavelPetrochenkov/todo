@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, memo } from 'react'
+import React, { useState, useCallback, useMemo, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import {
@@ -7,10 +7,11 @@ import {
 } from '../../redux/actions/todoAction'
 import {
   getIsTodosNotEmpty,
-  getModeAllCheck,
+  getTodosList,
 } from '../../redux/selectors/todoSelectors'
 import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
+import { Todo } from '../../typescript/Todos'
 
 function Header() {
   const dispatch = useDispatch()
@@ -19,7 +20,12 @@ function Header() {
 
   const userId: string = useSelector(getUserId)
 
-  const isAllCheck: boolean = useSelector(getModeAllCheck)
+  const todos: Array<Todo> = useSelector(getTodosList)
+
+  const isAllCheck: boolean = useMemo(
+    () => !todos.find((item) => !item.check),
+    [todos]
+  )
 
   const [inputValue, setInputValue] = useState<string>('')
 

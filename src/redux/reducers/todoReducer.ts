@@ -14,7 +14,6 @@ import {
 const initialState: TodosState = {
   todos: [],
   type: FilterTypes.ALL,
-  isAllCheck: false,
 }
 
 function todoReducer(
@@ -28,39 +27,31 @@ function todoReducer(
       return {
         ...state,
         todos: action.payload.todos,
-        isAllCheck: action.payload.isAllTodosCheck,
       }
     }
     case createTodoAction.types.SUCCESS: {
       return {
         ...state,
         todos: [...state.todos, action.payload],
-        isAllCheck: false,
       }
     }
     case changeCheckTodoAction.types.SUCCESS:
     case changeTextTodoAction.types.SUCCESS: {
-      const todos: Array<Todo> = state.todos.map((item) =>
-        item._id === action.payload._id.toString()
-          ? { ...action.payload }
-          : item
-      )
-
       return {
         ...state,
-        todos: todos,
-        isAllCheck: !todos.find((item) => !item.check),
+        todos: state.todos.map((item) =>
+          item._id === action.payload._id.toString()
+            ? { ...action.payload }
+            : item
+        ),
       }
     }
     case deleteTodoAction.types.SUCCESS: {
-      const changedTodos = state.todos.filter(
-        (todo) => todo._id !== action.payload.toString()
-      )
-
       return {
         ...state,
-        todos: changedTodos,
-        isAllCheck: !changedTodos.find((item) => !item.check),
+        todos: state.todos.filter(
+          (todo) => todo._id !== action.payload.toString()
+        ),
       }
     }
     case changeTypeAction.type: {

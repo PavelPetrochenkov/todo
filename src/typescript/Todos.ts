@@ -9,5 +9,4 @@ export type Todo = {
 export type TodosState = {
   todos: Array<Todo>
   type: FilterTypes
-  isAllCheck: boolean
 }
