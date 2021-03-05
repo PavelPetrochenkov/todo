@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { device } from '../../../device'
 import { logOutAction } from '../../../redux/actions/userAction'
 import { getUser } from '../../../redux/selectors/userSelector'
 import { User } from '../../../typescript/User'
@@ -50,25 +51,46 @@ function NavigationBar() {
 const StyledNavigationBar = styled.div`
   width: 100vw;
   margin-bottom: 50px;
-  line-height: 50px;
   background-color: white;
   box-shadow: 1px 1px 10px rgb(196, 196, 196);
   box-sizing: border-box;
   display: flex;
+  min-width: 320px;
+
+  @media ${device.mobileS}, ${device.mobileM}, ${device.mobileL} {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 1px 0px 10px rgb(196, 196, 196);
+  }
 `
 const Button = styled.button`
-  width: 50vw;
   cursor: pointer;
   background: white;
   border: none;
   padding: 0 100px;
-  max-height: 50px;
-  min-height: 50px;
+  height: 50px;
   outline: none;
   font-size: 18px;
+  padding: 10px 0;
+  width: 100%;
 
   :hover {
     background: whitesmoke;
+  }
+
+  @media ${device.mobileS}, ${device.mobileM}, ${device.mobileL} {
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+    height: 40px;
+  }
+
+  @media ${device.tablet},
+    ${device.laptop},
+    ${device.laptopL},
+    ${device.desktop} {
+    width: 50vw;
   }
 `
 

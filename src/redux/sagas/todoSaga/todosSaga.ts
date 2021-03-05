@@ -139,7 +139,6 @@ function* checkAllTodos(action: CheckAllTodos) {
       getSocketId()
     )
 
-    console.log(response)
     const isAllTodosCheck = !response.data.todos.find(
       (item: any) => !item.check
     )

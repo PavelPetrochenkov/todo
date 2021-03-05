@@ -66,8 +66,17 @@ function ItemTodo({ todo }: ItemTodoProps) {
   }, [])
 
   const handleBlur = useCallback(() => {
+    if (inputValue) {
+      dispatch(
+        changeTextTodoAction.request({
+          id: todo.id,
+          userId,
+          text: inputValue,
+        })
+      )
+    }
     setEditMode(false)
-  }, [])
+  }, [inputValue])
 
   return (
     <StyledItemTodo>

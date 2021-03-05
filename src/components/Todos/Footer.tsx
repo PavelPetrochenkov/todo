@@ -2,6 +2,7 @@ import React, { useCallback, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { FilterTypes } from '../../constants'
+import { device } from '../../device'
 import {
   changeTypeAction,
   deleteCompletedTodosAction,
@@ -66,10 +67,25 @@ const StyledFooter = styled.ul`
   padding: 0 15px 15px 15px;
   color: rgb(156, 156, 156);
   font-size: 16px;
+
+  @media ${device.mobileS},
+    ${device.mobileM},
+    ${device.mobileL},
+    ${device.tablet} {
+    flex-direction: column;
+  }
 `
 
 const Counter = styled.div`
   padding-right: 20px;
+
+  @media ${device.mobileS},
+    ${device.mobileM},
+    ${device.mobileL},
+    ${device.tablet} {
+    padding: 0 0 5px 0;
+    font-size: 20px;
+  }
 `
 
 const FilterButton = styled.div<{ active?: boolean }>`
@@ -86,6 +102,16 @@ const FilterButton = styled.div<{ active?: boolean }>`
   &:hover {
     ${(props) => !props.active && 'border: 1px solid rgb(194, 194, 194);'}
     cursor: pointer;
+  }
+
+  @media ${device.mobileS},
+    ${device.mobileM},
+    ${device.mobileL},
+    ${device.tablet} {
+    width: 90%;
+    margin: 3px 0;
+    display: flex;
+    justify-content: center;
   }
 `
 

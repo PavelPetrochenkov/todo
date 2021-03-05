@@ -12,6 +12,7 @@ import {
 import { getUserId } from '../../redux/selectors/userSelector'
 import arrow from '../../icon/ArrowDown.png'
 import { Todo } from '../../typescript/Todos'
+import { device } from '../../device'
 
 function Header() {
   const dispatch = useDispatch()
@@ -74,6 +75,10 @@ const InputAddTodo = styled.input`
 
   ::placeholder {
     opacity: 0.6;
+  }
+
+  @media ${device.mobileS}, ${device.mobileM}, ${device.mobileL} {
+    font-size: 20px;
   }
 `
 
