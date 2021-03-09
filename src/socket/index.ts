@@ -35,7 +35,6 @@ export const initSocket = async (
   socket.connect()
 
   socket.on('addTodo', async (todo: Todo) => {
-    console.log(todo)
     dispatch(createTodoAction.success(todo))
   })
 

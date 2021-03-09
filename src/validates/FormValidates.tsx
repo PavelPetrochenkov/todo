@@ -63,3 +63,55 @@ export const loginValidate = (values: LoginState): LoginErrorState => {
 
   return errors
 }
+
+type CheckLoginState = {
+  email: string
+}
+
+type CheckLoginErrorState = {
+  email?: string
+}
+
+export const checkLoginValidate = (
+  values: CheckLoginState
+): CheckLoginErrorState => {
+  let errors: CheckLoginErrorState = {}
+
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z0-9]{2,}$/i.test(values.email)
+  ) {
+    errors.email = 'Invalid email address'
+  }
+
+  return errors
+}
+
+type ResetPasswordState = {
+  password: string
+  passwordConfirm: string
+}
+
+type ResetPasswordErrorState = {
+  password?: string
+  passwordConfirm?: string
+}
+
+export const resetPasswordValidate = (
+  values: ResetPasswordState
+): ResetPasswordErrorState => {
+  let errors: ResetPasswordErrorState = {}
+  if (!values.password) {
+    errors.password = 'Required'
+  } else if (values.password.length < 6) {
+    errors.password = 'Too small'
+  }
+
+  if (!values.passwordConfirm) {
+    errors.passwordConfirm = 'Required'
+  } else if (values.passwordConfirm !== values.password) {
+    errors.passwordConfirm = 'Not matches'
+  }
+  return errors
+}

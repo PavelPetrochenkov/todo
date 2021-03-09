@@ -5,6 +5,8 @@ import {
   logInAction,
   registrationAction,
   getUserInfoAction,
+  resetPasswordAction,
+  checkLoginAction,
 } from '../../actions/userAction'
 import * as AuthAPI from '../../../api/AuthAPI'
 import api from '../../../api/api'
@@ -90,8 +92,29 @@ function* registrationUser(action: RegistrationUser) {
   }
 }
 
+type FindLogin = {
+  type: string
+  payload: string
+}
+
+function* checkLogin(action: FindLogin) {
+  try {
+    const response = yield call(AuthAPI.checkLogin, action.payload)
+
+    yield put(
+      checkLoginAction.success({
+        login: response.data.login,
+      })
+    )
+  } catch {
+    yield put(checkLoginAction.fail())
+  }
+}
+
 export default function* authWatcher() {
   yield takeEvery(logInAction.types.REQUEST, loginUser)
   yield takeEvery(getUserInfoAction.types.REQUEST, getUserInfo)
   yield takeEvery(registrationAction.types.REQUEST, registrationUser)
+  yield takeEvery(resetPasswordAction.types.REQUEST, registrationUser)
+  yield takeEvery(checkLoginAction.types.REQUEST, checkLogin)
 }

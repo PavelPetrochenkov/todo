@@ -7,4 +7,5 @@ export type User = {
 export type UserState = {
   user: User
   isAuthError: boolean
+  restoreLogin?: string
 }

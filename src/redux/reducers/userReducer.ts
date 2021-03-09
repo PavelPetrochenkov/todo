@@ -5,6 +5,8 @@ import {
   logInAction,
   logOutAction,
   registrationAction,
+  checkLoginAction,
+  resetPasswordAction,
 } from '../actions/userAction'
 
 const initialState: UserState = {
@@ -18,6 +20,7 @@ const initialState: UserState = {
 function userReducer(state: UserState = initialState, action: any): UserState {
   switch (action.type) {
     case getUserInfoAction.types.SUCCESS:
+    case resetPasswordAction.types.SUCCESS:
     case logInAction.types.SUCCESS: {
       return {
         ...state,
@@ -25,7 +28,15 @@ function userReducer(state: UserState = initialState, action: any): UserState {
         isAuthError: false,
       }
     }
+    case checkLoginAction.types.SUCCESS: {
+      return {
+        ...state,
+        restoreLogin: action.payload.login,
+      }
+    }
+    case checkLoginAction.types.FAIL:
     case registrationAction.types.FAIL:
+    case resetPasswordAction.types.FAIL:
     case logInAction.types.FAIL: {
       return {
         ...state,

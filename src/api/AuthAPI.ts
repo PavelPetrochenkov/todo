@@ -23,3 +23,22 @@ export const registration = (data: { login: string; password: string }) =>
       ...data,
     },
   })
+
+export const checkLogin = (login: string) =>
+  api({
+    url: 'login/check/',
+    data: {
+      login,
+    },
+  })
+
+export const resetPassword = (data: {
+  passwordConfirm: string
+  password: string
+}) =>
+  api({
+    url: 'registration/',
+    data: {
+      ...data,
+    },
+  })

@@ -3,6 +3,10 @@ import { ACTIONS_USER } from '../../constants'
 
 export const logInAction = createActions(ACTIONS_USER.LOG_IN)
 
+export const checkLoginAction = createActions(ACTIONS_USER.CHECK_LOGIN)
+
+export const resetPasswordAction = createActions(ACTIONS_USER.RESET_PASSWORD)
+
 export const registrationAction = createActions(ACTIONS_USER.REGISTRATION)
 
 export const getUserInfoAction = createActions(ACTIONS_USER.GET_USER)

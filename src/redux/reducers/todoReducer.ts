@@ -1,5 +1,5 @@
 import { FilterTypes } from '../../constants'
-import { TodosState, Todo } from '../../typescript/Todos'
+import { TodosState } from '../../typescript/Todos'
 import {
   changeCheckTodoAction,
   changeTextTodoAction,

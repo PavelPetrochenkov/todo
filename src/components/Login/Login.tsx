@@ -7,6 +7,7 @@ import { getIsAuthError } from '../../redux/selectors/userSelector'
 import PasswordField from '../layout/Fields/PasswordField'
 import InputField from '../layout/Fields/InputField'
 import { loginValidate } from '../../validates/FormValidates'
+import { Link } from 'react-router-dom'
 
 type formValue = {
   email: string
@@ -53,8 +54,11 @@ function Login() {
           <LogInButton type="submit">Log in</LogInButton>
         </StyledForm>
       </Formik>
+      <span>Forgot password?</span>
       <Hr />
-      <RegistrationButton>Create New Account</RegistrationButton>
+      <StyledLink to="/registration">
+        <RegistrationButton>Create New Account</RegistrationButton>
+      </StyledLink>
     </StyledLogin>
   )
 }
@@ -63,6 +67,14 @@ const StyledLogin = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
 `
 
 const StyledForm = styled(Form)`
