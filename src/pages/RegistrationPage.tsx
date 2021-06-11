@@ -1,3 +1,4 @@
+import React from 'react'
 import Page from '../components/layout/Page/Page'
 import Registration from '../components/Registration/Registration'
 

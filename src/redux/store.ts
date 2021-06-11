@@ -9,6 +9,7 @@ import rootWatcher from './sagas'
 export type IStore = {
   todoReducer: TodosState
   userReducer: UserState
+  fileReducer: any
 }
 
 const sagaMiddleware = createSagaMiddleware()

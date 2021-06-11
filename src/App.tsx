@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RestorePasswordPage from './pages/RestorePasswordPage'
 import RegistrationPage from './pages/RegistrationPage'
-import TodosPage from './pages/TodosPage'
 import { getUserInfoAction } from './redux/actions/userAction'
 import { getUserId } from './redux/selectors/userSelector'
+import HomePage from './pages/HomePage'
+import ProfilePage from './pages/ProfilePage'
+import FilePage from './pages/FilePage'
+import TaxPage from './pages/TaxPage'
+import FileViewPage from './pages/FileViewPage'
 
 function App() {
   const dispatch = useDispatch()
@@ -34,7 +38,11 @@ function App() {
         </Switch>
       ) : (
         <Switch>
-          <Route path="/" component={TodosPage} />
+          <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/tax" component={TaxPage} />
+          <Route exact path="/file/info/:id" component={FileViewPage} />
+          <Route exact path="/file" component={FilePage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       )}
     </BrowserRouter>

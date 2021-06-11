@@ -1,10 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react'
-import Page from '../components/layout/Page/Page'
-import Todos from '../components/Todos/Todos'
 import { useHistory } from 'react-router-dom'
+import Page from '../components/layout/Page/Page'
+import Home from '../components/Home'
 
-function TodosPage() {
+function HomePage() {
   const history = useHistory()
 
   useEffect(() => {
@@ -13,9 +13,9 @@ function TodosPage() {
 
   return (
     <Page>
-      <Todos />
+      <Home/>
     </Page>
   )
 }
 
-export default TodosPage
+export default HomePage

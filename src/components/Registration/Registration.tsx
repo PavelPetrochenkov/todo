@@ -72,6 +72,9 @@ const StyledRegistration = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position:absolute;
+  width:100%;
+  left:0;
 `
 
 const StyledForm = styled(Form)`

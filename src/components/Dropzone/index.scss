@@ -1,0 +1,7 @@
+.clean-dropzone {
+  & > * {
+    & > .dzu-inputLabelWithFiles{
+      display: none;
+    }
+  }
+}

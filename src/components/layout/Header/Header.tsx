@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { device } from '../../../device'
+import Toolbar from '../Toolbar'
 import { logOutAction } from '../../../redux/actions/userAction'
 import { getUser } from '../../../redux/selectors/userSelector'
 import { User } from '../../../typescript/User'
@@ -29,10 +30,7 @@ function NavigationBar() {
     <StyledNavigationBar>
       {!!localStorage.refreshToken ? (
         <>
-          <Link to="/">
-            <Button>Todos</Button>
-          </Link>
-          <Button onClick={handleLogOut}>Log out ({user.login})</Button>
+          <Toolbar/>
         </>
       ) : (
         <>
@@ -49,13 +47,10 @@ function NavigationBar() {
 }
 
 const StyledNavigationBar = styled.div`
-  width: 100vw;
-  margin-bottom: 50px;
+  width: 180px;
   background-color: white;
-  box-shadow: 1px 1px 10px rgb(196, 196, 196);
   box-sizing: border-box;
   display: flex;
-  min-width: 320px;
 
   @media ${device.mobileS}, ${device.mobileM}, ${device.mobileL} {
     justify-content: center;

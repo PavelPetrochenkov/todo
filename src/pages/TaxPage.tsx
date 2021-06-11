@@ -1,13 +1,13 @@
 import React from 'react'
-import Login from '../components/Login/Login'
 import Page from '../components/layout/Page/Page'
+import Tax from '../components/Tax'
 
-function LoginPage() {
+function TaxPage() {
   return (
     <Page>
-      <Login />
+      <Tax />
     </Page>
   )
 }
 
-export default LoginPage
+export default TaxPage

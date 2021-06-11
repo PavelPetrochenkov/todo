@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga/effects'
 import { put, call } from 'redux-saga/effects'
+import { createBrowserHistory } from 'history'
 import {
   getAllTodosAction,
   createTodoAction,
@@ -9,26 +10,21 @@ import {
   checkAllTodosAction,
   deleteCompletedTodosAction,
 } from '../../actions/todoAction'
-import * as TodosAPI from '../../../api/TodosAPI'
+import * as FilesAPI from '../../../api/FilesAPI'
 import { getSocketId } from '../../../socket'
+import { createFileAction, getAllFilesAction } from '../../actions/fileAction'
 
-type AddTodo = {
-  type: string
-  payload: {
-    userId: string
-    text: string
-  }
-}
+const history = createBrowserHistory()
 
-function* addTodo(action: AddTodo):any {
+function* addFile(action: any):any {
   try {
     const response: any = yield call(
-      TodosAPI.addTodo,
+      FilesAPI.addFile,
       action.payload,
-      getSocketId()
     )
 
-    yield put(createTodoAction.success(response.data.todo))
+    yield put(createTodoAction.success(response.data.file))
+    // history.push('/')
   } catch (err) {
     console.log(err)
   }
@@ -46,7 +42,7 @@ type ChangeTextTodo = {
 function* changeTextTodo(action: ChangeTextTodo):any {
   try {
     const response: any = yield call(
-      TodosAPI.changeTodoText,
+      FilesAPI.changeTodoText,
       action.payload,
       getSocketId()
     )
@@ -69,7 +65,7 @@ type ChangeCheckTodo = {
 function* changeCheckTodo(action: ChangeCheckTodo):any {
   try {
     const response: any = yield call(
-      TodosAPI.changeTodoCheck,
+      FilesAPI.changeTodoCheck,
       action.payload,
       getSocketId()
     )
@@ -91,7 +87,7 @@ type DeleteTodo = {
 function* deleteTodo(action: DeleteTodo):any {
   try {
     const response: any = yield call(
-      TodosAPI.deleteTodo,
+      FilesAPI.deleteTodo,
       action.payload,
       getSocketId()
     )
@@ -107,16 +103,12 @@ type GetTodos = {
   payload: string
 }
 
-function* getTodos(action: GetTodos):any {
+function* getFiles(action: GetTodos):any {
   try {
-    const response: any = yield call(TodosAPI.getTodos, action.payload)
-
-    const isAllTodosCheck = !response.data.todos.find(
-      (item: any) => !item.check
-    )
+    const response: any = yield call(FilesAPI.getFiles, action.payload)
 
     yield put(
-      getAllTodosAction.success({ todos: response.data.todos, isAllTodosCheck })
+      getAllFilesAction.success({ files: response.data.files })
     )
   } catch (err) {
     console.log(err)
@@ -134,7 +126,7 @@ type CheckAllTodos = {
 function* checkAllTodos(action: CheckAllTodos):any {
   try {
     const response: any = yield call(
-      TodosAPI.checkAllTodos,
+      FilesAPI.checkAllTodos,
       action.payload,
       getSocketId()
     )
@@ -162,7 +154,7 @@ type DeleteCompletedTodos = {
 function* deleteCompletedTodos(action: DeleteCompletedTodos):any {
   try {
     const response: any = yield call(
-      TodosAPI.deleteCompletedTodos,
+      FilesAPI.deleteCompletedTodos,
       action.payload,
       getSocketId()
     )
@@ -182,9 +174,9 @@ function* deleteCompletedTodos(action: DeleteCompletedTodos):any {
   }
 }
 
-export default function* todosSaga() {
-  yield takeEvery(getAllTodosAction.types.REQUEST, getTodos)
-  yield takeEvery(createTodoAction.types.REQUEST, addTodo)
+export default function* filesSaga() {
+  yield takeEvery(getAllFilesAction.types.REQUEST, getFiles)
+  yield takeEvery(createFileAction.types.REQUEST, addFile)
   yield takeEvery(changeTextTodoAction.types.REQUEST, changeTextTodo)
   yield takeEvery(changeCheckTodoAction.types.REQUEST, changeCheckTodo)
   yield takeEvery(checkAllTodosAction.types.REQUEST, checkAllTodos)

@@ -2,7 +2,6 @@ body {
   background-color: whitesmoke;
   display: flex;
   justify-content: center;
-  padding-bottom: 50px;
   margin: 0;
   width: 100%;
 }

@@ -1,3 +1,4 @@
+import React from 'react'
 import Headers from '../Header/Header'
 import styled from 'styled-components'
 import { device } from '../../../device'
@@ -16,18 +17,16 @@ function Page(props: PageProps) {
 }
 
 const StyledPage = styled.div`
+  width:100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   min-width: 320px;
 `
 
 const Content = styled.div`
   background-color: white;
-  box-shadow: 1px 1px 10px rgb(196, 196, 196);
   box-sizing: border-box;
-  width: 550px;
-  min-width: 320px;
+  width:100%;
 
   @media ${device.mobileS},
     ${device.mobileM},

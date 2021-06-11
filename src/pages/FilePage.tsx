@@ -1,13 +1,13 @@
 import React from 'react'
-import Login from '../components/Login/Login'
 import Page from '../components/layout/Page/Page'
+import File from '../components/File'
 
-function LoginPage() {
+function FilePage() {
   return (
     <Page>
-      <Login />
+      <File />
     </Page>
   )
 }
 
-export default LoginPage
+export default FilePage

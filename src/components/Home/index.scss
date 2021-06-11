@@ -1,0 +1,15 @@
+.view-btn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  text-decoration: none;
+  border: none;
+  &:hover{
+    color: blueviolet;
+  }
+}
+
+.home-section__title{
+  text-align: center;
+  font-size: 30px;
+}
